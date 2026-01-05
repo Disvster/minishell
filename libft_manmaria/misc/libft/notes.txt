@@ -1,0 +1,21 @@
+
+>>=<=<>=>=<< 
+!  for pointers:  !
+
+#include <stdio.h>
+int	main(void)
+{
+	char	*s = "ola michel";
+	char	*p_s = s;
+
+	printf("s -> \"%s\"\n", s+= 4);
+	printf("p_s -> \"%s\"\n", p_s);
+	return 0;
+}
+
+output:
+s -> "michel"
+p_s -> "ola michel"
+
+conclusion:
+a pointer(2) that is set to another pointer(1) keeps the inital value of pointer(1), even if pointer(1) changes what it points to.
