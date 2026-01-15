@@ -16,7 +16,8 @@
 # include "../libft_manmaria/incs/libft.h"
 # include <signal.h>
 # include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "pipex.h"
 
 #endif
