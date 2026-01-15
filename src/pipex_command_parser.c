@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 13:01:53 by manmaria          #+#    #+#             */
-/*   Updated: 2026/01/15 18:22:05 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/01/15 19:43:44 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,21 @@ int	get_command(char *cmd_str, char **envp, t_cmd *cmd)
 {
 	int		wc;
 	char	**split_cmd;
-	t_line	line;
-	int		id;
 
-	id = 0;
 	wc = count_words(cmd_str, ' ');
 	split_cmd = ft_split(cmd_str, ' ');
 	if (!split_cmd)
 		return (-1);
 
-	ft_bzero(&line, sizeof(t_line));
-	find_specials(&line, split_cmd, &id);
+	ft_bzero(&cmd->line, sizeof(t_line));
+	find_specials(&cmd->line, split_cmd);
 
 	if (wc)
 		cmd->path = find_cmd_path(split_cmd[0], envp);
 	if (!cmd->path)
-		return (free_split(split_cmd), -1);
+		free_split(split_cmd);
 	if (create_args(cmd, split_cmd, wc) == -1)
-		return (free_split(split_cmd), free(cmd->path), -1);
+		free_split(split_cmd), free(cmd->path);
 	free_split(split_cmd);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:43:27 by manmaria          #+#    #+#             */
-/*   Updated: 2026/01/07 18:06:51 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/01/15 19:37:36 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,19 @@ int	main(int ac, char **av, char **envp)
 		get_command(rd, envp, &cmd);
 		// ft_printf("%s\n", cmd.path);
 		int i = 0;
+		ft_printf("command: ");
 		ft_printf("%s ", cmd.path);
 		while (cmd.args[++i])
 			ft_printf("%s ", cmd.args[i]);
 		ft_printf("\n");
+		i = -1;
+		if (cmd.line.spec_count > 0)
+		{
+			ft_printf("special characters: ");
+			while (cmd.line.specs[++i])
+				ft_printf("%s ", cmd.line.specs[i]);
+			ft_printf("\n");
+		}
 	}
 	return (0);
 }

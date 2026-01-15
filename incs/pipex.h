@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 20:50:33 by manmaria          #+#    #+#             */
-/*   Updated: 2025/12/16 20:15:17 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/01/15 19:25:59 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,22 @@
 # include "../libft_manmaria/incs/libft.h"
 # include <stdio.h>
 # include <sys/wait.h>
+# include <stdbool.h>
+
+typedef struct s_line
+{
+	char	**specs;
+	bool	spec_count;
+	bool	single_q;
+	bool	double_q;
+}				t_line;
 
 typedef struct s_cmd
 {
 	int		pid;
 	char	*path;
 	char	**args;
+	t_line	line;
 }				t_cmd;
 
 typedef struct s_pipex
