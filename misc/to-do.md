@@ -1,5 +1,15 @@
 # MINISHELL To-do List
 
+## 29/01/26
+
+- [ ] finish correcting all the double list functions
+
+Parsing/Lexer:
+- [ ] create dlist for tokens
+- [ ] quote handling !!!
+- [ ] token lenght
+
+
 ## 05/01/26
 
 - [ ] Study shell and bash behaviours

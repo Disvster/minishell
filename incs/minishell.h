@@ -21,23 +21,38 @@
 # include "pipex.h"
 # include <stdbool.h>
 
-typedef enum type {
-    INFILE;
-    OUTFILE;
-    COMMAND;
-    ARG;
-    PIPE;
-    S_CHAR;
-};
+typedef enum {
+    INFILE,
+    OUTFILE,
+    COMMAND,
+    ARG,
+    PIPE,
+    S_CHAR,
+} e_type;
 
 typedef struct s_token {
     bool has_quotes;
     char *content;
     t_cmd *command;
-    enum type;
-    t_token *next;
-    t_token *prev;
-} t_token;
+    e_type type;
+    struct s_token *next;
+    struct st_token *prev;
+}				t_token;
+
+typedef struct s_dlist
+{
+	struct s_dlist	*prev;
+	void			*data;
+	struct s_dlist	*next;
+
+}				t_dlist;
+
+t_dlist	*dlist_new_node(void *content);
+t_dlist	*dlist_get_head(t_dlist *n);
+t_dlist	*dlist_get_tail(t_dlist *n);
+void	dlist_add_first(t_dlist **head, t_dlist *node);
+void	dlist_add_last(t_dlist **head, t_dlist *node);
+void	fdf_dlist_clear(t_dlist **lst, void (*del)(void *data));
 
 int	check_sep(char const c, char *sep);
 int	find_specials(t_line *line, char **split);
