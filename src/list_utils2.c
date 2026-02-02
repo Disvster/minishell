@@ -12,7 +12,7 @@
 
 #include "../incs/minishell.h"
 
-t_dlist	*dlist_get_tail(t_dlist *n)
+t_token	*token_get_tail(t_token *n)
 {
 	if (!n)
 		return (NULL);
@@ -21,7 +21,7 @@ t_dlist	*dlist_get_tail(t_dlist *n)
 	return (n);
 }
 
-t_dlist	*dlist_get_head(t_dlist *n)
+t_token	*token_get_head(t_token *n)
 {
 	if (!n)
 		return (NULL);
