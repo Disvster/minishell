@@ -12,17 +12,45 @@
 
 #include "../incs/minishell.h"
 
-t_token	*lexer(char *rd_l, t_token **tokens)
+t_token	*tokenizer(char *rd_l, int *i)
 {
 	t_token	*token;
-	int		i;
 	int		j;
 
-	i = 0;
 	j = 0;
-	while (rd_l[i])
+	ft_bzero(&token, sizeof(t_token));
+	while (rd_l[*i])
 	{
-		i += skip_wsp(&rd_l[i]);
-		j = token_len(&rd_l[i]);
+		*i += skip_wsp(&rd_l[*i]);
+		j = token_len(&rd_l[*i]);
 	}
+	// token->has_quotes = 
+	// token->content = 
+	// token->cmd = 
+	// token->type = 
+	return (token);
+}
+
+void *lexing(char **envp, char *readline)
+{
+	t_dlist	*lexer;
+	t_dlist	*new_node;
+	t_token	*token;
+	int		i;
+
+	i = 0;
+	lexer = NULL;
+	token = NULL;
+	while (readline[i])
+	{
+		token = tokenizer(readline, &i);
+		// if (!token) || if (tokenizer(&token, readline, &i))
+			//TODO: return (dlist_list_clear(lexer, function_that_clears_t_token_vars));
+		new_node->data = token;
+		if (!lexer)
+			lexer = new_node;
+		else
+			dlist_add_last(&lexer, new_node);
+	}
+	return (NULL);
 }
