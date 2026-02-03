@@ -12,28 +12,24 @@
 
 #include "../incs/minishell.h"
 
-t_token	*tokenizer(char *rd_l, int *i)
+t_token	*tokenizer(char *lineread, int *i)
 {
 	t_token	*token;
 	int		j;
 
 	j = 0;
-	token = ft_calloc(1, sizeof(t_token));
-	while (rd_l[*i])
+	token = NULL;
+	j = token_length(lineread + *i);
+	if (j > 0 && !is_meta(lineread[*i]))
 	{
-		*i += skip_whitespace(&rd_l[*i]);
-		j = token_length(&rd_l[*i]);
-		if (j > 0 && !is_meta(rd_l[*i]))
-		{
-			token = init_token(ft_substr(rd_l, *i, j));
-			if (!token)
-				return (NULL);
-			*i += j;
-		}
-		else if (is_meta(rd_l[*i]))
-		{
-			token = meta_token(rd_l[*i]);
-		}
+		token = init_token(ft_substr(lineread, *i, j));
+		if (!token)
+			return (NULL);
+		*i += j;
+	}
+	else if (is_meta(lineread[*i]))
+	{
+		token = meta_token(lineread[*i]);
 	}
 	// token->has_quotes = 
 	// token->content = 
@@ -42,7 +38,7 @@ t_token	*tokenizer(char *rd_l, int *i)
 	return (token);
 }
 
-void *lexing(char **envp, char *readline)
+void *lexing(char **envp, char *lineread)
 {
 	t_dlist	*lexer;
 	t_dlist	*new_node;
@@ -51,15 +47,19 @@ void *lexing(char **envp, char *readline)
 
 	i = 0;
 	lexer = NULL;
-	while (readline[i])
+	token = NULL;
+	while (lineread[i])
 	{
-		token = tokenizer(readline, &i);
+		i += skip_whitespace(lineread + i);
+		if (!lineread[i])
+			break ;
+		token = tokenizer(lineread, &i);
 		// TODO:
-		// if (!token) || if (tokenizer(&token, readline, &i))
+		// if (!token) || if (tokenizer(&token, lineread, &i))
 		// 	return (dlist_list_clear(lexer, function_that_clears_t_token_vars));
 		// 	se o token existir liberta o que esta dentro do token e depois 
 		// 	liberta o token em si
-		new_node = dlist_new_node(&token);
+		new_node = dlist_new_node(token);
 		if (!lexer)
 			lexer = new_node;
 		else

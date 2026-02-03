@@ -55,23 +55,27 @@ int	is_meta(char ch)
 	return (ch == '|' || ch == '>' || ch == '<');
 }
 
-t_token	*init_token(char *content, t_token *token)
+t_token	*init_token(char *content)
 {
+	t_token	*temp;
 
 	if (!content)
 		return (NULL);
+	temp = ft_calloc(1, sizeof(t_token));
+	if (!temp)
+		return (free(content), NULL);
 	if (exist_quotes(content))
-		token->has_quotes = true;
+		temp->has_quotes = true;
 	else
-		token->has_quotes = false;
-	token->content = content;
-	token->type = ARG;// FIX:
-	return (NULL);
+		temp->has_quotes = false;
+	temp->content = content;
+	temp->type = ARG;// TODO: in parsing
+	return (temp);
 }
 
-int exist_quotes (char *line)
+int	exist_quotes(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i])
