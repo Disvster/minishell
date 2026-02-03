@@ -1,4 +1,18 @@
 # MINISHELL To-do List
+	int		i;
+	int		quote;
+
+	i = 0;
+	quote = 0;
+	while (line[i])
+	{
+		if ((line[i] == '\'' || line[i] == '\"' ) && quote == 0)
+			quote = line[i];
+		else if (line[i] == quote)
+
+		i++;
+	}
+	return (i);
 
 ## 29/01/26
 
