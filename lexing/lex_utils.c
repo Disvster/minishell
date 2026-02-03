@@ -15,10 +15,26 @@
 int	token_length(char *line)
 {
 	int	i;
+	int	quote;
 
 	i = 0;
+	quote = 0;
 	while (line[i])
 	{
+		if (line[i] == '"' || line[i] == '\'' && quote == 0)
+		{
+			quote = line[i++];
+			while (line[i] && line[i] != quote)
+				i++;
+			if (line[i] == quote)
+			{
+				i++;
+				quote = 0;
+			}
+			continue;
+		}
+		if (!quote && (is_meta(line[i]) || ft_isspace(line[i])))
+			break;
 		i++;
 	}
 	return (i);
@@ -32,4 +48,36 @@ int	skip_whitespace(char *line)
 	while (line[i] && ft_isspace(line[i]))
 		i++;
 	return (i);
+}
+
+int	is_meta(char ch)
+{
+	return (ch == '|' || ch == '>' || ch == '<');
+}
+
+t_token  *init_token(char *content)
+{
+	t_token *temp;
+
+	temp = malloc(sizeof(t_token));
+	if (!temp)
+		return(NULL);
+	if (exist_quotes(content))
+		temp->has_quotes = true;
+	else
+		temp->has_quotes = false;
+	temp->content = content;
+	temp->type = ARG;
+	return (temp);
+}
+
+int exist_quotes (char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i])
+		if (line[i] == '"' || line[i] == '\'')
+			return (1);
+	return (0);
 }

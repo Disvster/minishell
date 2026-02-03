@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 17:35:09 by manmaria          #+#    #+#             */
-/*   Updated: 2026/02/02 17:35:19 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/02/03 18:24:00 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@ t_token	*tokenizer(char *rd_l, int *i)
 	{
 		*i += skip_whitespace(&rd_l[*i]);
 		j = token_length(&rd_l[*i]);
+		if (j > 0 && !is_meta(rd_l[*i]))
+		{
+			token = init_token(ft_substr(rd_l, *i, j));
+			*i += j;
+		}
+		else if (is_meta(rd_l[i]))
+		{
+			token = meta_token(rd_l[i]);
+		}
 	}
 	// token->has_quotes = 
 	// token->content = 
