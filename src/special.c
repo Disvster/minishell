@@ -12,17 +12,6 @@
 
 #include "../incs/minishell.h"
 
-int	check_sep(char const c, char *sep)
-{
-	while (*sep)
-	{
-		if (c == *sep)
-			return (1);
-		sep++;
-	}
-	return (0);
-}
-
 int	find_specials(t_line *line, char **split)
 {
 	int	i;
@@ -37,7 +26,7 @@ int	find_specials(t_line *line, char **split)
 	specials = "$<\'\">|";
 	while (split[++i])
 	{
-		if (check_sep(split[i][0], specials))
+		if (ft_checksep(split[i][0], specials))
 			line->spec_count++;
 	}
 	i = -1;
@@ -47,7 +36,7 @@ int	find_specials(t_line *line, char **split)
 	j = 0;
 	while (split[++i])
 	{
-		if (check_sep(split[i][0], specials))
+		if (ft_checksep(split[i][0], specials))
 		{
 			if (split[i][0] == '<' && split[i][1] == '<')
 				line->specs[j] = ft_strdup("<<");
