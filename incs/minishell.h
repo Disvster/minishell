@@ -60,5 +60,7 @@ void	dlist_list_clear(t_dlist **lst, void (*del)(void *data));
 
 int		check_sep(char const c, char *sep);
 int		find_specials(t_line *line, char **split);
+int		skip_whitespace(char *line);
+int		token_length(char *line);
 
 #endif

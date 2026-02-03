@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_utils.c                                        :+:      :+:    :+:   */
+/*   ft_checksep.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/02 17:27:22 by manmaria          #+#    #+#             */
-/*   Updated: 2026/02/02 17:34:09 by manmaria         ###   ########.fr       */
+/*   Created: 2026/02/03 15:09:27 by manmaria          #+#    #+#             */
+/*   Updated: 2026/02/03 15:10:55 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
+#include "../../incs/libft.h"
 
-int	token_length(char *line)
+int	ft_checksep(char const c, char *sep)
 {
-	int	i;
-
-	i = 0;
-	while (line[i])
+	while (*sep)
 	{
-		i++;
+		if (c == *sep)
+			return (1);
+		sep++;
 	}
-	return (i);
-}
-
-int	skip_whitespace(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && ft_isspace(line[i]))
-		i++;
-	return (i);
+	return (0);
 }
