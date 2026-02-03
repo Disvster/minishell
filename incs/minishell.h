@@ -62,5 +62,8 @@ int		check_sep(char const c, char *sep);
 int		find_specials(t_line *line, char **split);
 int		skip_whitespace(char *line);
 int		token_length(char *line);
+int		is_meta(char ch);
+int		exist_quotes (char *line);
+t_token *init_token(char *content);
 
 #endif
