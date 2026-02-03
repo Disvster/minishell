@@ -25,8 +25,7 @@ int	skip_whitespace(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] && (line[i] == 32
-			|| (line[i] >= 9 && line[i] <= 13)))
+	while (line[i] && ft_isspace(line[i]))
 		i++;
 	return (i);
 }
