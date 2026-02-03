@@ -23,7 +23,7 @@ int	find_specials(t_line *line, char **split)
 	i = -1;
 	single_q = 0;
 	double_q = 0;
-	specials = "$<\'\">|";
+	specials = "$<'\">|";
 	while (split[++i])
 	{
 		if (ft_checksep(split[i][0], specials))

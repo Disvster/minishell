@@ -58,12 +58,11 @@ void	dlist_add_first(t_dlist **head, t_dlist *node);
 void	dlist_add_last(t_dlist **head, t_dlist *node);
 void	dlist_list_clear(t_dlist **lst, void (*del)(void *data));
 
-int		check_sep(char const c, char *sep);
 int		find_specials(t_line *line, char **split);
 int		skip_whitespace(char *line);
 int		token_length(char *line);
 int		is_meta(char ch);
 int		exist_quotes (char *line);
-t_token *init_token(char *content);
+t_token	*init_token(char *content);
 
 #endif
