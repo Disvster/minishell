@@ -21,8 +21,8 @@ t_token	*tokenizer(char *rd_l, int *i)
 	ft_bzero(&token, sizeof(t_token));
 	while (rd_l[*i])
 	{
-		*i += skip_wsp(&rd_l[*i]);
-		j = token_len(&rd_l[*i]);
+		*i += skip_whitespace(&rd_l[*i]);
+		j = token_lenght(&rd_l[*i]);
 	}
 	// token->has_quotes = 
 	// token->content = 
@@ -45,7 +45,7 @@ void *lexing(char **envp, char *readline)
 	{
 		token = tokenizer(readline, &i);
 		// if (!token) || if (tokenizer(&token, readline, &i))
-			//TODO: return (dlist_list_clear(lexer, function_that_clears_t_token_vars));
+			// TODO: return (dlist_list_clear(lexer, function_that_clears_t_token_vars));
 		new_node->data = token;
 		if (!lexer)
 			lexer = new_node;

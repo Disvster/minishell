@@ -12,7 +12,7 @@
 
 #include "../incs/minishell.h"
 
-int	token_len(char *line)
+int	token_lenght(char *line)
 {
 	int	i;
 
@@ -20,7 +20,7 @@ int	token_len(char *line)
 	return (i);
 }
 
-int	skip_wsp(char *line)
+int	skip_whitespace(char *line)
 {
 	int	i;
 

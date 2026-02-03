@@ -38,7 +38,8 @@ typedef struct s_token
 	//		to make it easier to clean the list when needed
 	bool			has_quotes;
 	char			*content;
-	t_cmd			*cmd;
+	t_cmd			*cmd;//NOTE: this var may only exist in
+	//				             execve function
 	t_type			type;
 }				t_token;
 
