@@ -54,8 +54,10 @@ void *lexing(char **envp, char *lineread)
 		if (!lineread[i])
 			break ;
 		token = tokenizer(lineread, &i);
+		if (!token)
+			return (NULL);
 		// TODO:
-		// if (!token) || if (tokenizer(&token, lineread, &i))
+		//	if (!token) || if (tokenizer(&token, lineread, &i))
 		// 	return (dlist_list_clear(lexer, function_that_clears_t_token_vars));
 		// 	se o token existir liberta o que esta dentro do token e depois 
 		// 	liberta o token em si
