@@ -1,31 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_utils2.c                                       :+:      :+:    :+:   */
+/*   testmain.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodmorei <rodmorei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/03 18:05:30 by rodmorei          #+#    #+#             */
-/*   Updated: 2026/02/03 18:24:00 by rodmorei         ###   ########.fr       */
+/*   Created: 2026/02/05 16:23:34 by rodmorei          #+#    #+#             */
+/*   Updated: 2026/02/05 16:36:50 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
-t_token	*meta_token(char *lineread, int *len)
+int	main(int ac, char **av, char **envp)
 {
-	char	ch;
-	int	j;
+	char	*rd;
+	(void) envp;
+	(void)ac;
+	(void)av;
+	t_dlist *list;
 
-	j = *len;
-	ch = *lineread;
-
-	while (lineread[j] && lineread[j] == ch)
-		j++;
-	if (j <= 2)
-		return (init_token(ft_substr(lineread, 0, j)));
-	else
-		return (NULL);
-		// else if (j > 2)
-		//		return (ERROR_PIPE, NULL);//TODO: Add error-management here (error code); 
+	list = NULL;
+	rd = NULL;
+	while (1)
+	{
+		rd = readline("[minishell]");
+		list = lexing(envp, rd);
+		while (list)
+		{
+			printf("Token:%s \n", list->data->content);
+			list = list->next;
+		}
+	}
+	return (0);
 }
+

@@ -21,7 +21,7 @@ int	token_length(char *line)
 	quote = 0;
 	while (line[i])
 	{
-		if (line[i] == '"' || line[i] == '\'' && quote == 0)
+		if ((line[i] == '"' || line[i] == '\'') && quote == 0)
 		{
 			quote = line[i++];
 			while (line[i] && line[i] != quote)
@@ -79,7 +79,10 @@ int	exist_quotes(char *line)
 
 	i = 0;
 	while (line[i])
+	{
 		if (line[i] == '"' || line[i] == '\'')
 			return (1);
+		i++;
+	}
 	return (0);
 }

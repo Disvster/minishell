@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:39:50 by manmaria          #+#    #+#             */
-/*   Updated: 2026/02/02 17:32:26 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/02/05 16:31:34 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,12 @@ void	dlist_list_clear(t_dlist **lst, void (*del)(void *data));
 
 int		find_specials(t_line *line, char **split);
 int		skip_whitespace(char *line);
+void	*lexing(char **envp, char *lineread);
+t_token	*tokenizer(char *lineread, int *i);
 int		token_length(char *line);
 int		is_meta(char ch);
 int		exist_quotes (char *line);
 t_token	*init_token(char *content);
+t_token	*meta_token(char *lineread, int *len);
 
 #endif

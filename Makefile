@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -Werror -Iincs/
 LDFLAGS = -Lvendor/readline/lib -lreadline
 LIBFT = libft_manmaria/libft.a
 LIBFT_DIR = libft_manmaria/
-SRC_DIR = src
+SRC_DIR = lexing
 SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(SRCS:.c=.o)
 NAME = minishell
