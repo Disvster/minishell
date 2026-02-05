@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 17:35:09 by manmaria          #+#    #+#             */
-/*   Updated: 2026/02/05 16:36:50 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/02/05 18:11:02 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_token	*tokenizer(char *lineread, int *i)
 		token = meta_token(lineread + *i, &j);
 		if (!token)
 			return (NULL);
-		i += j;
+		*i += j;
 	}
 	return (token);
 }

@@ -1,28 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_utils2.c                                       :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodmorei <rodmorei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/03 18:05:30 by rodmorei          #+#    #+#             */
-/*   Updated: 2026/02/03 18:24:00 by rodmorei         ###   ########.fr       */
+/*   Created: 2026/02/05 18:10:34 by rodmorei          #+#    #+#             */
+/*   Updated: 2026/02/05 18:11:06 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
-
-t_token	*meta_token(char *lineread, int *j)
-{
-	char	ch;
-	ch = *lineread;
-
-	while (lineread[*j] && lineread[*j] == ch)
-		*j += 1;
-	if (*j <= 2)
-		return (init_token(ft_substr(lineread, 0, *j)));
-	else
-		return (NULL);
-		// else if (j > 2)
-		//		return (ERROR_PIPE, NULL);//TODO: Add error-management here (error code); 
-}

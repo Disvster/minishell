@@ -66,6 +66,6 @@ int		token_length(char *line);
 int		is_meta(char ch);
 int		exist_quotes (char *line);
 t_token	*init_token(char *content);
-t_token	*meta_token(char *lineread, int *len);
+t_token	*meta_token(char *lineread, int *j);
 
 #endif
