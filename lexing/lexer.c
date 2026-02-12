@@ -37,9 +37,8 @@ t_token	*tokenizer(char *lineread, int *i)
 	return (token);
 }
 
-void *lexing(char **envp, char *lineread)
+void *lexing(char *lineread)
 {
-	(void) envp;
 	t_dlist	*lexer;
 	t_dlist	*new_node;
 	t_token	*token;

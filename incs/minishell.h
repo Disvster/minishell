@@ -51,6 +51,22 @@ typedef struct s_dlist
 
 }				t_dlist;
 
+typedef	struct s_env
+{
+	char	**name;
+	char	**content;
+	bool	exported;
+	struct s_env	*prev;
+	struct s_env	*next;
+}  t_env;
+
+typedef struct s_shell
+{
+	char	*lineread;
+	t_env	*env_list;
+	t_dlist *token_list;
+} t_shell;
+
 t_dlist	*dlist_new_node(void *data);
 t_dlist	*dlist_get_head(t_dlist *n);
 t_dlist	*dlist_get_tail(t_dlist *n);
@@ -60,7 +76,7 @@ void	dlist_list_clear(t_dlist **lst, void (*del)(void *data));
 
 int		find_specials(t_line *line, char **split);
 int		skip_whitespace(char *line);
-void	*lexing(char **envp, char *lineread);
+void	*lexing(char *lineread);
 t_token	*tokenizer(char *lineread, int *i);
 int		token_length(char *line);
 int		is_meta(char ch);

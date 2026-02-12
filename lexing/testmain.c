@@ -28,7 +28,7 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		rd = readline("[minishell]");
-		list = lexing(envp, rd);
+		list = lexing(rd);
 		while (list)
 		{
 			printf("Token:%s \n", list->data->content);
