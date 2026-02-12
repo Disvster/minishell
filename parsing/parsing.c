@@ -13,12 +13,12 @@
 
 int	parsing(t_shell	*shell)
 {
-	shell->token_list = lexing(shell->lineread);
+	shell->tokens = lexing(shell->lineread);
 
 	return (1);
 }
 
-void	set_types(t_token *token_list)
+void	set_types(t_token *token_list)// WARNING: t_dlist here maybe?
 {
 	t_token *temp;
 
@@ -26,4 +26,22 @@ void	set_types(t_token *token_list)
 	while (temp)
 	{	
 	} //unfinished, need to study a bit better the order between expansion and type setting. should be simple tho.
+}
+
+char *expand(t_token *token)
+{
+	char	*s;
+	char	*new;
+	int		i;
+
+	i = 0;
+	s = token->content;
+	while (s[i])
+	{
+		//if quotes
+		//	...
+		//if $
+		//	...
+	}
+	return ();
 }
