@@ -10,12 +10,12 @@
 
 ## 29/01/26
 
-- [ ] finish correcting all the double list functions
+- [X] finish correcting all the double list functions
 
 Parsing/Lexer:
-- [ ] create dlist for tokens
-- [ ] quote handling !!!
-- [ ] token lenght
+- [X] create dlist for tokens
+- [X] quote handling !!!
+- [X] token lenght
 
 
 ## 05/01/26
@@ -25,13 +25,13 @@ Parsing/Lexer:
     - https://youtu.be/yTR00r8vBH8?si=YOOw-30E4j5XHpyj
 - [ ] study built-in commands' behaviours and error management
 
-- [ ] how to run a "minishell" program that behaves as if you type "bash"
+- [X] how to run a "minishell" program that behaves as if you type "bash"
     - typing both `exit` or `CTR-D` stops the program aka quits the shell
     - signals will be stored in the global variable
 
 - [ ] how to handle signals
 
-- [ ] understand how to do the parsing and what are concepts like "lexing" or "tokenizing"
+- [X] understand how to do the parsing and what are concepts like "lexing" or "tokenizing"
 - [ ] how to handle the command history
 
 ### 1st steps:
