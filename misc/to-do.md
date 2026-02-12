@@ -1,5 +1,14 @@
 # MINISHELL To-do List
 
+## 12/02/26
+- [ ] remove "envp" from lexing
+- [ ] create the struct "t_shell" with the pointer for the token list and the pointer for the env list
+- [ ] start the parsing function, namely the "expansion" function that should:
+    - remove "quotes" from the final token name
+    - expand the variables prefaced by '$' (unless the command is export)
+    - when expanding '$' variables, behave differently if there are double-quotes or single quotes
+- [ ] in parsing, add the function that will define what each token IS (command, pipe, heredoc, arg, etc.)
+
 ## 29/01/26
 
 - [ ] finish correcting all the double list functions
