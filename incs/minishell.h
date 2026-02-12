@@ -63,8 +63,8 @@ typedef	struct s_env
 typedef struct s_shell
 {
 	char	*lineread;
-	t_env	*env_list;
-	t_dlist *token_list;
+	t_env	*envs;
+	t_dlist *tokens;
 } t_shell;
 
 t_dlist	*dlist_new_node(void *data);
