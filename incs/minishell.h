@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:39:50 by manmaria          #+#    #+#             */
-/*   Updated: 2026/02/05 16:31:34 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/02/18 20:15:29 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,6 @@ int		exist_quotes (char *line);
 t_token	*init_token(char *content);
 t_token	*meta_token(char *lineread, int *j);
 
+// Parsing
+int		env_len(char *s);
 #endif
