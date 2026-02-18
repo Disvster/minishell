@@ -18,7 +18,7 @@ char	*ft_setchar_ra(char *ret, size_t len, char set)
 	size_t	i;
 	size_t	k;
 
-	p_s = calloc((len + 1), sizeof(char));
+	p_s = ft_calloc_pf((len + 1), sizeof(char));
 	if (!p_s)
 		return (NULL);
 	i = 0;
@@ -65,7 +65,7 @@ char	*ft_sethash(char *ret, size_t *len, t_flags *fi, char spec)
 	if (ft_strcmp_pf(ret, "0") == 0 || ft_strcmp_pf(ret, "(nil)") == 0)
 		return (sethash_helper(ret));
 	bow = hash_init(len, &i, &k, fi);
-	p_s = calloc((*len + bow + 1), sizeof(char));
+	p_s = ft_calloc_pf((*len + bow + 1), sizeof(char));
 	if (!p_s)
 		return (NULL);
 	p_s[0] = '0';
