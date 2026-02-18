@@ -86,7 +86,7 @@ char	*ft_negzeros(t_flags *fi, char *ret, size_t *len)
 		tmp = ft_setchar_ra(dup, fi->width - 1, '0');
 	else
 		return (ft_setchar_ra(dup, ft_strlen_pf(dup) + 1, '-'));
-	p_s = calloc(ft_strlen_pf(tmp) + 2, sizeof(char));
+	p_s = ft_calloc_pf(ft_strlen_pf(tmp) + 2, sizeof(char));
 	if (!p_s || !tmp)
 		return (free(tmp), free(p_s), NULL);
 	p_s[i++] = '-';
