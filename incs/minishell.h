@@ -23,12 +23,17 @@
 
 typedef enum s_type
 {
+	APPEND,
+	HEREDOC,
 	INFILE,
 	OUTFILE,
 	COMMAND,
 	ARG,
+	TFILE,
+	FLAG,
 	PIPE,
 	S_CHAR,
+	LIMITER,
 }	t_type;
 
 typedef struct s_token
@@ -65,6 +70,7 @@ typedef struct s_shell
 	char	*lineread;
 	t_env	*envs;
 	t_dlist *tokens;
+	int		exit_code;
 } t_shell;
 
 t_dlist	*dlist_new_node(void *data);

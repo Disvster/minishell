@@ -1,5 +1,16 @@
 # MINISHELL To-do List
 
+## 21/02/26
+- [x] Setting the types
+    - After study, it seems to be mostly done in the following order:
+        -First, you set the types of all the meta characters.
+        -Then the arguments/commands/files
+        -Then you expand
+        -Then you set them again. Many people around 42 told me to do this. Still dont understand why exactly
+
+- Regarding the 'expand' approach. Seems fucking incredible, but given the amount of things that can change, maybe its better to work based on strjoin and appends instead of trying to predict the final strlen from the beginning(?)
+
+
 ## 12/02/26
 - [ ] start the parsing function, namely the "expansion" function that should:
     - remove "quotes" from the final token name

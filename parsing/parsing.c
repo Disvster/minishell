@@ -19,17 +19,57 @@ int	parsing(t_shell	*shell)
 	return (1);
 }
 
-void	set_types(t_token *token_list)// WARNING: t_dlist here maybe?
+void	set_types(t_dlist *tlist)
 {
-	t_token *temp;
+	t_dlist *temp;
+	int	len;
 
-	temp = token_list;
+	len = 0;
+	temp = tlist;
 	while (temp)
-	{	
-	} //unfinished, need to study a bit better the order between expansion and type setting. should be simple tho.
+	{
+		len = ft_strlen(temp->data->content);
+		if (ft_strncmp(temp->data->content, "<<", len) == 0 && !temp->data->has_quotes)
+			temp->data->type = HEREDOC;
+		else if (ft_strncmp(temp->data->content, ">>", len) == 0 && !temp->data->has_quotes)
+			temp->data->type = APPEND;
+		else if (ft_strncmp(temp->data->content, "<", len) == 0 && !temp->data->has_quotes)
+			temp->data->type = INFILE;
+		else if (ft_strncmp(temp->data->content, ">", len) == 0 && !temp->data->has_quotes)
+			temp->data->type = OUTFILE;
+		else if (ft_strncmp(temp->data->content, "|", len) == 0 && !temp->data->has_quotes)
+			temp->data->type = PIPE;
+		else if (temp->prev && temp->prev->data->type == HEREDOC)
+			temp->data->type = LIMITER;
+		else if (temp->prev && (temp->prev->data->type == INFILE || temp->prev->data->type == OUTFILE
+				|| temp->prev->data->type == APPEND))
+			temp->data->type = TFILE;
+		temp = temp->next;
+	}
 }
 
-char *expand(t_token *token)
+void	set_commands(t_dlist *tlist)
+{
+	t_dlist *temp;
+	int	check;
+
+	temp = tlist;
+	check = 0;
+
+	while (temp)
+	{
+		if (check == 0 && temp->data->type == ARG)
+		{
+			temp->data->type = COMMAND;
+			check = 1;
+		}
+		else if (temp->data->type == PIPE)
+			check = 0;
+		temp = temp->next;
+	}
+}
+
+char *expand(t_token *token, t_shell *shl)
 {
 	char	*s;
 	char	*new;
