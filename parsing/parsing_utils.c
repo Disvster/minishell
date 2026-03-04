@@ -15,7 +15,7 @@
 int	env_len(char *s)
 {
 	int	i;
-	
+
 	if (!s)
 		return (0);
 	i = 0;

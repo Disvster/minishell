@@ -15,14 +15,13 @@
 int	parsing(t_shell	*shell)
 {
 	shell->tokens = lexing(shell->lineread);
-
 	return (1);
 }
 
 void	set_types(t_dlist *tlist)
 {
-	t_dlist *temp;
-	int	len;
+	t_dlist	*temp;
+	int		len;
 
 	len = 0;
 	temp = tlist;
@@ -50,12 +49,11 @@ void	set_types(t_dlist *tlist)
 
 void	set_commands(t_dlist *tlist)
 {
-	t_dlist *temp;
-	int	check;
+	t_dlist	*temp;
+	int		check;
 
 	temp = tlist;
 	check = 0;
-
 	while (temp)
 	{
 		if (check == 0 && temp->data->type == ARG)
@@ -69,7 +67,7 @@ void	set_commands(t_dlist *tlist)
 	}
 }
 
-char *expand(t_token *token, t_shell *shl)
+char	*expand(t_token *token, t_shell *shl)
 {
 	char	*s;
 	char	*new;

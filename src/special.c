@@ -14,11 +14,11 @@
 
 int	find_specials(t_line *line, char **split)
 {
-	int	i;
-	int	j;
-	int	single_q;
-	int	double_q;
-	char *specials;
+	int		i;
+	int		j;
+	int		single_q;
+	int		double_q;
+	char	*specials;
 
 	i = -1;
 	single_q = 0;

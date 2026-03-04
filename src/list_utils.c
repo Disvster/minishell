@@ -14,7 +14,7 @@
 
 t_dlist	*dlist_new_node(void *content)
 {
-	t_dlist *new_node;
+	t_dlist	*new_node;
 
 	new_node = malloc(sizeof(t_dlist));
 	if (!new_node)
