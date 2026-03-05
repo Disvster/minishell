@@ -6,7 +6,7 @@
 /*   By: rodmorei <rodmorei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 18:10:34 by rodmorei          #+#    #+#             */
-/*   Updated: 2026/02/18 20:28:53 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/03/05 18:00:54 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,55 +71,22 @@ char	*expand(t_token *token, t_shell *shl)
 {
 	char	*s;
 	char	*new;
-	int		new_len;
-	int		quote;
+	int		i;
 
+	i = 0;
 	if (!token->content)
 		return (NULL);
 	s = token->content;
-	quote = 0;
 
-	// new = ft_calloc(ft_strlen(s), sizeof(char)); // TODO:
-	// if (!new)
-	// 	return (NULL);
-
-	while (*s)
+	while (s[i])
 	{
-		if (*s == '\'' || *s == '"')
-		{
-			if (quote == 0)
-				quote = *s++;
-			else if (quote == *s)
-				s++;
-		}
-		if (*s == '$')
-	/* $PAGER=less
-	$> echo 'ola"$PAGER"More'
-	ola"$PAGER"More
-	$> echo "ola'$PAGER'More"
-	ola'less'More
-	*/
-
-		{//				     $[ENV]        len of capitalized word
-			while (ft_strncmp(s + 1, *envp, env_len(s + 1)))
-				envp++;
-			if (*envp)
-			{
-				while (**envp != '=')
-					*envp++;
-				new_len += ft_strlen(*envp);
-				s++;
-				s += env_len(s);
-			}
-		}
-		new_len++;
-		s++;
+		if (s[i] == '"' || s[i] == '\'')
+			append_quoted(shl, new, token, &i);
+		else if (s[i] == '$')
+			append_expansion(shl, new, token, &i);
+		else
+			append_letter(new, s[i], &i);
+		i++;
 	}
-	// isto tudo (que ta pra cima) so para calcular o tamanho da string final do token
-	// depois e repetir o processo mas a mandar para um novo char *token_string;
-	// WARNING: posso tar doing too much e isto ser mais simples
-	
-		// new[i] = s[i];// TODO:
-	
-	return ();
+	return (new);
 }

@@ -1,5 +1,11 @@
 # MINISHELL To-do List
 
+## 05/03/26
+- [x] Working on expansion
+    - Analyzing how bash handles sequences of quotes, of '$' and its different combinations and results.
+    - Starting work on an append-based system of running through a string and appending it, expanding when necessary, removing and handling quotes (unless they are inside quotes).
+    - Handling special var cases like certain non-alphanumeric characters after expansion of variables.
+
 ## 21/02/26
 - [x] Setting the types
     - After study, it seems to be mostly done in the following order:
