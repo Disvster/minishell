@@ -66,27 +66,3 @@ void	set_commands(t_dlist *tlist)
 		temp = temp->next;
 	}
 }
-
-char	*expand(t_token *token, t_shell *shl)
-{
-	char	*s;
-	char	*new;
-	int		i;
-
-	i = 0;
-	if (!token->content)
-		return (NULL);
-	s = token->content;
-
-	while (s[i])
-	{
-		if (s[i] == '"' || s[i] == '\'')
-			append_quoted(shl, new, token, &i);
-		else if (s[i] == '$')
-			append_expansion(shl, new, token, &i);
-		else
-			append_letter(new, s[i], &i);
-		i++;
-	}
-	return (new);
-}

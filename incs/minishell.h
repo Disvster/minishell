@@ -54,24 +54,24 @@ typedef struct s_dlist
 	t_token			*data;
 	struct s_dlist	*next;
 
-}				t_dlist;
+}	t_dlist;
 
-typedef	struct s_env
+typedef struct s_env
 {
-	char	**name;
-	char	**content;
-	bool	exported;
+	char			*name;
+	char			*content;
+	bool			exported;
 	struct s_env	*prev;
 	struct s_env	*next;
-}  t_env;
+}	t_env;
 
 typedef struct s_shell
 {
 	char	*lineread;
 	t_env	*envs;
-	t_dlist *tokens;
+	t_dlist	*tokens;
 	int		exit_code;
-} t_shell;
+}	t_shell;
 
 t_dlist	*dlist_new_node(void *data);
 t_dlist	*dlist_get_head(t_dlist *n);
@@ -86,10 +86,25 @@ void	*lexing(char *lineread);
 t_token	*tokenizer(char *lineread, int *i);
 int		token_length(char *line);
 int		is_meta(char ch);
-int		exist_quotes (char *line);
+int		exist_quotes(char *line);
 t_token	*init_token(char *content);
 t_token	*meta_token(char *lineread, int *j);
 
 // Parsing
+int		parsing(t_shell	*shell);
+void	set_types(t_dlist *tlist);
+void	set_commands(t_dlist *tlist);
 int		env_len(char *s);
+
+// Expansion/Appending
+char	*expand(t_token *token, t_shell *shl);
+void	append_quoted(t_shell *shl, t_token	*token, char **nstr, int	*index);
+void	append_expand(t_shell *shl, t_token *token, char **nstr, int *i);
+int		is_edge(char c);
+
+// General Utils
+char	*strjoinfree(char *s1, char *s2);
+int		ft_strcmp(const char *s1, const char *s2);
+char	*env_identifier(t_shell *shl, char *to_id, int	*index);
+
 #endif
