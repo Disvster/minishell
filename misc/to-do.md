@@ -1,5 +1,28 @@
 # MINISHELL To-do List
 
+## 06/03/26
+
+### Goals for next week
+
+Manel:
+
+- [ ] write functions for the built-in commands
+- [ ] draft command_exec pipeline:
+    - pipes 
+    - forks
+    - process handling
+    - pids
+    - exit status/codes
+- [ ] study redirecting and heredocs
+
+Festas:
+
+- finish:
+- [ ] expansion
+- [ ] appending
+- [ ] parsing
+- [ ] olhar para signal handling para ajudar o manelito pretty plssss
+
 ## 05/03/26
 - [x] Working on expansion
     - Analyzing how bash handles sequences of quotes, of '$' and its different combinations and results.
