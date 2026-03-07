@@ -1,5 +1,43 @@
 # Notes related to how minishell will handle external and built-in commmands and this processe's pipeline
 
+### 07/03/26
+
+#### `cd`
+
+- `cd -` same as `pwd`
+- `chdir()` in `unistd.h`
+- updates the **PWD** and **OLDPWD** env vars
+
+#### `pwd`
+
+- calls `getcwd` and prints the string
+
+#### `echo`
+
+- prints from `stdin` to `stdout`
+- `-n` suppresses newlines
+
+#### `exit`
+
+- terminates the shell with an optional exit status
+- handles numeric exit status arguments
+- cleans up resources
+- exits the process with the appropriate status process with the appropriate status
+
+#### `env`
+
+- prints all the environment variables
+
+#### `export`
+
+- adds or updates environment variables
+- validates variable names using check export
+- only adds (or updates if var name already exists) an env var if export is used with `=`
+
+#### `unset`
+
+- searches and removes environment variables that match the command's argument
+
 ### 06/03/26
 
 #### NOTE: 
