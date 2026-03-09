@@ -7,6 +7,14 @@
 Manel:
 
 - [ ] write functions for the built-in commands
+    - [ ] `cd`
+    - [ ] `pwd`
+    - [ ] `echo`
+    - [ ] `exit`
+    - [ ] `exit`
+    - [ ] `env`
+    - [ ] `export`
+    - [ ] `unset`
 - [ ] draft command_exec pipeline:
     - pipes 
     - forks
