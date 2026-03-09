@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:39:50 by manmaria          #+#    #+#             */
-/*   Updated: 2026/02/18 20:15:29 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/03/09 18:41:18 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <readline/history.h>
 # include "pipex.h"
 # include <stdbool.h>
+# include <linux/limits.h>
 
 typedef enum s_type
 {
