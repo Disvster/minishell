@@ -83,7 +83,7 @@ void	append_expand(t_shell *shl, t_token *token, char **nstr, int *i)
 	return ;
 }
 
-void	append_letter(char	**nstr, char	c, int	*i)
+void	append_letter(char	**nstr, char c, int	*i)
 {
 	char	temp[2];
 
