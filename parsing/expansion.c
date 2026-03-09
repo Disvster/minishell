@@ -35,7 +35,7 @@ char	*expand(t_token *token, t_shell *shl)
 			append_expand(shl, token, &new, &i);
 		}
 		else
-			append_letter(new, s[i], &i);
+			append_letter(&new, s[i], &i);
 	}
 	return (new);
 }
@@ -74,11 +74,21 @@ void	append_expand(t_shell *shl, t_token *token, char **nstr, int *i)
 	if (!ft_isalpha(str[*i + 1]) && str[*i + 1] != '_')
 	{
 		append_letter(nstr, '$', i);
-		append_letter(nstr, str[*i + 1], i);
+		append_letter(nstr, str[*i], i);
 		*i += 2;
 		return ;
 	}
-	env_name = env_identifier(shl, str[*i], i);
+	env_name = env_identifier(shl, &str[*i], i);
 	*nstr = strjoinfree(*nstr, env_name);
 	return ;
+}
+
+void	append_letter(char	**nstr, char	c, int	*i)
+{
+	char	temp[2];
+
+	temp[0] = c;
+	temp[1] = 0;
+	*i += 1;
+	*nstr = strjoinfree(*nstr, temp);
 }

@@ -101,6 +101,8 @@ int		env_len(char *s);
 char	*expand(t_token *token, t_shell *shl);
 void	append_quoted(t_shell *shl, t_token	*token, char **nstr, int	*index);
 void	append_expand(t_shell *shl, t_token *token, char **nstr, int *i);
+void	append_letter(char	**nstr, char	c, int	*i);
+t_env	*find_env(t_shell *shl, char *env_name);
 int		is_edge(char c);
 
 // General Utils
