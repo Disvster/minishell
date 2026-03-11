@@ -76,7 +76,7 @@ char	*strjoinfree(char *s1, char *s2)
 	ltotal = ft_strlen(s1) + ft_strlen(s2);
 	scat = (char *)malloc(sizeof(char) * (ltotal + 1));
 	if (!scat)
-		return (NULL);
+		return (free (s1), NULL);
 	i = 0;
 	while (i < ft_strlen(s1))
 	{

@@ -6,7 +6,7 @@
 /*   By: rodmorei <rodmorei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:23:34 by rodmorei          #+#    #+#             */
-/*   Updated: 2026/02/05 16:36:50 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/03/11 20:47:36 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,24 @@
 
 int	main(int ac, char **av, char **envp)
 {
-	char	*rd;
-	(void) envp;
+	t_shell	*shl;
+	t_dlist	*tok;
+
 	(void)ac;
 	(void)av;
-	t_dlist *list;
-
-	list = NULL;
-	rd = NULL;
+	tok = NULL;
+	shl = malloc(sizeof(t_shell));
+	init_env_list(shl, envp);
 	while (1)
 	{
-		rd = readline("[minishell]");
-		list = lexing(rd);
-		while (list)
+		shl->lineread = readline("[minishell]");
+		parsing(shl);
+		tok = shl->tokens;
+		while (tok)
 		{
-			printf("Token:%s \n", list->data->content);
-			list = list->next;
+			printf("Token:%s \n", tok->data->content);
+			tok = tok->next;
 		}
 	}
 	return (0);
 }
-

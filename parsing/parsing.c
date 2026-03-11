@@ -15,6 +15,10 @@
 int	parsing(t_shell	*shell)
 {
 	shell->tokens = lexing(shell->lineread);
+	set_types(shell->tokens);
+	set_commands(shell->tokens);
+	if (!expansion(shell->tokens, shell))
+		return(dlist_list_clear(&shell->tokens, free_token_data), 0);
 	return (1);
 }
 

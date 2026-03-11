@@ -31,3 +31,13 @@ t_token	*meta_token(char *lineread, int *j)
 		return (NULL);
 	}
 }
+
+void	free_token_data(void	*token)
+{
+	t_token	*temp;
+
+	temp = (t_token *)token;
+	free(temp->content);
+	free(temp);
+	return;
+}

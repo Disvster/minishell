@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:39:50 by manmaria          #+#    #+#             */
-/*   Updated: 2026/03/09 23:07:55 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/03/11 20:34:41 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int		is_meta(char ch);
 int		exist_quotes(char *line);
 t_token	*init_token(char *content);
 t_token	*meta_token(char *lineread, int *j);
+void	free_token_data(void	*token);
 
 // Parsing
 int		parsing(t_shell	*shell);
@@ -98,19 +99,24 @@ void	set_commands(t_dlist *tlist);
 int		env_len(char *s);
 
 // Expansion/Appending
+int		expansion(t_dlist	*head, t_shell *shl);
 char	*expand(t_token *token, t_shell *shl);
-void	append_quoted(t_shell *shl, t_token	*token, char **nstr, int	*index);
-void	append_expand(t_shell *shl, t_token *token, char **nstr, int *i);
-void	append_letter(char	**nstr, char c, int	*i);
-t_env	*find_env(t_shell *shl, char *env_name);
+int		append_quoted(t_shell *shl, t_token	*token, char **nstr, int	*index);
+int		append_expand(t_shell *shl, t_token *token, char **nstr, int *i);
+int		append_letter(char	**nstr, char c, int	*i);
 int		is_edge(char c);
+
+// Env/Export
+int		init_env_list(t_shell	*shl, char	**envp);
+t_env	*find_env(t_shell *shl, char *env_name);
+char	*env_identifier(t_shell *shl, char *to_id, int	*index);
+char	*cp_ename(char	*env);
+char	*cp_econt(char	*env);
+t_env	*new_env(char	*name, char	*cont, bool	exp);
+int		env_addback(t_env	**head, t_env	*node);
+int		free_envs(t_env	**head);
 
 // General Utils
 char	*strjoinfree(char *s1, char *s2);
 int		ft_strcmp(const char *s1, const char *s2);
-char	*env_identifier(t_shell *shl, char *to_id, int	*index);
-char	*cp_ename(char	*env);
-char	*cp_econt(char	*env);
-int		fill_env(t_env	*env, char	*name, char	*cont, bool	exp);
-
 #endif

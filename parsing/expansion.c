@@ -6,10 +6,25 @@
 /*   By: rodmorei <rodmorei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 16:07:42 by rodmorei          #+#    #+#             */
-/*   Updated: 2026/03/06 16:07:42 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/03/11 19:32:34 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../incs/minishell.h"
+
+int		expansion(t_dlist	*head, t_shell *shl)
+{
+	t_dlist	*temp;
+
+	temp = head;
+	while (temp)
+	{
+		temp->data->content = expand(temp->data, shl);
+		if (!temp)
+			return (0);
+		temp = temp->next;
+	}
+	return (1);
+}
 
 char	*expand(t_token *token, t_shell *shl)
 {
@@ -24,23 +39,19 @@ char	*expand(t_token *token, t_shell *shl)
 	while (s[i])
 	{
 		if (s[i] == '"' || s[i] == '\'')
-			append_quoted(shl, token, &new, &i);
-		else if (s[i] == '$')
 		{
-			if (s[i + 1] == '"' || s[i + 1] == '\'')
-			{
-				i++;
-				continue ;
-			}
-			append_expand(shl, token, &new, &i);
+			if (!append_quoted(shl, token, &new, &i))
+				return (NULL);
 		}
-		else
-			append_letter(&new, s[i], &i);
+		else if (s[i] == '$' && !append_expand(shl, token, &new, &i))
+			return (NULL);
+		else if (!append_letter(&new, s[i], &i))
+			return (NULL);
 	}
 	return (new);
 }
 
-void	append_quoted(t_shell *shl, t_token	*token, char **nstr, int	*index)
+int	append_quoted(t_shell *shl, t_token	*token, char **nstr, int	*index)
 {
 	int		i;
 	int		quote;
@@ -54,12 +65,13 @@ void	append_quoted(t_shell *shl, t_token	*token, char **nstr, int	*index)
 		if (quote == '"' && str[i + 1] && str[i] == '$' && str[i]
 			&& !ft_isspace(str[i + 1]) && str[i + 1] != quote)
 			append_expand(shl, token, nstr, index);
-		else
-			append_letter(nstr, str[i], index);
+		else if (!append_letter(nstr, str[i], index))
+			return (0);
 	}
+	return (1);
 }
 
-void	append_expand(t_shell *shl, t_token *token, char **nstr, int *i)
+int	append_expand(t_shell *shl, t_token *token, char **nstr, int *i)
 {
 	char	*str;
 	char	*env_name;
@@ -67,23 +79,24 @@ void	append_expand(t_shell *shl, t_token *token, char **nstr, int *i)
 	env_name = NULL;
 	str = token->content;
 	if (is_edge(str[*i + 1]) || ft_isdigit(str[*i + 1]))
-	{
-		*i += 2;
-		return ;
-	}
+		return (*i += 1, 1);
+	if (str[*i + 1] == '"' || str[*i + 1] == '\'')
+		return (*i += 1, 1);
 	if (!ft_isalpha(str[*i + 1]) && str[*i + 1] != '_')
 	{
-		append_letter(nstr, '$', i);
-		append_letter(nstr, str[*i], i);
+		if (!append_letter(nstr, '$', i) || !append_letter(nstr, str[*i], i))
+			return (0);
 		*i += 2;
-		return ;
+		return (1);
 	}
 	env_name = env_identifier(shl, &str[*i], i);
 	*nstr = strjoinfree(*nstr, env_name);
-	return ;
+	if (!nstr)
+		return (0);
+	return (1);
 }
 
-void	append_letter(char	**nstr, char c, int	*i)
+int	append_letter(char	**nstr, char c, int	*i)
 {
 	char	temp[2];
 
@@ -91,4 +104,7 @@ void	append_letter(char	**nstr, char c, int	*i)
 	temp[1] = 0;
 	*i += 1;
 	*nstr = strjoinfree(*nstr, temp);
+	if (!nstr)
+		return (0);
+	return (1);
 }
