@@ -19,6 +19,7 @@ int		expansion(t_dlist	*head, t_shell *shl)
 	while (temp)
 	{
 		temp->data->content = expand(temp->data, shl);
+		printf("im done here \n");
 		if (!temp)
 			return (0);
 		temp = temp->next;
@@ -48,6 +49,7 @@ char	*expand(t_token *token, t_shell *shl)
 		else if (!append_letter(&new, s[i], &i))
 			return (NULL);
 	}
+	printf("finished expanding %s \n", new);
 	return (new);
 }
 

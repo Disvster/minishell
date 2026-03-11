@@ -14,11 +14,17 @@
 
 int	parsing(t_shell	*shell)
 {
+	printf("%s 1 \n", shell->lineread);
 	shell->tokens = lexing(shell->lineread);
+	printf("%s 2 \n", shell->lineread);
 	set_types(shell->tokens);
 	set_commands(shell->tokens);
+	printf("%s 3 \n", shell->lineread);
 	if (!expansion(shell->tokens, shell))
+	{
 		return(dlist_list_clear(&shell->tokens, free_token_data), 0);
+		printf("%s 4 \n", shell->lineread);
+	}
 	return (1);
 }
 

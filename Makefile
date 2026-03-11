@@ -3,8 +3,10 @@ CFLAGS = -Wall -Wextra -Werror -Iincs/
 LDFLAGS = -Lvendor/readline/lib -lreadline
 LIBFT = libft_manmaria/libft.a
 LIBFT_DIR = libft_manmaria/
-SRC_DIR = lexing
-SRCS = $(wildcard $(SRC_DIR)/*.c)
+#SRC_DIR = lexing
+SRC_DIRS = lexing parsing
+SRCS = $(foreach d,$(SRC_DIRS),$(wildcard $(d)/*.c))
+#SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(SRCS:.c=.o)
 NAME = minishell
 
@@ -20,7 +22,8 @@ $(LIBFT):
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(SRC_DIR)/*.o
+	rm -f $(OBJS)
+	#rm -f $(SRC_DIR)/*.o
 	@make --no-print-directory -C $(LIBFT_DIR) clean
 
 fclean: clean

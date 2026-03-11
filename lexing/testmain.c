@@ -28,7 +28,8 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		shl->lineread = readline("[minishell]");
-		parsing(shl);
+		if (!parsing(shl))
+			printf("error \n");
 		tok = shl->tokens;
 		while (tok)
 		{

@@ -38,7 +38,6 @@ int	init_env_list(t_shell	*shl, char	**envp)
 char	*cp_ename(char	*env)
 {
 	int		i;
-	char	*temp;
 
 	i = 0;
 	while (env[i] != '=')
