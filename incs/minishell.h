@@ -75,7 +75,7 @@ typedef struct s_shell
 {
 	char	*lineread;
 	t_env	*envs;
-	t_dlist	*tokens;
+	t_token	*tokens;
 	int		exit_code;
 }	t_shell;
 
@@ -99,12 +99,12 @@ void	free_token_data(void	*token);
 
 // Parsing
 int		parsing(t_shell	*shell);
-void	set_types(t_dlist *tlist);
-void	set_commands(t_dlist *tlist);
+void	set_types(t_token *tlist);
+void	set_commands(t_token *tlist);
 int		env_len(char *s);
 
 // Expansion/Appending
-int		expansion(t_dlist	*head, t_shell *shl);
+int		expansion(t_token *head, t_shell *shl);
 char	*expand(t_token *token, t_shell *shl);
 int		append_quoted(t_shell *shl, t_token	*token, char **nstr, int	*index);
 int		append_expand(t_shell *shl, t_token *token, char **nstr, int *i);

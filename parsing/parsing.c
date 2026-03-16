@@ -22,56 +22,57 @@ int	parsing(t_shell	*shell)
 	printf("%s 3 \n", shell->lineread);
 	if (!expansion(shell->tokens, shell))
 	{
-		return(dlist_list_clear(&shell->tokens, free_token_data), 0);
+		// TODO: refactor LIST_CLEAR()
+		// return(dlist_list_clear(&shell->tokens, free_token_data), 0);
 		printf("%s 4 \n", shell->lineread);
 	}
 	return (1);
 }
 
-void	set_types(t_dlist *tlist)
+void	set_types(t_token *tlist)
 {
-	t_dlist	*temp;
+	t_token	*temp;
 	int		len;
 
 	len = 0;
 	temp = tlist;
 	while (temp)
 	{
-		len = ft_strlen(temp->data->content);
-		if (ft_strncmp(temp->data->content, "<<", len) == 0 && !temp->data->has_quotes)
-			temp->data->type = HEREDOC;
-		else if (ft_strncmp(temp->data->content, ">>", len) == 0 && !temp->data->has_quotes)
-			temp->data->type = APPEND;
-		else if (ft_strncmp(temp->data->content, "<", len) == 0 && !temp->data->has_quotes)
-			temp->data->type = INFILE;
-		else if (ft_strncmp(temp->data->content, ">", len) == 0 && !temp->data->has_quotes)
-			temp->data->type = OUTFILE;
-		else if (ft_strncmp(temp->data->content, "|", len) == 0 && !temp->data->has_quotes)
-			temp->data->type = PIPE;
-		else if (temp->prev && temp->prev->data->type == HEREDOC)
-			temp->data->type = LIMITER;
-		else if (temp->prev && (temp->prev->data->type == INFILE || temp->prev->data->type == OUTFILE
-				|| temp->prev->data->type == APPEND))
-			temp->data->type = TFILE;
+		len = ft_strlen(temp->content);
+		if (ft_strncmp(temp->content, "<<", len) == 0 && !temp->has_quotes)
+			temp->type = HEREDOC;
+		else if (ft_strncmp(temp->content, ">>", len) == 0 && !temp->has_quotes)
+			temp->type = APPEND;
+		else if (ft_strncmp(temp->content, "<", len) == 0 && !temp->has_quotes)
+			temp->type = INFILE;
+		else if (ft_strncmp(temp->content, ">", len) == 0 && !temp->has_quotes)
+			temp->type = OUTFILE;
+		else if (ft_strncmp(temp->content, "|", len) == 0 && !temp->has_quotes)
+			temp->type = PIPE;
+		else if (temp->prev && temp->prev->type == HEREDOC)
+			temp->type = LIMITER;
+		else if (temp->prev && (temp->prev->type == INFILE || temp->prev->type == OUTFILE
+				|| temp->prev->type == APPEND))
+			temp->type = TFILE;
 		temp = temp->next;
 	}
 }
 
-void	set_commands(t_dlist *tlist)
+void	set_commands(t_token *tlist)
 {
-	t_dlist	*temp;
+	t_token	*temp;
 	int		check;
 
 	temp = tlist;
 	check = 0;
 	while (temp)
 	{
-		if (check == 0 && temp->data->type == ARG)
+		if (check == 0 && temp->type == ARG)
 		{
-			temp->data->type = COMMAND;
+			temp->type = COMMAND;
 			check = 1;
 		}
-		else if (temp->data->type == PIPE)
+		else if (temp->type == PIPE)
 			check = 0;
 		temp = temp->next;
 	}

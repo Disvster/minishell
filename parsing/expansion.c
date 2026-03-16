@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 #include "../incs/minishell.h"
 
-int		expansion(t_dlist	*head, t_shell *shl)
+int	expansion(t_token *head, t_shell *shl)
 {
-	t_dlist	*temp;
+	t_token	*temp;
 
 	temp = head;
 	while (temp)
 	{
-		temp->data->content = expand(temp->data, shl);
+		temp->content = expand(temp, shl);
 		printf("im done here \n");
 		if (!temp)
 			return (0);
