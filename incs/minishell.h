@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:39:50 by manmaria          #+#    #+#             */
-/*   Updated: 2026/03/11 20:34:41 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:36:22 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,38 @@
 # include "pipex.h"
 # include <stdbool.h>
 # include <linux/limits.h>
+# include "token_list.h"
 
-typedef enum s_type
-{
-	APPEND,
-	HEREDOC,
-	INFILE,
-	OUTFILE,
-	COMMAND,
-	ARG,
-	TFILE,
-	FLAG,
-	PIPE,
-	S_CHAR,
-	LIMITER,
-}	t_type;
-
-typedef struct s_token
-{
-	//NOTE: isolated the 4 variables below in a seperate
-	//		structure, and in t_dlist have only a pointer to it
-	//		to make it easier to clean the list when needed
-	bool			has_quotes;
-	char			*content;
-	t_cmd			*cmd;//NOTE: this var may only exist in
-	//				             execve function
-	t_type			type;
-}				t_token;
+//  NOTE: meti estas structs na token_list.h
+//
+// typedef enum s_type
+// {
+// 	APPEND,
+// 	HEREDOC,
+// 	INFILE,
+// 	OUTFILE,
+// 	COMMAND,
+// 	ARG,
+// 	TFILE,
+// 	FLAG,
+// 	PIPE,
+// 	S_CHAR,
+// 	LIMITER,
+// }	t_type;
+//
+// typedef struct s_token
+// {
+// 	//NOTE: isolated the 4 variables below in a seperate
+// 	//		structure, and in t_dlist have only a pointer to it
+// 	//		to make it easier to clean the list when needed
+// 	struct s_dlist *prev;
+// 	bool			has_quotes;
+// 	char			*content;
+// 	t_cmd			*cmd;//NOTE: this var may only exist in
+// 	//				             execve function
+// 	t_type			type;
+// 	struct s_dlist *next;
+// }				t_token;
 
 typedef struct s_dlist
 {

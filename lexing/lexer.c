@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 17:35:09 by manmaria          #+#    #+#             */
-/*   Updated: 2026/02/05 18:11:02 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:48:11 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ t_token	*tokenizer(char *lineread, int *i)
 
 void *lexing(char *lineread)
 {
-	t_dlist	*lexer;
-	t_dlist	*new_node;
+	t_token	*lexer;
 	t_token	*token;
 	int		i;
 
@@ -55,16 +54,17 @@ void *lexing(char *lineread)
 		token = tokenizer(lineread, &i);
 		if (!token)
 			return (NULL);
+
 		// TODO:
 		//	if (!token) || if (tokenizer(&token, lineread, &i))
 		// 	return (dlist_list_clear(lexer, function_that_clears_t_token_vars));
 		// 	se o token existir liberta o que esta dentro do token e depois 
 		// 	liberta o token em si
-		new_node = dlist_new_node(token);
-		if (!lexer)
-			lexer = new_node;
-		else
-			dlist_add_last(&lexer, new_node);
+		// new_node = dlist_new_node(token);
+
+		token->prev = NULL;
+		token->next = NULL;
+		tokenlist_add_last(&lexer, token);
 	}
 	return (lexer);
 }
