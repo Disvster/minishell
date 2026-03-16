@@ -9,6 +9,7 @@
 /*   Updated: 2026/03/05 18:00:47 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../incs/minishell.h"
 
 char	*env_identifier(t_shell *shl, char *to_id, int	*index)

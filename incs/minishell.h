@@ -79,12 +79,12 @@ typedef struct s_shell
 	int		exit_code;
 }	t_shell;
 
-t_dlist	*dlist_new_node(void *data);
-t_dlist	*dlist_get_head(t_dlist *n);
-t_dlist	*dlist_get_tail(t_dlist *n);
-void	dlist_add_first(t_dlist **head, t_dlist *node);
-void	dlist_add_last(t_dlist **head, t_dlist *node);
-void	dlist_list_clear(t_dlist **lst, void (*del)(void *data));
+// t_dlist	*dlist_new_node(void *data);
+// t_dlist	*dlist_get_head(t_dlist *n);
+// t_dlist	*dlist_get_tail(t_dlist *n);
+// void	dlist_add_first(t_dlist **head, t_dlist *node);
+// void	dlist_add_last(t_dlist **head, t_dlist *node);
+// void	dlist_list_clear(t_dlist **lst, void (*del)(void *data));
 
 int		find_specials(t_line *line, char **split);
 int		skip_whitespace(char *line);
