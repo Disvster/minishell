@@ -29,22 +29,19 @@ int	parsing(t_shell	*shell)
 void	set_types(t_token *tlist)
 {
 	t_token	*temp;
-	int		len;
 
-	len = 0;
 	temp = tlist;
 	while (temp)
 	{
-		len = ft_strlen(temp->content);
-		if (ft_strncmp(temp->content, "<<", len) == 0 && !temp->has_quotes)
+		if (ft_strcmp(temp->content, "<<") == 0 && !temp->has_quotes)
 			temp->type = HEREDOC;
-		else if (ft_strncmp(temp->content, ">>", len) == 0 && !temp->has_quotes)
+		else if (ft_strcmp(temp->content, ">>") == 0 && !temp->has_quotes)
 			temp->type = APPEND;
-		else if (ft_strncmp(temp->content, "<", len) == 0 && !temp->has_quotes)
+		else if (ft_strcmp(temp->content, "<") == 0 && !temp->has_quotes)
 			temp->type = INFILE;
-		else if (ft_strncmp(temp->content, ">", len) == 0 && !temp->has_quotes)
+		else if (ft_strcmp(temp->content, ">") == 0 && !temp->has_quotes)
 			temp->type = OUTFILE;
-		else if (ft_strncmp(temp->content, "|", len) == 0 && !temp->has_quotes)
+		else if (ft_strcmp(temp->content, "|") == 0 && !temp->has_quotes)
 			temp->type = PIPE;
 		else if (temp->prev && temp->prev->type == HEREDOC)
 			temp->type = LIMITER;

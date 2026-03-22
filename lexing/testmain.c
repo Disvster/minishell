@@ -37,6 +37,8 @@ int	main(int ac, char **av, char **envp)
 		while (tok)
 		{
 			printf("Token:%s \n", tok->content);
+			//TYPE CHECK:
+			//printf("Token Type :%d \n", tok->type);
 			tok = tok->next;
 		}
 		// // ENV LIST TESTER:
