@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:39:50 by manmaria          #+#    #+#             */
-/*   Updated: 2026/03/22 18:50:10 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/03/22 19:02:25 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,6 @@ int		ft_strcmp(const char *s1, const char *s2);
 //built-ins
 int	exec_env(t_shell *sh);
 int	exec_pwd(t_shell *sh);
+int	exec_unset(t_shell *sh, char *content);
 
 #endif

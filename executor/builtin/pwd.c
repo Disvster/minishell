@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 18:39:00 by manmaria          #+#    #+#             */
-/*   Updated: 2026/03/22 18:49:34 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/03/22 19:31:22 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	exec_pwd(t_shell *sh)
 		// TODO: this needs to be printed in fd = 2
 		ft_printf("couldn't get current working directory");
 		// or wtv message is more appropriate
-		return (1);
+		return (0);
 	}
 	ft_printf("%s\n", cwd);
 	free(cwd);
-	return (0);
+	return (1);
 }
