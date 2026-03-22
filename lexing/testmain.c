@@ -18,7 +18,7 @@
 int	main(int ac, char **av, char **envp)
 {
 	t_shell	*shl;
-	t_env	*env;
+	// t_env	*env;
 	t_token	*tok;
 
 	(void)ac;
@@ -26,8 +26,8 @@ int	main(int ac, char **av, char **envp)
 	tok = NULL;
 	shl = malloc(sizeof(t_shell));
 	init_env_list(shl, envp);
-	env = NULL;
-	env = shl->envs;
+	// env = NULL;
+	// env = shl->envs;
 	while (1)
 	{
 		shl->lineread = readline("[minishell]");
@@ -39,13 +39,16 @@ int	main(int ac, char **av, char **envp)
 			printf("Token:%s \n", tok->content);
 			tok = tok->next;
 		}
-		// ENV LIST TESTER:
-		while (env)
-		{
-			printf("Env Name:%s \n", env->name);
-			printf("Env Content: %s \n", env->content);
-			env = env->next;
-		}
+		// // ENV LIST TESTER:
+		// while (env)
+		// {
+		// 	printf("Env Name:%s \n", env->name);
+		// 	printf("Env Content: %s \n", env->content);
+		// 	env = env->next;
+		// }
+
+		// ENV cmd test
+		// exec_env(shl);
 	}
 	return (0);
 }
