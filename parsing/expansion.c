@@ -19,7 +19,6 @@ int	expansion(t_token *head, t_shell *shl)
 	while (temp)
 	{
 		temp->content = expand(temp, shl);
-		printf("im done here \n");
 		if (!temp)
 			return (0);
 		temp = temp->next;
@@ -37,6 +36,9 @@ char	*expand(t_token *token, t_shell *shl)
 	if (!token->content)
 		return (NULL);
 	s = token->content;
+	new = ft_strdup("");
+	if (!new)
+		return (NULL);
 	while (s[i])
 	{
 		if (s[i] == '"' || s[i] == '\'')
@@ -49,25 +51,23 @@ char	*expand(t_token *token, t_shell *shl)
 		else if (!append_letter(&new, s[i], &i))
 			return (NULL);
 	}
-	printf("finished expanding %s \n", new);
 	return (new);
 }
 
-int	append_quoted(t_shell *shl, t_token	*token, char **nstr, int	*index)
+int	append_quoted(t_shell *shl, t_token	*token, char **nstr, int	*i)
 {
-	int		i;
 	int		quote;
 	char	*str;
 
-	i = *index;
 	str = token->content;
-	quote = str[i++];
-	while (str[i] && str[i] != quote)
+	quote = str[*i];
+	*i += 1;
+	while (str[*i] && str[*i] != quote)
 	{
-		if (quote == '"' && str[i + 1] && str[i] == '$' && str[i]
-			&& !ft_isspace(str[i + 1]) && str[i + 1] != quote)
-			append_expand(shl, token, nstr, index);
-		else if (!append_letter(nstr, str[i], index))
+		if (quote == '"' && str[*i + 1] && str[*i] == '$' && str[*i]
+			&& !ft_isspace(str[*i + 1]) && str[*i + 1] != quote)
+			append_expand(shl, token, nstr, i);
+		else if (!append_letter(nstr, str[*i], i))
 			return (0);
 	}
 	return (1);
@@ -91,9 +91,10 @@ int	append_expand(t_shell *shl, t_token *token, char **nstr, int *i)
 		*i += 2;
 		return (1);
 	}
+	*i += 1;
 	env_name = env_identifier(shl, &str[*i], i);
 	*nstr = strjoinfree(*nstr, env_name);
-	if (!nstr)
+	if (!*nstr)
 		return (0);
 	return (1);
 }

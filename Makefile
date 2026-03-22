@@ -1,4 +1,4 @@
-CC = clang
+CC = clang -g
 CFLAGS = -Wall -Wextra -Werror -Iincs/
 LDFLAGS = -Lvendor/readline/lib -lreadline
 LIBFT = libft_manmaria/libft.a

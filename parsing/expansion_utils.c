@@ -14,21 +14,17 @@
 
 char	*env_identifier(t_shell *shl, char *to_id, int	*index)
 {
-	int		size;
 	int		i;
 	char	*env_name;
 	t_env	*variable;
 
-	i = *index;
+	i = 0;
 	env_name = NULL;
 	variable = NULL;
-	size = 0;
 	while (to_id[i] && (ft_isalnum(to_id[i]) || to_id[i] == '_'))
-	{
-		size++;
 		i++;
-	}
-	env_name = ft_substr(to_id, i, size);
+	env_name = ft_substr(to_id, 0, i);
+	*index += i;
 	variable = find_env(shl, env_name);
 	if (variable)
 		return (free(env_name), ft_strdup(variable->content));

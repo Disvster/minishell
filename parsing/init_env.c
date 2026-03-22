@@ -42,7 +42,7 @@ char	*cp_ename(char	*env)
 	i = 0;
 	while (env[i] != '=')
 		i++;
-	return (ft_substr(env, 0, i - 1));
+	return (ft_substr(env, 0, i));
 }
 
 char	*cp_econt(char	*env)
