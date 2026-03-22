@@ -52,7 +52,7 @@ char	*cp_econt(char	*env)
 
 	i = 0;
 	len = ft_strlen(env);
-	while (env[i] != '=')
+	while (env[i] && env[i] != '=')
 		i++;
 	if (!env[i + 1])
 		return (ft_strdup(""));
