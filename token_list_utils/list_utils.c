@@ -53,29 +53,21 @@ void	tokenlist_add_last(t_token **head, t_token *node)
 	}
 }
 
-// TODO: refactor this function
-// void	tokenlist_list_clear(t_token **lst, void (*del)(void *data))
-// {
-// 	t_token	*tmp;
-// 	t_token	*node;
-// 	t_token	*base_ptr;
-//
-// 	if (!lst || !del)
-// 		return ;
-// 	node = *lst;
-// 	if (node->prev)
-// 		node = tokenlist_get_head(*lst);
-// 	// base_ptr = node->data;
-// 	while (node)
-// 	{
-// 		tmp = node->next;
-// 		// del(node->data);
-// 		if (node)
-// 			free(node);
-// 		node = tmp;
-// 	}
-// 	if (base_ptr)
-// 		free(base_ptr);
-// 	base_ptr = NULL;
-// 	*lst = NULL;
-// }
+void	tokenlist_list_clear(t_token **lst)
+{
+	t_token	*tmp;
+	t_token	*node;
+
+	tmp = NULL;
+	node = *lst;
+	while (node)
+	{
+		tmp = node->next;
+		free(node->content);
+		if (node->cmd)
+			free(node->cmd);
+		if (node)
+			free(node);
+		node = tmp;
+	}
+}
