@@ -124,4 +124,8 @@ int		free_envs(t_env	**head);
 // General Utils
 char	*strjoinfree(char *s1, char *s2);
 int		ft_strcmp(const char *s1, const char *s2);
+
+//built-ins
+int	exec_env(t_shell *sh);
+
 #endif
