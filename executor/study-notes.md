@@ -2,7 +2,7 @@
 
 ### 09/03/26
 
-- [ ] change t_token to be the list instead of t_tdlist
+- [X] change t_token to be the list instead of t_tdlist
 - [ ] do a change-any-envp function
 
 ### 07/03/26
