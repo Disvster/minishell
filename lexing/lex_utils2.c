@@ -22,14 +22,7 @@ t_token	*meta_token(char *lineread, int *j)
 	if (*j <= 2)
 		return (init_token(ft_substr(lineread, 0, *j)));
 	else
-	{  // NOTE: maybe change these function calls to just be ft_printf_fd
-		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
-		ft_putchar_fd(ch, 2);
-		if (*j > 3)
-			ft_putchar_fd(ch, 2);
-		ft_putstr_fd("'\n", 2);
-		return (NULL);
-	}
+		return (ft_printf_fd(2, ERR_SYNTAX, ch), NULL);
 }
 
 void	free_token_data(void	*token)

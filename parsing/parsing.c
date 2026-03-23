@@ -6,7 +6,7 @@
 /*   By: rodmorei <rodmorei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 18:10:34 by rodmorei          #+#    #+#             */
-/*   Updated: 2026/03/05 18:00:54 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/03/23 18:08:28 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 int	parsing(t_shell	*shell)
 {
-	shell->tokens = lexing(shell->lineread);
+	int err_code;
+
+	err_code = 0;
+	shell->tokens = lexing(shell->lineread, &err_code);
 	set_types(shell->tokens);
 	set_commands(shell->tokens);
 	if (!expansion(shell->tokens, shell))

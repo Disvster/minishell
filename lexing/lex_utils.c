@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 17:27:22 by manmaria          #+#    #+#             */
-/*   Updated: 2026/02/02 17:34:09 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/03/23 18:09:51 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,14 @@ int	token_length(char *line)
 			quote = line[i++];
 			while (line[i] && line[i] != quote)
 				i++;
-			if (line[i] == quote)
-			{
-				i++;
-				quote = 0;
-			}
-			continue;
+			if (line[i] != quote)
+				return (-1);
+			i++;
+			quote = 0;
+			continue ;
 		}
 		if (!quote && (is_meta(line[i]) || ft_isspace(line[i])))
-			break;
+			break ;
 		i++;
 	}
 	return (i);
@@ -69,7 +68,7 @@ t_token	*init_token(char *content)
 	else
 		temp->has_quotes = false;
 	temp->content = content;
-	temp->type = ARG;// TODO: in parsing
+	temp->type = ARG;
 	return (temp);
 }
 

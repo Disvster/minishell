@@ -6,13 +6,13 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 17:35:09 by manmaria          #+#    #+#             */
-/*   Updated: 2026/03/16 16:48:11 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/03/23 18:10:35 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-t_token	*tokenizer(char *lineread, int *i)
+t_token	*tokenizer(char *lineread, int *i, int *err_code)
 {
 	t_token	*token;
 	int		j;
@@ -20,6 +20,8 @@ t_token	*tokenizer(char *lineread, int *i)
 	j = 0;
 	token = NULL;
 	j = token_length(lineread + *i);
+	if (j < 0)
+		return (*err_code = 2,ft_printf_fd(2, ERR_QUOTES), NULL);
 	if (j > 0 && !is_meta(lineread[*i]))
 	{
 		token = init_token(ft_substr(lineread, *i, j));
@@ -37,7 +39,7 @@ t_token	*tokenizer(char *lineread, int *i)
 	return (token);
 }
 
-void *lexing(char *lineread)
+void *lexing(char *lineread, int *err_code)
 {
 	t_token	*lexer;
 	t_token	*token;
@@ -51,17 +53,9 @@ void *lexing(char *lineread)
 		i += skip_whitespace(lineread + i);
 		if (!lineread[i])
 			break ;
-		token = tokenizer(lineread, &i);
+		token = tokenizer(lineread, &i, err_code);
 		if (!token)
 			return (NULL);
-
-		// TODO:
-		//	if (!token) || if (tokenizer(&token, lineread, &i))
-		// 	return (dlist_list_clear(lexer, function_that_clears_t_token_vars));
-		// 	se o token existir liberta o que esta dentro do token e depois 
-		// 	liberta o token em si
-		// new_node = dlist_new_node(token);
-
 		token->prev = NULL;
 		token->next = NULL;
 		tokenlist_add_last(&lexer, token);
