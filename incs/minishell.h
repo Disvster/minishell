@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:39:50 by manmaria          #+#    #+#             */
-/*   Updated: 2026/03/22 19:02:25 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/03/23 18:30:32 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <stdbool.h>
 # include <linux/limits.h>
 # include "token_list.h"
-
+# include "ft_printf_fd.h"
 //  NOTE: meti estas structs na token_list.h
 //
 // typedef enum s_type
@@ -88,8 +88,8 @@ typedef struct s_shell
 
 int		find_specials(t_line *line, char **split);
 int		skip_whitespace(char *line);
-void	*lexing(char *lineread);
-t_token	*tokenizer(char *lineread, int *i);
+void	*lexing(char *lineread, int *err_code);
+t_token	*tokenizer(char *lineread, int *i, int *err_code);
 int		token_length(char *line);
 int		is_meta(char ch);
 int		exist_quotes(char *line);
