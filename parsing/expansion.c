@@ -14,44 +14,47 @@
 int	expansion(t_token *head, t_shell *shl)
 {
 	t_token	*temp;
+	char	*new;
 
+	new = ft_strdup("");
+	if (!new)
+		return (0);
 	temp = head;
 	while (temp)
 	{
-		temp->content = expand(temp, shl);
-		if (!temp)
+		temp->content = expand(temp, shl, new);
+		if (!temp->content)
 			return (0);
 		temp = temp->next;
 	}
 	return (1);
 }
 
-char	*expand(t_token *token, t_shell *shl)
+char	*expand(t_token *token, t_shell *shl, char	*nstr)
 {
 	char	*s;
-	char	*new;
 	int		i;
 
 	i = 0;
 	if (!token->content)
 		return (NULL);
 	s = token->content;
-	new = ft_strdup("");
-	if (!new)
-		return (NULL);
 	while (s[i])
 	{
 		if (s[i] == '"' || s[i] == '\'')
 		{
-			if (!append_quoted(shl, token, &new, &i))
+			if (!append_quoted(shl, token, &nstr, &i))
 				return (NULL);
 		}
-		else if (s[i] == '$' && !append_expand(shl, token, &new, &i))
-			return (NULL);
-		else if (!append_letter(&new, s[i], &i))
+		else if (s[i] == '$')
+		{
+			if (!append_expand(shl, token, &nstr, &i))
+				return (NULL);
+		}
+		else if (!append_letter(&nstr, s[i], &i))
 			return (NULL);
 	}
-	return (new);
+	return (nstr);
 }
 
 int	append_quoted(t_shell *shl, t_token	*token, char **nstr, int	*i)
@@ -84,6 +87,8 @@ int	append_expand(t_shell *shl, t_token *token, char **nstr, int *i)
 		return (*i += 1, 1);
 	if (str[*i + 1] == '"' || str[*i + 1] == '\'')
 		return (*i += 1, 1);
+	if (str[*i + 1] == '?')
+		return (append_exit_code(nstr, shl->exit_code, i));
 	if (!ft_isalpha(str[*i + 1]) && str[*i + 1] != '_')
 	{
 		if (!append_letter(nstr, '$', i) || !append_letter(nstr, str[*i], i))

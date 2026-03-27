@@ -28,4 +28,5 @@ int	ft_hexacount_fd(unsigned int hex);
 // DEFINING MACROS:
 # define ERR_QUOTES "Error: Unmatched quotes\n"
 # define ERR_SYNTAX "Error: Syntax error near unexpected token ´%c'\n"
+# define ERR_MALLOC "Error: Memory allocation failed\n"
 #endif

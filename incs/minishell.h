@@ -105,10 +105,11 @@ int		env_len(char *s);
 
 // Expansion/Appending
 int		expansion(t_token *head, t_shell *shl);
-char	*expand(t_token *token, t_shell *shl);
+char	*expand(t_token *token, t_shell *shl, char	*nstr);
 int		append_quoted(t_shell *shl, t_token	*token, char **nstr, int	*i);
 int		append_expand(t_shell *shl, t_token *token, char **nstr, int *i);
 int		append_letter(char	**nstr, char c, int	*i);
+int		append_exit_code(char **nstr, int exit_code, int *i);
 int		is_edge(char c);
 
 // Env/Export

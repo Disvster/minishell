@@ -14,10 +14,7 @@
 
 int	parsing(t_shell	*shell)
 {
-	int err_code;
-
-	err_code = 0;
-	shell->tokens = lexing(shell->lineread, &err_code);
+	shell->tokens = lexing(shell->lineread, &shell->exit_code);
 	set_types(shell->tokens);
 	set_commands(shell->tokens);
 	if (!expansion(shell->tokens, shell))

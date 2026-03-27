@@ -46,20 +46,24 @@ t_env	*find_env(t_shell *shl, char *env_name)
 	return (NULL);
 }
 
+int	append_exit_code(char **nstr, int exit_code, int *i)
+{
+	char	*ex_code;
+
+	ex_code = ft_itoa(exit_code);
+	if (!ex_code)
+		return (0);
+	*nstr = strjoinfree(*nstr, ex_code);
+	if (!nstr)
+		return (0);
+	*i += ft_strlen(ex_code) + 1;
+	return (1);
+}
+
 int	is_edge(char c)
 {
 	return (c == '!' || c == '#' || c == '$' || c == '*' || c == '@'
 		|| c == '-');
-}
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	size_t	i;
-
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
 char	*strjoinfree(char *s1, char *s2)

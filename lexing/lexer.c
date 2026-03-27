@@ -26,14 +26,14 @@ t_token	*tokenizer(char *lineread, int *i, int *err_code)
 	{
 		token = init_token(ft_substr(lineread, *i, j));
 		if (!token)
-			return (NULL);
+			return (*err_code = 1,ft_printf_fd(2, ERR_MALLOC), NULL);
 		*i += j;
 	}
 	else if (is_meta(lineread[*i]))
 	{
 		token = meta_token(lineread + *i, &j);
 		if (!token)
-			return (NULL);
+			return (*err_code = 2, NULL);
 		*i += j;
 	}
 	return (token);
@@ -55,7 +55,7 @@ void *lexing(char *lineread, int *err_code)
 			break ;
 		token = tokenizer(lineread, &i, err_code);
 		if (!token)
-			return (NULL);
+			return (tokenlist_list_clear(&lexer), NULL);
 		token->prev = NULL;
 		token->next = NULL;
 		tokenlist_add_last(&lexer, token);
