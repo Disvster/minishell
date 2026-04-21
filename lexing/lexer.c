@@ -21,12 +21,12 @@ t_token	*tokenizer(char *lineread, int *i, int *err_code)
 	token = NULL;
 	j = token_length(lineread + *i);
 	if (j < 0)
-		return (*err_code = 2,ft_printf_fd(2, ERR_QUOTES), NULL);
+		return (*err_code = 2, ft_printf_fd(2, ERR_QUOTES), NULL);
 	if (j > 0 && !is_meta(lineread[*i]))
 	{
 		token = init_token(ft_substr(lineread, *i, j));
 		if (!token)
-			return (*err_code = 1,ft_printf_fd(2, ERR_MALLOC), NULL);
+			return (*err_code = 1, ft_printf_fd(2, ERR_MALLOC), NULL);
 		*i += j;
 	}
 	else if (is_meta(lineread[*i]))
@@ -39,7 +39,7 @@ t_token	*tokenizer(char *lineread, int *i, int *err_code)
 	return (token);
 }
 
-void *lexing(char *lineread, int *err_code)
+void	*lexing(char *lineread, int *err_code)
 {
 	t_token	*lexer;
 	t_token	*token;

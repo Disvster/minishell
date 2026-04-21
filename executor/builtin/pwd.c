@@ -22,7 +22,7 @@ int	exec_pwd(t_shell *sh)
 	if (!cwd)
 	{
 		// TODO: this needs to be printed in fd = 2
-		ft_printf("couldn't get current working directory");
+		ft_printf_fd(2, "ERROR: couldn't get current working directory");
 		// or wtv message is more appropriate
 		return (0);
 	}

@@ -15,15 +15,15 @@
 # include <unistd.h>
 
 void	ft_printf_fd(int fd, const char *format, ...);
-int	ft_printflag_fd(int fd, char flag, va_list args);
-int	ft_putptr_fd(int fd, unsigned long hex);
-int	ft_putlonghexa_fd(int fd, unsigned long hex);
-int	ft_longhexacount_fd(unsigned long hex);
-int	ft_nbrsize_fd(int nb);
-int	ft_unsnbrsize_fd(unsigned int nb);
-int	ft_putunsnbr_fd(int fd, unsigned int nb);
-int	ft_puthexa_fd(int fd, unsigned int hex, char format);
-int	ft_hexacount_fd(unsigned int hex);
+int		ft_printflag_fd(int fd, char flag, va_list args);
+int		ft_putptr_fd(int fd, unsigned long hex);
+int		ft_putlonghexa_fd(int fd, unsigned long hex);
+int		ft_longhexacount_fd(unsigned long hex);
+int		ft_nbrsize_fd(int nb);
+int		ft_unsnbrsize_fd(unsigned int nb);
+int		ft_putunsnbr_fd(int fd, unsigned int nb);
+int		ft_puthexa_fd(int fd, unsigned int hex, char format);
+int		ft_hexacount_fd(unsigned int hex);
 
 // DEFINING MACROS:
 # define ERR_QUOTES "Error: Unmatched quotes\n"
