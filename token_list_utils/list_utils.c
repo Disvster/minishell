@@ -53,7 +53,7 @@ void	tokenlist_add_last(t_token **head, t_token *node)
 	}
 }
 
-void	tokenlist_list_clear(t_token **lst)
+void	tokenlist_clear(t_token **lst)
 {
 	t_token	*tmp;
 	t_token	*node;
@@ -64,8 +64,8 @@ void	tokenlist_list_clear(t_token **lst)
 	{
 		tmp = node->next;
 		free(node->content);
-		if (node->cmd)
-			free(node->cmd);
+		// if (node->cmd)
+		// 	free(node->cmd);
 		if (node)
 			free(node);
 		node = tmp;
