@@ -17,24 +17,24 @@
 
 int	main(int ac, char **av, char **envp)
 {
-	t_shell	*shl;
+	t_shell	shl;
 	// t_env	*env;
 	t_token	*tok;
 
 	(void)ac;
 	(void)av;
 	tok = NULL;
-	shl = malloc(sizeof(t_shell));
-	shl->exit_code = 0;
-	init_env_list(shl, envp);
+	// shl = malloc(sizeof(t_shell));
+	shl.exit_code = 0;
+	init_env_list(&shl, envp);
 	// env = NULL;
 	// env = shl->envs;
 	while (1)
 	{
-		shl->lineread = readline("[minishell]");
-		if (!parsing(shl))
+		shl.lineread = readline("[minishell]");
+		if (!parsing(&shl))
 			printf("error \n");
-		tok = shl->tokens;
+		tok = shl.tokens;
 		while (tok)
 		{
 			printf("Token:%s \n", tok->content);
