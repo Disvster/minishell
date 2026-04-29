@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 20:50:33 by manmaria          #+#    #+#             */
-/*   Updated: 2026/01/15 19:25:59 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/04/29 01:40:29 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef EXECUTOR_H
+# define EXECUTOR_H
 
 # include "../libft_manmaria/incs/libft.h"
 # include <stdio.h>
@@ -28,10 +28,12 @@ typedef struct s_line
 
 typedef struct s_cmd
 {
-	int		pid;
-	char	*path;
-	char	**args;
-	t_line	line;
+	int				pid;
+	char			*path;
+	char			**args;
+	int				arg_count;
+	int				redirect_count;
+	struct s_cmd	*next;
 }				t_cmd;
 
 typedef struct s_pipex
@@ -45,13 +47,13 @@ typedef struct s_pipex
 	int		cmd_count;
 }				t_pipex;
 
-void	init_pipex(t_pipex *pipex, int ac, char **av, char **envp);
-void	exec_pipe(t_pipex *pipex);
-int		get_command(char *cmd_str, char **envp, t_cmd *cmd);
-char	*find_cmd_path(char *cmd, char **envp);
-char	*pipex_strjoin(char *path, char *cmd);
-void	exec_cmd1(t_pipex *pipex);
-void	exec_cmd2(t_pipex *pipex);
-void	error_exit(t_pipex *pipex, t_cmd *cmd, int exit_code);
+// void	init_pipex(t_pipex *pipex, int ac, char **av, char **envp);
+// void	exec_pipe(t_pipex *pipex);
+// int		get_command(char *cmd_str, char **envp, t_cmd *cmd);
+// char	*find_cmd_path(char *cmd, char **envp);
+// char	*pipex_strjoin(char *path, char *cmd);
+// void	exec_cmd1(t_pipex *pipex);
+// void	exec_cmd2(t_pipex *pipex);
+// void	error_exit(t_pipex *pipex, t_cmd *cmd, int exit_code);
 
 #endif
