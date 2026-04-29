@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "pipex.h"
+# include "executor.h"
 # include <stdbool.h>
 # include <linux/limits.h>
 # include "token_list.h"

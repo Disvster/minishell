@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_printf_fd.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodmorei <rodmorei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 20:27:25 by rodmorei          #+#    #+#             */
-/*   Updated: 2025/05/26 19:08:16 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/04/29 01:40:34 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FT_PRINTF_FD_H
 # define FT_PRINTF_FD_H
+
 # include <stdarg.h>
 # include <unistd.h>
 
@@ -29,4 +30,5 @@ int		ft_hexacount_fd(unsigned int hex);
 # define ERR_QUOTES "Error: Unmatched quotes\n"
 # define ERR_SYNTAX "Error: Syntax error near unexpected token ´%c'\n"
 # define ERR_MALLOC "Error: Memory allocation failed\n"
+
 #endif

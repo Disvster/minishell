@@ -13,7 +13,7 @@
 #ifndef TOKEN_LIST_H
 # define TOKEN_LIST_H
 
-# include "pipex.h"
+# include "executor.h"
 
 typedef enum s_type
 {
@@ -47,6 +47,6 @@ t_token	*tokenlist_get_head(t_token *n);
 t_token	*tokenlist_get_tail(t_token *n);
 void	tokenlist_add_first(t_token **head, t_token *node);
 void	tokenlist_add_last(t_token **head, t_token *node);
-void	tokenlist_list_clear(t_token **lst);
+void	tokenlist_clear(t_token **lst);
 
 #endif
