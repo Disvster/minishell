@@ -55,7 +55,7 @@ void	*lexing(char *lineread, int *err_code)
 			break ;
 		token = tokenizer(lineread, &i, err_code);
 		if (!token)
-			return (tokenlist_list_clear(&lexer), NULL);
+			return (tokenlist_clear(&lexer), NULL);
 		token->prev = NULL;
 		token->next = NULL;
 		tokenlist_add_last(&lexer, token);

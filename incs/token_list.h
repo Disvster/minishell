@@ -36,7 +36,7 @@ typedef struct s_token
 
 	bool			has_quotes;
 	char			*content;
-	t_cmd			*cmd;
+	// t_cmd			*cmd;
 	t_type			type;
 
 	struct s_token	*next;
