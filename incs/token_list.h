@@ -13,7 +13,6 @@
 #ifndef TOKEN_LIST_H
 # define TOKEN_LIST_H
 
-# include "executor.h"
 
 typedef enum s_type
 {

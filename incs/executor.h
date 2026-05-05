@@ -17,6 +17,8 @@
 # include <stdio.h>
 # include <sys/wait.h>
 # include <stdbool.h>
+# include "minishell.h"
+
 
 typedef struct s_line
 {
@@ -47,6 +49,15 @@ typedef struct s_pipex
 	int		cmd_count;
 }				t_pipex;
 
+int		is_builtin(t_token *token);
+char	*pipex_strjoin(char *path, char *cmd);
+char	*search_paths(char **paths, char *cmd);
+char	*pipex_strjoin(char *path, char *cmd);
+int		is_builtin(t_token *token);
+t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist);
+t_cmd	*create_command(t_token *token, t_env *envlist);
+t_cmd	*create_builtin(t_token *token, t_cmd *bi);
+t_cmd	*build_command_list(t_token *head, t_env *envs);
 // void	init_pipex(t_pipex *pipex, int ac, char **av, char **envp);
 // void	exec_pipe(t_pipex *pipex);
 // int		get_command(char *cmd_str, char **envp, t_cmd *cmd);
