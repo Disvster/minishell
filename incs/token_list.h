@@ -6,13 +6,12 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:30:19 by manmaria          #+#    #+#             */
-/*   Updated: 2026/03/16 16:47:01 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/05/05 19:33:49 by disaster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_LIST_H
 # define TOKEN_LIST_H
-
 
 typedef enum s_type
 {

@@ -6,10 +6,11 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 18:58:35 by manmaria          #+#    #+#             */
-/*   Updated: 2026/03/16 16:49:17 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/05/05 19:36:14 by disaster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../incs/minishell.h"
 #include "../incs/token_list.h"
 
 t_token	*tokenlist_new_node(void *content)

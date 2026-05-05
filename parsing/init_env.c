@@ -6,9 +6,10 @@
 /*   By: rodmorei <rodmorei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 22:30:18 by rodmorei          #+#    #+#             */
-/*   Updated: 2026/03/11 19:06:19 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/05/05 19:38:25 by disaster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../incs/minishell.h"
 
 int	init_env_list(t_shell	*shl, char	**envp)

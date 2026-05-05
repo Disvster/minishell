@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:39:50 by manmaria          #+#    #+#             */
-/*   Updated: 2026/03/23 19:13:39 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/05/05 19:35:37 by disaster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_env
 	bool			exported;
 	struct s_env	*prev;
 	struct s_env	*next;
-}	t_env;
+}				t_env;
 
 typedef struct s_shell
 {
