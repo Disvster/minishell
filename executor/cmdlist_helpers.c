@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_list_utils.c                               :+:      :+:    :+:   */
+/*   cmdlist_helpers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 17:21:54 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/05 17:29:57 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/05/05 19:26:18 by disaster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*find_cmd_path(char *cmd, t_env *envlist)
 	char	*test;
 
 	// NOTE: do I need to create a temp for envlist?
-	while (envlist && ft_strncmp("PATH=", envlist->content, 5))
+	while (envlist && ft_strncmp("PATH=", envlist->name, 5))//TODO: double-check if content or name here
 		envlist = envlist->next;
 	if (!envlist)
 		return (NULL);
