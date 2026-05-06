@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/executor.h"
-#include "../incs/minishell.h"
+#include "../../incs/executor.h"
+#include "../../incs/minishell.h"
 
 int	is_builtin(t_token *token)
 {

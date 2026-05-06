@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/executor.h"
+#include "../../incs/executor.h"
 
 void	cmdlist_add_first(t_cmd **head, t_cmd *node)
 {

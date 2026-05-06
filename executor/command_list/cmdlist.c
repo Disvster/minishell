@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/executor.h"
-#include "../incs/minishell.h"
+#include "../../incs/executor.h"
+#include "../../incs/minishell.h"
 
 void	populate_args(t_token *token, t_cmd *cmd)
 {
