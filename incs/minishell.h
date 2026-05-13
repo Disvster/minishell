@@ -71,12 +71,20 @@ typedef struct s_env
 	struct s_env	*next;
 }				t_env;
 
+typedef struct s_pipeline
+{
+    int     prev_read;      // Read end of previous pipe
+    pid_t   pids[1024];     // Store all child PIDs
+    int     count;          // Number of children forked
+}   t_pipeline;
+
 typedef struct s_shell
 {
-	char	*lineread;
-	t_env	*envs;
-	t_token	*tokens;
-	int		exit_code;
+	char		*lineread;
+	t_env		*envs;
+	t_token		*tokens;
+	t_pipeline	pipeline;
+	int			exit_code;
 }	t_shell;
 
 // t_dlist	*dlist_new_node(void *data);
@@ -121,6 +129,7 @@ char	*cp_econt(char	*env);
 t_env	*new_env(char	*name, char	*cont, bool	exp);
 int		env_addback(t_env	**head, t_env	*node);
 int		free_envs(t_env	**head);
+int		envlist_size(t_env *head);
 
 // General Utils
 char	*strjoinfree(char *s1, char *s2);

@@ -60,3 +60,17 @@ int	free_envs(t_env	**head)
 	}
 	return (1);
 }
+
+int	envlist_size(t_env *head)
+{
+	t_env	*tmp;
+	int		count;
+
+	tmp = head;
+	while (tmp)
+	{
+		count++;
+		tmp = tmp->next;
+	}
+	return (count);
+}
