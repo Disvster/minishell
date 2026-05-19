@@ -6,19 +6,19 @@
 /*   By: rodmorei <rodmorei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 18:37:23 by rodmorei          #+#    #+#             */
-/*   Updated: 2026/03/11 19:06:19 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/05/18 22:42:17 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../incs/minishell.h"
 
-t_env	*new_env(char	*name, char	*cont, bool	exp)
+t_env	*new_env(char *name, char *cont, bool exp)
 {
 	t_env	*env;
 
 	env = malloc(sizeof(t_env));
 	if (!env)
 		return (free(name), free(cont), NULL);
-	if (!name || !cont)
+	if (!name)
 		return (free(env), NULL);
 	env->next = NULL;
 	env->prev = NULL;
@@ -28,7 +28,7 @@ t_env	*new_env(char	*name, char	*cont, bool	exp)
 	return (env);
 }
 
-int	env_addback(t_env	**head, t_env	*node)
+int	env_addback(t_env **head, t_env	*node)
 {
 	t_env	*temp;
 
@@ -66,6 +66,7 @@ int	envlist_size(t_env *head)
 	t_env	*tmp;
 	int		count;
 
+	count = 0;
 	tmp = head;
 	while (tmp)
 	{

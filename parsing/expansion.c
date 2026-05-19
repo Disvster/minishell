@@ -14,15 +14,15 @@
 int	expansion(t_token *head, t_shell *shl)
 {
 	t_token	*temp;
-	char	*new;
+	// char	*new;
 
-	new = ft_strdup("");
-	if (!new)
-		return (0);
+	// new = ft_strdup("");
+	// if (!new)
+	// 	return (0);
 	temp = head;
 	while (temp)
 	{
-		temp->content = expand(temp, shl, new);
+		temp->content = expand(temp, shl);//, new);
 		if (!temp->content)
 			return (0);
 		temp = temp->next;
@@ -30,15 +30,17 @@ int	expansion(t_token *head, t_shell *shl)
 	return (1);
 }
 
-char	*expand(t_token *token, t_shell *shl, char	*nstr)
+char	*expand(t_token *token, t_shell *shl)//, char *nstr)
 {
+	char	*nstr;
 	char	*s;
 	int		i;
 
 	i = 0;
-	if (!token->content)
-		return (NULL);
 	s = token->content;
+	nstr = ft_strdup("");
+	if (!nstr)
+		return (0);
 	while (s[i])
 	{
 		if (s[i] == '"' || s[i] == '\'')
@@ -57,7 +59,7 @@ char	*expand(t_token *token, t_shell *shl, char	*nstr)
 	return (nstr);
 }
 
-int	append_quoted(t_shell *shl, t_token	*token, char **nstr, int	*i)
+int	append_quoted(t_shell *shl, t_token	*token, char **nstr, int *i)
 {
 	int		quote;
 	char	*str;

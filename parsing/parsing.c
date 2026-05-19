@@ -17,15 +17,12 @@ int	parsing(t_shell	*shell)
 	shell->tokens = lexing(shell->lineread, &shell->exit_code);
 	set_types(shell->tokens);
 	set_commands(shell->tokens);
-	// FIX: commented out expansion function because it is always trying to expand.
-	// something is wrong with the char* new variable that gets strdupped.
-
-	// if (!expansion(shell->tokens, shell))
-	// {
-	// 	// TODO: refactor LIST_CLEAR()
-	// 	// return(dlist_list_clear(&shell->tokens, free_token_data), 0);
-	// 	printf("%s 4 \n", shell->lineread);
-	// }
+	if (!expansion(shell->tokens, shell))
+	{
+		// TODO: refactor LIST_CLEAR()
+		return(tokenlist_clear(&shell->tokens), 0);
+		// printf("%s 4 \n", shell->lineread);
+	}
 	return (1);
 }
 

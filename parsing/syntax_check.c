@@ -13,11 +13,12 @@
 
 int	syntax_check(t_shell *shl)
 {
-if (!pipe_checker(shl->tokens))
-	return (0);
+	if (!pipe_checker(shl->tokens))
+		return (0);
+	return (1);
 }
 
-int	pipe_checker(t_token	*tok)
+int	pipe_checker(t_token *tok)
 {
 	t_token	*temp;
 
@@ -34,4 +35,5 @@ int	pipe_checker(t_token	*tok)
 			return (0);
 		temp = temp->next;
 	}
+	return (1);
 }

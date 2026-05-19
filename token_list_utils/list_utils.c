@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 18:58:35 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/05 19:36:14 by disaster         ###   ########.fr       */
+/*   Updated: 2026/05/19 01:18:05 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,8 @@ void	tokenlist_clear(t_token **lst)
 	while (node)
 	{
 		tmp = node->next;
-		free(node->content);
-		// if (node->cmd)
-		// 	free(node->cmd);
+		if (node->content)
+			free(node->content);
 		if (node)
 			free(node);
 		node = tmp;

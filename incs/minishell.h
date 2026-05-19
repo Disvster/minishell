@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:39:50 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/05 19:35:37 by disaster         ###   ########.fr       */
+/*   Updated: 2026/05/18 18:09:25 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,11 @@
 # include <stdbool.h>
 # include <linux/limits.h>
 # include "token_list.h"
-# include "executor.h"
+// # include "executor.h"
 # include "ft_printf_fd.h"
-//  NOTE: meti estas structs na token_list.h
-//
-// typedef enum s_type
-// {
-// 	APPEND,
-// 	HEREDOC,
-// 	INFILE,
-// 	OUTFILE,
-// 	COMMAND,
-// 	ARG,
-// 	TFILE,
-// 	FLAG,
-// 	PIPE,
-// 	S_CHAR,
-// 	LIMITER,
-// }	t_type;
-//
-// typedef struct s_token
-// {
-// 	//NOTE: isolated the 4 variables below in a seperate
-// 	//		structure, and in t_dlist have only a pointer to it
-// 	//		to make it easier to clean the list when needed
-// 	struct s_dlist *prev;
-// 	bool			has_quotes;
-// 	char			*content;
-// 	t_cmd			*cmd;//NOTE: this var may only exist in
-// 	//				             execve function
-// 	t_type			type;
-// 	struct s_dlist *next;
-// }				t_token;
+
+# define READ_END	0
+# define WRITE_END	1
 
 typedef struct s_dlist
 {
@@ -94,7 +67,6 @@ typedef struct s_shell
 // void	dlist_add_last(t_dlist **head, t_dlist *node);
 // void	dlist_list_clear(t_dlist **lst, void (*del)(void *data));
 
-int		find_specials(t_line *line, char **split);
 int		skip_whitespace(char *line);
 void	*lexing(char *lineread, int *err_code);
 t_token	*tokenizer(char *lineread, int *i, int *err_code);
@@ -110,10 +82,11 @@ int		parsing(t_shell	*shell);
 void	set_types(t_token *tlist);
 void	set_commands(t_token *tlist);
 int		env_len(char *s);
+int		pipe_checker(t_token *tok);
 
 // Expansion/Appending
 int		expansion(t_token *head, t_shell *shl);
-char	*expand(t_token *token, t_shell *shl, char	*nstr);
+char	*expand(t_token *token, t_shell *shl);//, char	*nstr);
 int		append_quoted(t_shell *shl, t_token	*token, char **nstr, int	*i);
 int		append_expand(t_shell *shl, t_token *token, char **nstr, int *i);
 int		append_letter(char	**nstr, char c, int	*i);
@@ -134,11 +107,5 @@ int		envlist_size(t_env *head);
 // General Utils
 char	*strjoinfree(char *s1, char *s2);
 int		ft_strcmp(const char *s1, const char *s2);
-
-//built-ins
-int	exec_env(t_shell *sh);
-int	exec_pwd(t_shell *sh);
-int	exec_unset(t_shell *sh, char *content);
-int	exec_exit(t_shell *sh, t_token *token);
 
 #endif

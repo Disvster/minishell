@@ -25,10 +25,10 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	tok = NULL;
 	// shl = malloc(sizeof(t_shell));
-	shl.exit_code = 0;
+	// shl.exit_code = 0;
 	init_env_list(&shl, envp);
 	// env = NULL;
-	// env = shl->envs;
+	// env = shl.envs;
 	while (1)
 	{
 		shl.lineread = readline("[minishell]");
