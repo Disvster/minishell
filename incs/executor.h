@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 20:50:33 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/05 19:38:32 by disaster         ###   ########.fr       */
+/*   Updated: 2026/05/18 23:40:10 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,6 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }				t_cmd;
 
-typedef struct s_pipex
-{
-	int		infile;
-	int		fds[2];
-	int		outfile;
-	char	**envp;
-	char	**argv;
-	int		argc;
-	int		cmd_count;
-}				t_pipex;
-
 # include "minishell.h"
 
 //list utils
@@ -59,6 +48,7 @@ void	cmdlist_add_last(t_cmd **head, t_cmd *node);
 void	cmdlist_add_first(t_cmd **head, t_cmd *node);
 void	*cmdlist_clear(t_cmd **head);
 
+char	**env_list_to_array(t_env *envs);
 
 int		is_builtin(t_token *token);
 char	*pipex_strjoin(char *path, char *cmd);
@@ -68,13 +58,12 @@ t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist);
 t_cmd	*create_command(t_token *token, t_env *envlist);
 t_cmd	*create_builtin(t_token *token, t_cmd *bi);
 t_cmd	*build_command_list(t_token *head, t_env *envs);
-// void	init_pipex(t_pipex *pipex, int ac, char **av, char **envp);
-// void	exec_pipe(t_pipex *pipex);
-// int		get_command(char *cmd_str, char **envp, t_cmd *cmd);
-// char	*find_cmd_path(char *cmd, char **envp);
-// char	*pipex_strjoin(char *path, char *cmd);
-// void	exec_cmd1(t_pipex *pipex);
-// void	exec_cmd2(t_pipex *pipex);
-// void	error_exit(t_pipex *pipex, t_cmd *cmd, int exit_code);
+
+//built-ins
+int	exec_echo(t_shell *sh, t_cmd *cmd);
+int	exec_env(t_shell *sh);
+int	exec_pwd(t_shell *sh);
+int	exec_exit(t_shell *sh, t_cmd *cmd);
+int	exec_unset(t_shell *sh, t_cmd *cmd);
 
 #endif

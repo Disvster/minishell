@@ -1,10 +1,17 @@
 # Executor To-do
 
+## 18/05
+
+- [ ] export:
+    - create new node envp_var
+    - append existing variable
+- [ ] cd
+
 ## 05/05
 
 - [X] command list done
     - [ ] token types need to be reviewed
-- [ ] start command pipeline for command execution
+- [X] start command pipeline for command execution
 - [ ] finish built-in functions
 
 ## 28/04

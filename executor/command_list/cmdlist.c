@@ -20,12 +20,12 @@ void	populate_args(t_token *token, t_cmd *cmd)
 	i = 0;
 	while (token)
 	{
-			if (token->type == ARG)
-				cmd->args[i++] = token->content;// NOTE: where is ownership? here or in token_list?
-			if (token->type == INFILE || token->type == OUTFILE
-				|| token->type == APPEND || token->type == HEREDOC)
-				cmd->redirect_count++;
-			token = token->next;
+		if (token->type == ARG)
+			cmd->args[i++] = token->content;// NOTE: where is ownership? here or in token_list?
+		if (token->type == INFILE || token->type == OUTFILE
+			|| token->type == APPEND || token->type == HEREDOC)
+			cmd->redirect_count++;
+		token = token->next;
 	}
 }
 
@@ -38,7 +38,7 @@ t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist)
 	if (!ext->path)
 		return (NULL);
 	temp = token->next;
-	while (temp && temp->type != PIPE && temp->type != COMMAND)// WARNING: is this enough? should it be more precise?
+	while (temp && temp->type == ARG)
 	{
 		ext->arg_count++;
 		temp = temp->next;
@@ -62,7 +62,7 @@ t_cmd	*create_builtin(t_token *token, t_cmd *bi)
 
 	bi->path = token->content;
 	temp = token->next;
-	while (temp && temp->type != PIPE && temp->type != COMMAND) // WARNING: is this enough? should it be more precise?
+	while (temp && temp->type == ARG)
 	{
 		bi->arg_count++;
 		temp = temp->next;

@@ -6,7 +6,7 @@
 /*   By: disaster </var/spool/mail/disaster>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 23:24:56 by disaster          #+#    #+#             */
-/*   Updated: 2026/05/12 23:31:45 by disaster         ###   ########.fr       */
+/*   Updated: 2026/05/18 23:39:57 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	exec_builtin(t_shell *sh, t_cmd *cmd)
 	return (1);
 }
 
-static char	**env_list_to_array(t_env *envs)
+char	**env_list_to_array(t_env *envs)
 {
 	char	**envp;
 	char	*temp;

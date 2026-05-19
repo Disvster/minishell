@@ -75,7 +75,7 @@ char	*find_cmd_path(char *cmd, t_env *envlist)
 	char	*test;
 
 	// NOTE: do I need to create a temp for envlist?
-	while (envlist && ft_strncmp("PATH=", envlist->name, 5))//TODO: double-check if content or name here
+	while (envlist && ft_strncmp("PATH", envlist->name, 4))
 		envlist = envlist->next;
 	if (!envlist)
 		return (NULL);
@@ -87,4 +87,3 @@ char	*find_cmd_path(char *cmd, t_env *envlist)
 		return (free_split(paths), NULL);
 	return (free_split(paths), test);
 }
-
