@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   TODOcd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 18:18:33 by manmaria          #+#    #+#             */
-/*   Updated: 2026/03/09 19:01:49 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/05/18 21:17:20 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #include <linux/limits.h>
 #include <limits.h>
 
-// t_token needs to be the list and not tdlist->token
-int	exec_cd(t_shell *sh)
+int	exec_cd(t_shell *sh, t_cmd *cmd)
 {
 	t_token	*token;
 	char	oldpwd[PATH_MAX];

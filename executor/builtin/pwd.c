@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 18:39:00 by manmaria          #+#    #+#             */
-/*   Updated: 2026/03/22 19:31:22 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/05/18 18:15:31 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,11 @@
 int	exec_pwd(t_shell *sh)
 {
 	char	*cwd;
-	t_token	*tmp;
 
-	tmp = sh->tokens;
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{
-		// TODO: this needs to be printed in fd = 2
 		ft_printf_fd(2, "ERROR: couldn't get current working directory");
-		// or wtv message is more appropriate
 		return (0);
 	}
 	ft_printf("%s\n", cwd);
