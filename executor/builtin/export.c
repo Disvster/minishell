@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 21:13:56 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/19 01:18:09 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/05/20 14:21:28 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	export_print_vars(t_shell *sh)
 	t_env	*curr;
 	char	**envp;
 	int		i;
-	
+
 	envp = env_list_to_array(sh->envs);
 	if (!envp)
 		return (1);//TODO: print error? error code? 127?
@@ -90,7 +90,7 @@ static int	export_err_invalid_identifier(char *s)
 
 bool	export_check_update(char *s)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = ft_strchr(s, '+');
 	if (!tmp || *tmp + 1 != '=')
@@ -135,7 +135,7 @@ char	*ft_strndup(const char *str, size_t n)// TODO: move this somewhere maybe li
 		return (NULL);
 	dup = malloc(sizeof(char) * (n + 1));
 	if (!dup)
-		return (NULL);	
+		return (NULL);
 	i = 0;
 	while (str[i] && i < n)
 	{
