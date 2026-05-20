@@ -57,7 +57,7 @@ typedef struct s_shell
 	t_env		*envs;
 	t_token		*tokens;
 	t_pipeline	pipeline;
-	int			exit_code;
+	int		exit_code;	
 }	t_shell;
 
 // t_dlist	*dlist_new_node(void *data);
@@ -82,6 +82,7 @@ int		parsing(t_shell	*shell);
 void	set_types(t_token *tlist);
 void	set_commands(t_token *tlist);
 int		env_len(char *s);
+int	syntax_check(t_shell *shl);
 int		pipe_checker(t_token *tok);
 
 // Expansion/Appending

@@ -50,13 +50,20 @@ char	*cp_econt(char	*env)
 {
 	int	i;
 	int	len;
+	char *str;
 
 	i = 0;
 	len = ft_strlen(env);
+	str = NULL;
 	while (env[i] && env[i] != '=')
 		i++;
-	if (!env[i + 1])
-		return (ft_strdup(""));
+	if (!env[i])
+		str = ft_strdup("");
+	else if (!env[i + 1])
+		str = ft_strdup("");
 	else
-		return (ft_substr(env, i + 1, len - i - 1));
+		str = ft_substr(env, i + 1, len - i - 1);
+	if (!str)
+		return (NULL);
+	return (str);
 }

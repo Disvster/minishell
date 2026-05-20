@@ -102,7 +102,7 @@ int	append_expand(t_shell *shl, t_token *token, char **nstr, int *i)
 	env_name = env_identifier(shl, &str[*i], i);
 	*nstr = strjoinfree(*nstr, env_name);
 	if (!*nstr)
-		return (0);
+		return (ft_printf_fd(2, ERR_MALLOC), 0);
 	return (1);
 }
 
@@ -115,6 +115,6 @@ int	append_letter(char	**nstr, char c, int	*i)
 	*i += 1;
 	*nstr = strjoinfree(*nstr, temp);
 	if (!nstr)
-		return (0);
+		return (ft_printf_fd(2, ERR_MALLOC), 0);
 	return (1);
 }

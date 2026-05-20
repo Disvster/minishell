@@ -26,7 +26,9 @@ t_env	*new_env(char *name, char *cont, bool exp)
 		return (NULL);
 	}
 	if (!name)
-		return (free(env), NULL);
+		return (free(env), free(cont), NULL);
+	if  (!cont)
+		return (free(env), free(name), NULL);
 	env->next = NULL;
 	env->prev = NULL;
 	env->name = name;
