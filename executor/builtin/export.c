@@ -64,6 +64,7 @@ static int	export_print_vars(t_shell *sh)
 			ft_printf("=\"%s\"", curr->content);
 		ft_printf("\n");
 	}
+	free_split(envp);
 	return (0);
 }
 
@@ -100,6 +101,26 @@ bool	export_check_update(char *s)
 	return (true);
 }
 
+char	*ft_strndup(const char *str, size_t n)// TODO: move this somewhere maybe lib
+{
+	char	*dup;
+	int		i;
+
+	if (!str)
+		return (NULL);
+	dup = malloc(sizeof(char) * (n + 1));
+	if (!dup)
+		return (NULL);
+	i = 0;
+	while (str[i] && i < n)
+	{
+		dup[i] = str[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
+}
+
 int	export_update_var(t_shell *sh, char *str)
 {
 	char	*add;
@@ -128,26 +149,6 @@ int	export_update_var(t_shell *sh, char *str)
 	return (0);
 }
 
-char	*ft_strndup(const char *str, size_t n)// TODO: move this somewhere maybe lib
-{
-	char	*dup;
-	int		i;
-
-	if (!str)
-		return (NULL);
-	dup = malloc(sizeof(char) * (n + 1));
-	if (!dup)
-		return (NULL);
-	i = 0;
-	while (str[i] && i < n)
-	{
-		dup[i] = str[i];
-		i++;
-	}
-	dup[i] = '\0';
-	return (dup);
-}
-
 int	envp_new_var(t_shell *sh, char *str)
 {
 	t_env	*new_var;
@@ -155,7 +156,7 @@ int	envp_new_var(t_shell *sh, char *str)
 	char	*name;
 
 	i = 0;
-	while (str[i] && str[i] != '=')
+	while (str[i] && str[i] != '+' && str[i] != '=')
 		i++;
 	if (str[i])
 		name = ft_strndup(str, i);
@@ -171,11 +172,30 @@ int	envp_new_var(t_shell *sh, char *str)
 	return (export_update_var(sh, str));
 }
 
+int	export_replace_content(t_env *env, char *str)
+{
+	char *replace;
+	char *tmp;
+
+	tmp = ft_strchr(str, '=');
+	if (!tmp)
+		return (0);
+	tmp += 1;
+	replace = ft_strdup(tmp);
+	if (!replace && tmp)
+		return (1);// WARNING: malloc error print?
+	if (env->content)
+		free(env->content);
+	env->content = replace;
+	return (0);
+}
+
 int	exec_export(t_shell *sh, t_cmd *cmd)
 {
 	int		i;
 	int		status;
 	char	**arr;
+	t_env	*env;
 
 	status = 0;
 	if (!cmd->args[0])
@@ -186,11 +206,14 @@ int	exec_export(t_shell *sh, t_cmd *cmd)
 	{
 		if (!export_validate_arg(arr[i]))
 			status = export_err_invalid_identifier(arr[i]);
-		else if (export_check_update(arr[i]))
-			status = export_update_var(sh, arr[i]);
-		//update content entirely
-		// or create a new_variable if it does not exist but arr has +=
-		else
+		env = sh->envs;
+		while (env && ft_strncmp(env->name, arr[i], ft_strlen(env->name)))
+			env = env->next;
+		if (export_check_update(arr[i]) && env)
+			status = export_update_var(sh/*env*/, arr[i]);// TODO: change param, don't need to search for matching env in list in this function
+		else if (!export_check_update(arr[i]) && env)
+			status = export_replace_content(env, arr[i]);
+		else// if ((!export_check_update(arr[i]) || export_check_update(arr[i]) && !env))
 			status = envp_new_var(sh, arr[i]);
 	}
 	return (status);

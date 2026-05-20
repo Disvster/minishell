@@ -136,6 +136,7 @@ int	executor(t_shell *sh)
 		curr = curr->next;
 	}
 	sh->exit_code = status;
+	free_split(envp);
 
 	// OR sh->last_status  = status; ??
 	// AND cmd_listclear(&cmdlist); ??
