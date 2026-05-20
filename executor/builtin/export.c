@@ -13,6 +13,8 @@
 #include "../../incs/minishell.h"
 #include "../../incs/executor.h"
 
+int	envp_new_var(t_shell *sh, char *str);
+
 static void	sort_env_array(char **envp, int size)
 {
 	int		i;
@@ -163,7 +165,7 @@ int	envp_new_var(t_shell *sh, char *str)
 		return (1);// WARNING: malloc error print?
 	new_var = new_env(name, NULL, false);
 	if (!new_var)
-		return (free(name), 1);
+		return (1);
 	if (str[i] == 0)
 		return (!(env_addback(&sh->envs, new_var)));//NOTE:env_addback returns 1 on success
 	return (export_update_var(sh, str));
@@ -186,6 +188,8 @@ int	exec_export(t_shell *sh, t_cmd *cmd)
 			status = export_err_invalid_identifier(arr[i]);
 		else if (export_check_update(arr[i]))
 			status = export_update_var(sh, arr[i]);
+		//update content entirely
+		// or create a new_variable if it does not exist but arr has +=
 		else
 			status = envp_new_var(sh, arr[i]);
 	}
