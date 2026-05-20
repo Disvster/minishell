@@ -1,5 +1,15 @@
 # MINISHELL To-do List
 
+## 20/05/26
+
+- [ ] IMPORTANT check all TODO, NOTE, FIX, WARNING:
+    - TODO is self explanatory
+    - NOTE is a reminder or an explanation
+    - WARNING is either:
+        * exit codes of functions that might be wrong or need an error message print
+        * or uncertainty if a code line/block will work
+    - FIX is things that for sure will not work and need review and re-implementation
+
 ## 06/03/26
 
 ### Goals for next week
@@ -8,27 +18,27 @@ Manel:
 
 - [ ] write functions for the built-in commands
     - [ ] `cd`
-    - [ ] `pwd`
-    - [ ] `echo`
-    - [ ] `exit`
-    - [ ] `exit`
-    - [ ] `env`
-    - [ ] `export`
-    - [ ] `unset`
-- [ ] draft command_exec pipeline:
+    - [X] `pwd`
+    - [X] `echo`
+    - [X] `exit`
+    - [X] `exit`
+    - [X] `env`
+    - [X] `export`
+    - [X] `unset`
+- [X] draft command_exec pipeline:
     - pipes 
     - forks
     - process handling
     - pids
-    - exit status/codes
+    - [ ] exit status/codes
 - [ ] study redirecting and heredocs
 
 Festas:
 
 - finish:
-- [ ] expansion
-- [ ] appending
-- [ ] parsing
+- [X] expansion
+- [X] appending
+- [X] parsing
 - [ ] olhar para signal handling para ajudar o manelito pretty plssss
 
 ## 05/03/26
