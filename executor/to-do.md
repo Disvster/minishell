@@ -2,10 +2,11 @@
 
 ## 18/05
 
-- [ ] export:
+- [X] export:
     - create new node envp_var
     - append existing variable
-- [ ] cd
+- [ ] cd:
+    - update envp vars OLDPWD and PWD
 
 ## 05/05
 

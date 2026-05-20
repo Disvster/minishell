@@ -9,6 +9,7 @@
 /*   Updated: 2026/05/18 22:42:17 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../incs/minishell.h"
 
 t_env	*new_env(char *name, char *cont, bool exp)
@@ -17,7 +18,13 @@ t_env	*new_env(char *name, char *cont, bool exp)
 
 	env = malloc(sizeof(t_env));
 	if (!env)
-		return (free(name), free(cont), NULL);
+	{
+		free(name);
+		name = NULL;
+		free(cont);
+		cont = NULL;
+		return (NULL);
+	}
 	if (!name)
 		return (free(env), NULL);
 	env->next = NULL;
