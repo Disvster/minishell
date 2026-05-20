@@ -10,6 +10,8 @@
         * or uncertainty if a code line/block will work
     - FIX is things that for sure will not work and need review and re-implementation
 
+    - [ ] fix PIPES >= 4 error message from "'|" to "'||"
+
 ## 06/03/26
 
 ### Goals for next week
