@@ -14,17 +14,17 @@
 int	expansion(t_token *head, t_shell *shl)
 {
 	t_token	*temp;
-	// char	*new;
+	char *tmpstr;
 
-	// new = ft_strdup("");
-	// if (!new)
-	// 	return (0);
+	tmpstr = NULL;
 	temp = head;
 	while (temp)
 	{
-		temp->content = expand(temp, shl);//, new);
-		if (!temp->content)
-			return (0);
+		tmpstr = expand(temp, shl);
+		if (!tmpstr)
+			return (free(temp->content), 0);
+		free (temp->content);
+		temp->content = tmpstr;
 		temp = temp->next;
 	}
 	return (1);
