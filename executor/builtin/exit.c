@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 17:29:43 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/18 19:13:07 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/05/22 20:58:20 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ static int	err_exit(const char *s)
 int	exec_exit(t_shell *sh, t_cmd *cmd)
 {
 	int		status;
-	t_cmd	*tmp;
+	// t_cmd	*tmp;
 
 	status = 0;
-	tmp = cmd;
+	// tmp = cmd;
 	write (1, "exit\n", 5);
 	if (cmd->args)
 	{
@@ -70,5 +70,6 @@ int	exec_exit(t_shell *sh, t_cmd *cmd)
 	// TODO: restore fds?
 	cmdlist_clear(&cmd);
 	tokenlist_clear(&sh->tokens);
+	free_envs(&sh->envs);
 	exit(status);
 }

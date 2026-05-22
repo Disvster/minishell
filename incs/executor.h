@@ -65,5 +65,8 @@ int	exec_env(t_shell *sh);
 int	exec_pwd(t_shell *sh);
 int	exec_exit(t_shell *sh, t_cmd *cmd);
 int	exec_unset(t_shell *sh, t_cmd *cmd);
+int	exec_export(t_shell *sh, t_cmd *cmd);
+
+int	exec_pipeline(t_shell *sh, t_cmd *cmds);
 
 #endif

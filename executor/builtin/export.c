@@ -87,7 +87,7 @@ bool	export_validate_arg(char *s)
 
 static int	export_err_invalid_identifier(char *s)
 {
-	ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n");
+	ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n", s);
 	return (1);
 }
 
@@ -104,7 +104,7 @@ bool	export_check_update(char *s)
 char	*ft_strndup(const char *str, size_t n)// TODO: move this somewhere maybe lib
 {
 	char	*dup;
-	int		i;
+	size_t	i;
 
 	if (!str)
 		return (NULL);
@@ -168,7 +168,7 @@ int	envp_new_var(t_shell *sh, char *str)
 	if (!new_var)
 		return (1);
 	if (str[i] == 0)
-		return (!(env_addback(&sh->envs, new_var)));//NOTE:env_addback returns 1 on success
+		return (!(env_addback(&sh->envs, new_var)));// NOTE:env_addback returns 1 on success
 	return (export_update_var(sh, str));
 }
 

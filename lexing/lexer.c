@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 17:35:09 by manmaria          #+#    #+#             */
-/*   Updated: 2026/03/23 18:10:35 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/05/22 21:31:49 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_token	*tokenizer(char *lineread, int *i, int *err_code)
 		return (*err_code = 2, ft_printf_fd(2, ERR_QUOTES), NULL);
 	if (j > 0 && !is_meta(lineread[*i]))
 	{
-		token = init_token(ft_substr(lineread, *i, j));
+		token = init_token(ft_substr(lineread, *i, j));// FIX: LEAK in substr
 		if (!token)
 			return (*err_code = 1, ft_printf_fd(2, ERR_MALLOC), NULL);
 		*i += j;

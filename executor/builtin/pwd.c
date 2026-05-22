@@ -16,6 +16,7 @@ int	exec_pwd(t_shell *sh)
 {
 	char	*cwd;
 
+	(void)sh;
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{

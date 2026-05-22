@@ -60,14 +60,14 @@ void	tokenlist_clear(t_token **lst)
 	t_token	*node;
 
 	tmp = NULL;
-	node = *lst;
+	node = tokenlist_get_head(*lst);
 	while (node)
 	{
 		tmp = node->next;
 		if (node->content)
 			free(node->content);
-		if (node)
-			free(node);
+		free(node);
 		node = tmp;
 	}
+	*lst = NULL;
 }

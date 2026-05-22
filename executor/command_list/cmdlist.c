@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
+/*   cmdlist.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 01:38:51 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/05 19:31:05 by disaster         ###   ########.fr       */
+/*   Updated: 2026/05/22 20:25:01 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	populate_args(t_token *token, t_cmd *cmd)
 t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist)
 {
 	t_token	*temp;
-	int		i;
+	// int		i;
 
 	ext->path = find_cmd_path(token->content, envlist);
 	if (!ext->path)
@@ -43,7 +43,7 @@ t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist)
 		ext->arg_count++;
 		temp = temp->next;
 	}
-	i = 0;
+	// i = 0;
 	if (ext->arg_count > 0)
 	{
 		temp = token->next;
@@ -58,7 +58,7 @@ t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist)
 t_cmd	*create_builtin(t_token *token, t_cmd *bi)
 {
 	t_token	*temp;
-	int		i;
+	// int		i;
 
 	bi->path = token->content;
 	temp = token->next;
@@ -67,7 +67,7 @@ t_cmd	*create_builtin(t_token *token, t_cmd *bi)
 		bi->arg_count++;
 		temp = temp->next;
 	}
-	i = 0;
+	// i = 0;
 	if (bi->arg_count > 0)
 	{
 		temp = token->next;
@@ -119,6 +119,7 @@ t_cmd	*build_command_list(t_token *head, t_env *envs)
 		cmdlist_add_last(&cmds, command);
 		// NOTE: cmdlist_clear cleans list and returns NULL
 		//and the function that calls build_command_list() takes care of the cleanup and error management
+		token = token->next;
 	}
 	return (cmds);
 }

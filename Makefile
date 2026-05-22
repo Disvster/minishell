@@ -4,7 +4,7 @@ LDFLAGS = -Lvendor/readline/lib -lreadline
 LIBFT = libft_manmaria/libft.a
 LIBFT_DIR = libft_manmaria/
 #SRC_DIR = lexing
-SRC_DIRS = lexing parsing token_list_utils ft_printf_fd 
+SRC_DIRS = lexing parsing token_list_utils ft_printf_fd executor executor/builtin executor/command_list
 # executor/builtin
 SRCS = $(foreach d,$(SRC_DIRS),$(wildcard $(d)/*.c))
 #SRCS = $(wildcard $(SRC_DIR)/*.c)

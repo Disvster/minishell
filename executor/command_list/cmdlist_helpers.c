@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 17:21:54 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/05 19:26:18 by disaster         ###   ########.fr       */
+/*   Updated: 2026/05/22 20:31:18 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 int	is_builtin(t_token *token)
 {
-	if (!(ft_strcmp(token->content, "echo")
-			|| ft_strcmp(token->content, "env")
-			|| ft_strcmp(token->content, "pwd")
-			|| ft_strcmp(token->content, "exit")
-			|| ft_strcmp(token->content, "cd")
-			|| ft_strcmp(token->content, "export")
-			|| ft_strcmp(token->content, "unset")))
+	if (!ft_strcmp(token->content, "echo")
+			|| !ft_strcmp(token->content, "env")
+			|| !ft_strcmp(token->content, "pwd")
+			|| !ft_strcmp(token->content, "exit")
+			|| !ft_strcmp(token->content, "cd")
+			|| !ft_strcmp(token->content, "export")
+			|| !ft_strcmp(token->content, "unset"))
 		return (1);
 	return (0);
 }

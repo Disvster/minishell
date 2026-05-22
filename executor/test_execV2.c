@@ -65,22 +65,22 @@ int	exec_builtin(t_shell *sh, t_cmd *cmd)
 	return (1);
 }
 
-static int	command_count(t_cmd *head)
-{
-	int		count;
-	t_cmd	*temp;
+// static int	command_count(t_cmd *head)
+// {
+// 	int		count;
+// 	t_cmd	*temp;
+//
+// 	count = 0;
+// 	temp = head;
+// 	while (temp)
+// 	{
+// 		count++;
+// 		temp = temp->next;
+// 	}
+// 	return (count);
+// }
 
-	count = 0;
-	temp = head;
-	while (temp)
-	{
-		count++;
-		temp = temp->next;
-	}
-	return (count);
-}
-
-static char	**env_list_to_array(t_env *envs)
+char	**env_list_to_array(t_env *envs)
 {
 	char	**envp;
 	int		count;

@@ -57,7 +57,7 @@ typedef struct s_shell
 	t_env		*envs;
 	t_token		*tokens;
 	t_pipeline	pipeline;
-	int		exit_code;	
+	int			exit_code;	
 }	t_shell;
 
 // t_dlist	*dlist_new_node(void *data);
