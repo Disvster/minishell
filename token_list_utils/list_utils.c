@@ -65,7 +65,10 @@ void	tokenlist_clear(t_token **lst)
 	{
 		tmp = node->next;
 		if (node->content)
+		{
 			free(node->content);
+			node->content = NULL;
+		}
 		free(node);
 		node = tmp;
 	}

@@ -49,10 +49,8 @@ static int	err_exit(const char *s)
 int	exec_exit(t_shell *sh, t_cmd *cmd)
 {
 	int		status;
-	// t_cmd	*tmp;
 
 	status = 0;
-	// tmp = cmd;
 	write (1, "exit\n", 5);
 	if (cmd->args)
 	{
