@@ -32,18 +32,18 @@ int	main(int ac, char **av, char **envp)
 	// env = shl.envs;
 	while (1)
 	{
-		shl.lineread = readline("[minishell]");
+		shl.lineread = readline("[minishell]$ ");
 		parsing(&shl);
 		tok = shl.tokens;
 		if (!tok)
 			return (1);
-		while (tok)
-		{
-			printf("Token:%s \n", tok->content);
-			//TYPE CHECK:
-			//printf("Token Type :%d \n", tok->type);
-			tok = tok->next;
-		}
+		// while (tok)
+		// {
+		// 	printf("Token:%s \n", tok->content);
+		// 	//TYPE CHECK:
+		// 	//printf("Token Type :%d \n", tok->type);
+		// 	tok = tok->next;
+		// }
 
 		t_cmd *cmds = build_command_list(shl.tokens, shl.envs);
 		int status = exec_pipeline(&shl, cmds);
