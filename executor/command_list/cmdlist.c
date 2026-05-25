@@ -32,7 +32,6 @@ void	populate_args(t_token *token, t_cmd *cmd)
 t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist)
 {
 	t_token	*temp;
-	// int		i;
 
 	ext->path = find_cmd_path(token->content, envlist);
 	if (!ext->path)
@@ -43,7 +42,6 @@ t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist)
 		ext->arg_count++;
 		temp = temp->next;
 	}
-	// i = 0;
 	if (ext->arg_count > 0)
 	{
 		temp = token->next;
@@ -58,7 +56,6 @@ t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist)
 t_cmd	*create_builtin(t_token *token, t_cmd *bi)
 {
 	t_token	*temp;
-	// int		i;
 
 	bi->path = token->content;
 	temp = token->next;
@@ -67,7 +64,6 @@ t_cmd	*create_builtin(t_token *token, t_cmd *bi)
 		bi->arg_count++;
 		temp = temp->next;
 	}
-	// i = 0;
 	if (bi->arg_count > 0)
 	{
 		temp = token->next;
@@ -80,24 +76,48 @@ t_cmd	*create_builtin(t_token *token, t_cmd *bi)
 	return (bi);
 }
 
-t_cmd	*create_command(t_token *token, t_env *envlist)
+t_cmd	*create_command(t_token **token, t_env *envlist)
 {
 	t_cmd	*cmd;
-	
+	int		i;
+
 	cmd = NULL;
-	if (token->type == COMMAND)
+	if ((*token)->type == COMMAND)
 	{
 		cmd = ft_calloc(1, sizeof(t_cmd));
 		if (!cmd)
 			return (NULL);
-		if (is_builtin(token))
-			cmd = create_builtin(token, cmd);
+		if (is_builtin(*token))
+			cmd = create_builtin(*token, cmd);
 		else
-			cmd = create_external(token, cmd, envlist);
+			cmd = create_external(*token, cmd, envlist);
 		cmd->next = NULL;
 		cmd->prev = NULL;
 	}
+	// TODO:
+	// else if (token->type == REDIR)
+	// 	...
+	if (cmd)
+	{
+		i = -1;//add on more skp herer`
+		while (*token && ++i < cmd->arg_count)
+			*token = (*token)->next;
+	}
 	return (cmd);
+}
+
+static int	tokenlist_has_commands(t_token *token)
+{
+	t_token	*tmp;
+
+	tmp = token;
+	while (tmp)
+	{
+		if (tmp->type == COMMAND)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
 }
 
 t_cmd	*build_command_list(t_token *head, t_env *envs)
@@ -113,8 +133,8 @@ t_cmd	*build_command_list(t_token *head, t_env *envs)
 	command = NULL;
 	while (token)
 	{
-		command = create_command(token, envs);
-		if (!command)
+		command = create_command(&token, envs);
+		if (!command && tokenlist_has_commands(token))
 			return (cmdlist_clear(&cmds));
 		cmdlist_add_last(&cmds, command);
 		// NOTE: cmdlist_clear cleans list and returns NULL

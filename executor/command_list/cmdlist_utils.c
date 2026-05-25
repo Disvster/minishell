@@ -62,11 +62,11 @@ void	*cmdlist_clear(t_cmd **head)
 {
 	t_cmd	*temp;
 	t_cmd	*node;
-	int		i;
+	// int		i;
 
 	temp = NULL;
 	node = *head;
-	i = -1;
+	// i = -1;
 	while (node)
 	{
 		temp = node->next;
@@ -77,14 +77,15 @@ void	*cmdlist_clear(t_cmd **head)
 		}
 		if (node->args)
 		{
+			free(node->args);
 			// WARNING: node->args is a pointer array 
 			// where each variable in the array points to 
 			//	(1 or more)token->content(s)
-			while (node->args[++i])
-			{
-				free(node->args[i]);
-				node->args[i] = NULL;
-			}
+			// while (node->args[++i])
+			// {
+			// 	free(node->args[i]);
+			// 	node->args[i] = NULL;
+			// }
 		}
 		free(node);
 		node = temp;

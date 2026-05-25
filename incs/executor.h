@@ -54,8 +54,8 @@ int		is_builtin(t_token *token);
 char	*pipex_strjoin(char *path, char *cmd);
 char	*search_paths(char **paths, char *cmd);
 char	*find_cmd_path(char *cmd, t_env *envlist);
+t_cmd	*create_command(t_token **token, t_env *envlist);
 t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist);
-t_cmd	*create_command(t_token *token, t_env *envlist);
 t_cmd	*create_builtin(t_token *token, t_cmd *bi);
 t_cmd	*build_command_list(t_token *head, t_env *envs);
 
