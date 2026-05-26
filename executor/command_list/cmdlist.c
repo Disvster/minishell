@@ -99,8 +99,8 @@ t_cmd	*create_command(t_token **token, t_env *envlist)
 	// 	...
 	if (cmd)
 	{
-		i = -1;//add on more skp herer`
-		while (*token && ++i < cmd->arg_count)
+		i = -1;//add on more skp here?
+		while (*token && ++i < cmd->arg_count)//NOTE: && *token->type != COMMAND
 			*token = (*token)->next;
 	}
 	return (cmd);
@@ -133,13 +133,19 @@ t_cmd	*build_command_list(t_token *head, t_env *envs)
 	command = NULL;
 	while (token)
 	{
-		command = create_command(&token, envs);
-		if (!command && tokenlist_has_commands(token))
-			return (cmdlist_clear(&cmds));
-		cmdlist_add_last(&cmds, command);
-		// NOTE: cmdlist_clear cleans list and returns NULL
-		//and the function that calls build_command_list() takes care of the cleanup and error management
+		if (token->type == COMMAND)// TODO: && REDIRS
+		{
+			command = create_command(&token, envs);
+			if (!command && tokenlist_has_commands(token))
+				return (cmdlist_clear(&cmds));
+			cmdlist_add_last(&cmds, command);
+		}
+		if (!token)// && token->next)//NOTE: do I need this?
+			break ;
 		token = token->next;
 	}
 	return (cmds);
 }
+// NOTE: cmdlist_clear cleans list and returns NULL
+// and the function that calls build_command_list() takes care of the cleanup and error management
+// if (token->next)

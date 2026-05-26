@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 21:13:56 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/20 14:21:28 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/05/26 17:02:51 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 #include "../../incs/executor.h"
 
 int	envp_new_var(t_shell *sh, char *str);
+
+static size_t keylen(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i] && s[i] != '=')
+		i++;
+	return (i);
+}
 
 static void	sort_env_array(char **envp, int size)
 {
@@ -55,12 +67,12 @@ static int	export_print_vars(t_shell *sh)
 	{
 		curr = sh->envs;
 		ft_printf("declare -x ");
-		while (curr && ft_strcmp(envp[i], curr->name))
+		while (curr && ft_strncmp(curr->name, envp[i], keylen(envp[i])))
 			curr = curr->next;
 		ft_printf("%s", curr->name);
-		if (curr->exported == true && !curr->content)
+		if (curr && curr->exported == true && !curr->content)
 			ft_printf("=\"\"");
-		else if (curr->exported == true)
+		else if (curr && curr->exported == true)
 			ft_printf("=\"%s\"", curr->content);
 		ft_printf("\n");
 	}
@@ -198,7 +210,7 @@ int	exec_export(t_shell *sh, t_cmd *cmd)
 	t_env	*env;
 
 	status = 0;
-	if (!cmd->args[0])
+	if (!cmd->args || !cmd->args[0])
 		return (export_print_vars(sh));
 	arr = cmd->args;
 	i = -1;

@@ -2,6 +2,22 @@
 
 ## 20/05/26
 
+- [X] this is now fixed
+~when I use the `export` command no args, it is printing these vars:~
+```
+declare -x XDG_SEAT="seat0"
+declare -x XDG_SEAT="seat0"
+```
+~instead of:~
+``` 
+declare -x XDG_SEAT="seat0"
+declare -x XDG_SEAT_PATH="/org/freedesktop/DisplayManager/Seat0"
+```
+- [X] need to look into this
+
+
+## 20/05/26
+
 - [ ] IMPORTANT check all TODO, NOTE, FIX, WARNING:
     - TODO is self explanatory
     - NOTE is a reminder or an explanation

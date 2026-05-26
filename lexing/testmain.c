@@ -6,7 +6,7 @@
 /*   By: rodmorei <rodmorei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 16:23:34 by rodmorei          #+#    #+#             */
-/*   Updated: 2026/05/22 21:10:57 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/05/25 23:19:49 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	main(int ac, char **av, char **envp)
 		// 	//printf("Token Type :%d \n", tok->type);
 		// 	tok = tok->next;
 		// }
-
 		t_cmd *cmds = build_command_list(shl.tokens, shl.envs);
+		// TODO: need to follow child processes in GDB to check errors
 		int status = exec_pipeline(&shl, cmds);
 		shl.exit_code = status;
 		cmdlist_clear(&cmds);
