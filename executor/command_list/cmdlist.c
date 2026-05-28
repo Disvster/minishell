@@ -37,7 +37,7 @@ t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist)
 
 	ext->path = find_cmd_path(token->content, envlist);
 	if (!ext->path)
-		return (NULL);
+		return (free(ext), ft_printf_fd(2, "Error: %s: command not found\n", token->content), NULL);
 	temp = token->next;
 	while (temp && temp->type == ARG)
 	{
@@ -53,15 +53,6 @@ t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist)
 		temp = token->next;
 		populate_args(temp, ext, false);
 	}
-	//WARNING: REVIEW else
-	// else
-	// {
-	// 	ext->args = ft_calloc(2, sizeof(char *));
-	// 	if (!ext->args)
-	// 		return (NULL);
-	// 	ext->args[0] = token->content;
-	// 	ext->args[1] = NULL;
-	// }
 	return (ext);
 }
 
@@ -85,15 +76,6 @@ t_cmd	*create_builtin(t_token *token, t_cmd *bi)
 			return (NULL);
 		populate_args(temp, bi, true);
 	}
-	//WARNING: REVIEW else
-	// else
-	// {
-	// 	bi->args = ft_calloc(2, sizeof(char *));
-	// 	if (!bi->args)
-	// 		return (NULL);
-	// 	bi->args[0] = token->content;
-	// 	bi->args[1] = NULL;
-	// }
 	return (bi);
 }
 
@@ -112,14 +94,14 @@ t_cmd	*create_command(t_token **token, t_env *envlist)
 			cmd = create_builtin(*token, cmd);
 		else
 			cmd = create_external(*token, cmd, envlist);
-		cmd->next = NULL;
-		cmd->prev = NULL;
 	}
 	// TODO:
 	// else if (token->type == REDIR)
 	// 	...
 	if (cmd)
 	{
+		// cmd->next = NULL;
+		// cmd->prev = NULL;
 		i = -1;//add on more skp here?
 		while (*token && ++i < cmd->arg_count)//NOTE: && *token->type != COMMAND
 			*token = (*token)->next;
