@@ -2,6 +2,10 @@
 
 ## 20/05/26
 
+### EXPORT:
+
+- [ ] `new_env()` can't have `i(!cont)` if we wan't to use it for export, because `cont` might not exist because var isn't exported, it might not always mean malloc error;
+
 - [X] this is now fixed
 ~when I use the `export` command no args, it is printing these vars:~
 ```
@@ -13,8 +17,20 @@ declare -x XDG_SEAT="seat0"
 declare -x XDG_SEAT="seat0"
 declare -x XDG_SEAT_PATH="/org/freedesktop/DisplayManager/Seat0"
 ```
-- [X] need to look into this
-
+- [ ] but now I have a new issue which is I need to know in the `ft_strncmp()`s which string is the one that I'm accurately searching for, e.g.:
+    - if str is "ola"
+    - and env->name is "olaadeus"
+    - then `ft_strncmp(str, env->name, keylen(env->name))`
+    - this would give a false positive
+```
+$> export ola=adeus
+$> export
+declare -x ola="adeus"
+$> export olateste=xau
+$> export
+declare -x ola="adeusxau"
+declare -x olateste
+```
 
 ## 20/05/26
 

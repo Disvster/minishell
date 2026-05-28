@@ -144,7 +144,7 @@ int	export_update_var(t_shell *sh, char *str)
 	if (!add)
 		return (1);
 	add += 1;
-	while (env && ft_strncmp(env->name, str, ft_strlen(env->name)))
+	while (env && ft_strncmp(env->name, str, keylen(env->name)))
 		env = env->next;
 	if (!env)
 		return (1);
@@ -179,8 +179,9 @@ int	envp_new_var(t_shell *sh, char *str)
 	new_var = new_env(name, NULL, false);
 	if (!new_var)
 		return (1);
+	env_addback(&sh->envs, new_var);
 	if (str[i] == 0)
-		return (!(env_addback(&sh->envs, new_var)));// NOTE:env_addback returns 1 on success
+		return (0);// NOTE:env_addback returns 1 on success
 	return (export_update_var(sh, str));
 }
 
@@ -219,7 +220,7 @@ int	exec_export(t_shell *sh, t_cmd *cmd)
 		if (!export_validate_arg(arr[i]))
 			status = export_err_invalid_identifier(arr[i]);
 		env = sh->envs;
-		while (env && ft_strncmp(env->name, arr[i], ft_strlen(env->name)))
+		while (env && ft_strncmp(env->name, arr[i], keylen(arr[i])))
 			env = env->next;
 		if (export_check_update(arr[i]) && env)
 			status = export_update_var(sh/*env*/, arr[i]);// TODO: change param, don't need to search for matching env in list in this function
