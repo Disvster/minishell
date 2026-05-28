@@ -13,12 +13,14 @@
 #include "../../incs/executor.h"
 #include "../../incs/minishell.h"
 
-void	populate_args(t_token *token, t_cmd *cmd)
+void	populate_args(t_token *token, t_cmd *cmd, bool is_bi)
 {
 	int	i;
 
 	i = 0;
-	while (token)
+	if (is_bi == false)
+		i++;
+	while (token && token->type != PIPE)
 	{
 		if (token->type == ARG)
 			cmd->args[i++] = token->content;// NOTE: where is ownership? here or in token_list?
@@ -42,14 +44,24 @@ t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist)
 		ext->arg_count++;
 		temp = temp->next;
 	}
+	ext->args = ft_calloc((ext->arg_count + 2), sizeof(char *));
+	if (!ext->args)
+		return (NULL);
+	ext->args[0] = ext->path;
 	if (ext->arg_count > 0)
 	{
 		temp = token->next;
-		ext->args = ft_calloc((ext->arg_count + 1), sizeof(char *));
-		if (!ext->args)
-			return (NULL);
-		populate_args(temp, ext);
+		populate_args(temp, ext, false);
 	}
+	//WARNING: REVIEW else
+	// else
+	// {
+	// 	ext->args = ft_calloc(2, sizeof(char *));
+	// 	if (!ext->args)
+	// 		return (NULL);
+	// 	ext->args[0] = token->content;
+	// 	ext->args[1] = NULL;
+	// }
 	return (ext);
 }
 
@@ -59,6 +71,7 @@ t_cmd	*create_builtin(t_token *token, t_cmd *bi)
 
 	bi->path = token->content;
 	temp = token->next;
+	bi->is_bi = true;
 	while (temp && temp->type == ARG)
 	{
 		bi->arg_count++;
@@ -70,9 +83,17 @@ t_cmd	*create_builtin(t_token *token, t_cmd *bi)
 		bi->args = ft_calloc((bi->arg_count + 1), sizeof(char *));
 		if (!bi->args)
 			return (NULL);
-		populate_args(temp, bi);
+		populate_args(temp, bi, true);
 	}
-	bi->is_bi = true;
+	//WARNING: REVIEW else
+	// else
+	// {
+	// 	bi->args = ft_calloc(2, sizeof(char *));
+	// 	if (!bi->args)
+	// 		return (NULL);
+	// 	bi->args[0] = token->content;
+	// 	bi->args[1] = NULL;
+	// }
 	return (bi);
 }
 

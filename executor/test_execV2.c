@@ -140,6 +140,7 @@ static void	exec_pipeline_child(t_shell *sh, t_cmd *curr, int *pipefd)
 	envp = env_list_to_array(sh->envs);
 	if (!envp)
 		exit(1);//WARNING: can I exit here?
+	// printf("%s\n%s\n", curr->path, curr->args[0]);//HACK: db
 	execve(curr->path, curr->args, envp);
 	perror("execve");
 	free_split(envp);
