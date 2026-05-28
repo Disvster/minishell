@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 21:13:56 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/26 17:02:51 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/05/28 16:47:52 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,22 @@
 
 int	envp_new_var(t_shell *sh, char *str);
 
-static size_t keylen(char *s)
+static size_t keylen(char *s1, char *s2)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	if (!s)
+	if (!s1 || !s2)
 		return (0);
-	while (s[i] && s[i] != '=')
+	while (s1[i] && s1[i] != '=' && s1[i] != '+')
 		i++;
-	return (i);
+	j = 0;
+	while (s2[j] && s2[j] != '=' && s2[i] != '+')
+		j++;
+	if (i >= j)
+		return (i);
+	return (j);
 }
 
 static void	sort_env_array(char **envp, int size)
@@ -67,7 +73,7 @@ static int	export_print_vars(t_shell *sh)
 	{
 		curr = sh->envs;
 		ft_printf("declare -x ");
-		while (curr && ft_strncmp(curr->name, envp[i], keylen(envp[i])))
+		while (curr && ft_strncmp(curr->name, envp[i], keylen(envp[i], curr->name)))
 			curr = curr->next;
 		ft_printf("%s", curr->name);
 		if (curr && curr->exported == true && !curr->content)
@@ -92,7 +98,7 @@ bool	export_validate_arg(char *s)
 			return (false);
 		s++;
 	}
-	if (*s == '+' && *s + 1 != '=')
+	if (*s == '+' && *(s + 1) != '=')
 		return (false);
 	return (true);
 }
@@ -108,7 +114,7 @@ bool	export_check_update(char *s)
 	char	*tmp;
 
 	tmp = ft_strchr(s, '+');
-	if (!tmp || *tmp + 1 != '=')
+	if (!tmp || *(tmp + 1) != '=')
 		return (false);
 	return (true);
 }
@@ -144,7 +150,7 @@ int	export_update_var(t_shell *sh, char *str)
 	if (!add)
 		return (1);
 	add += 1;
-	while (env && ft_strncmp(env->name, str, keylen(env->name)))
+	while (env && ft_strncmp(env->name, str, keylen(env->name, str)))
 		env = env->next;
 	if (!env)
 		return (1);
@@ -200,6 +206,7 @@ int	export_replace_content(t_env *env, char *str)
 	if (env->content)
 		free(env->content);
 	env->content = replace;
+	env->exported = true;
 	return (0);
 }
 
@@ -220,7 +227,7 @@ int	exec_export(t_shell *sh, t_cmd *cmd)
 		if (!export_validate_arg(arr[i]))
 			status = export_err_invalid_identifier(arr[i]);
 		env = sh->envs;
-		while (env && ft_strncmp(env->name, arr[i], keylen(arr[i])))
+		while (env && ft_strncmp(env->name, arr[i], keylen(arr[i], env->name)))
 			env = env->next;
 		if (export_check_update(arr[i]) && env)
 			status = export_update_var(sh/*env*/, arr[i]);// TODO: change param, don't need to search for matching env in list in this function
