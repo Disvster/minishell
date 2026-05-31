@@ -12,7 +12,7 @@
 
 #include "../incs/minishell.h"
 
-char	*env_identifier(t_shell *shl, char *to_id, int	*index)
+char	*env_identifier(t_shell *shl, char *to_id, int *index)
 {
 	int		i;
 	char	*env_name;
