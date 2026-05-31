@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 20:50:33 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/18 23:40:10 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/05/31 22:14:14 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ typedef struct s_line
 	bool	double_q;
 }				t_line;
 
+typedef struct s_redirect
+{
+    int     type;      // INFILE, OUTFILE, APPEND
+    char    *filename; // The file to redirect to/from
+    int     fd;        // Original fd (0 for input, 1 for output)
+}   t_redirect;
+
 typedef struct s_cmd
 {
 	int				pid;
@@ -42,6 +49,9 @@ typedef struct s_cmd
 	int				arg_count;
 	int				redirect_count;
 	bool			is_bi;
+	t_redirect		*redirs;
+	char			*infile;
+	char			*outfile;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }				t_cmd;

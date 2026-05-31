@@ -15,21 +15,33 @@
 
 void	populate_args(t_token *token, t_cmd *cmd, bool is_bi)
 {
-	int	i;
+	t_token *tmp;
+	int		i;
 
 	i = 0;
+	tmp = token;
 	if (is_bi == false)
 		i++;
-	while (token && token->type != PIPE)
+	while (tmp && tmp->type != PIPE)
 	{
-		if (token->type == ARG)
-			cmd->args[i++] = token->content;// NOTE: where is ownership? here or in token_list?
-		if (token->type == INFILE || token->type == OUTFILE
-			|| token->type == APPEND || token->type == HEREDOC)
+		if (tmp->type == ARG)
+			cmd->args[i++] = tmp->content;// NOTE: where is ownership? here or in temp_list?
+		if (tmp->type == INFILE || tmp->type == OUTFILE
+			|| tmp->type == APPEND || tmp->type == HEREDOC)
 			cmd->redirect_count++;
-		token = token->next;
+		tmp = tmp->next;
 	}
+	// WARNING: REVIEW
+	// tmp = token;
+	// while (tmp && tmp->type != PIPE)
+	// {
+	// 	if (tmp->type == INFILE || tmp->type == OUTFILE
+	// 		|| tmp->type == APPEND || tmp->type == HEREDOC)
+	// 		cmd->redirect_count++;
+	// 	tmp = tmp->prev;
+	// }
 }
+
 
 t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist)
 {
@@ -53,6 +65,9 @@ t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist)
 		temp = token->next;
 		populate_args(temp, ext, false);
 	}
+	// WARNING: REVIEW
+	// if (ext->redirect_count > 0)
+	// 	populate_redirect_array(token, ext);
 	return (ext);
 }
 
@@ -76,6 +91,9 @@ t_cmd	*create_builtin(t_token *token, t_cmd *bi)
 			return (NULL);
 		populate_args(temp, bi, true);
 	}
+	// WARNING: REVIEW
+	// if (bi->redirect_count > 0)
+	// 	populate_redirect_array(token, bi);
 	return (bi);
 }
 
