@@ -29,7 +29,7 @@ char	*env_identifier(t_shell *shl, char *to_id, int *index)
 	if (variable)
 		return (free(env_name), ft_strdup(variable->content));
 	else
-		return (ft_strdup(""));
+		return (free(env_name), ft_strdup(""));
 }
 
 t_env	*find_env(t_shell *shl, char *env_name)
