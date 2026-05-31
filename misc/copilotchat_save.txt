@@ -1,21 +1,68 @@
-> #file:executor/signal.c
+-> Executor:
+> #file:executor/executor.c
+
+-> Built-ins:
+> #file:executor/builtin/cd.c
+> #file:executor/builtin/echo.c
 > #file:executor/builtin/env.c
 > #file:executor/builtin/exit.c
+> #file:executor/builtin/export.c
 > #file:executor/builtin/pwd.c
 > #file:executor/builtin/unset.c
+
+-> Command List Builder
+> #file:executor/command_list/cmdlist.c
+> #file:executor/command_list/cmdlist_helpers.c
+> #file:executor/command_list/cmdlist_utils.c
+
+-> Header Files:
+> #file:incs/executor.h
 > #file:incs/minishell.h
-> #file:incs/pipex.h
 > #file:incs/token_list.h
+
+-> Lexer:
 > #file:lexing/lexer.c
 > #file:lexing/lex_utils.c
 > #file:lexing/lex_utils2.c
+
+-> Test Main:
+> #file:lexing/testmain.c
+
+-> Parsing:
 > #file:parsing/parsing.c
 > #file:parsing/parsing_utils.c
+> #file:parsing/syntax_check.c
+
+-> Expansions:
 > #file:parsing/expansion.c
 > #file:parsing/expansion_utils.c
+
+-> Environment List Builder:
 > #file:parsing/init_env.c
 > #file:parsing/env_list_utils.c
-> #file:main.c
+
+-> Token List Utils:
 > #file:token_list_utils/list_utils.c
 > #file:token_list_utils/list_utils2.c
 > #file:main.c
+
+
+I am working on a 42 School Minishell project in C on Linux. My project already has:
+
+- A lexer that tokenizes user input into a linked list of `t_token` structs, with types like COMMAND, ARG, PIPE, INFILE, OUTFILE, etc.
+- A parser that sets token types, expands environment variables, and builds a command list (`t_cmd` linked list) from the tokens.
+- Built-in command implementations for `cd`, `echo`, `env`, `exit`, `export`, `pwd` and `unset`.
+- An executor that supports pipelines using an iterative approach (with `prev_read` to manage pipe chaining), forks for external commands, and executes built-ins in the parent process if not in a pipeline.
+- Utilities for environment variable management, token and command list management, and error handling.
+- The code should follow 42 Norminette rules (functions <= 25 lines, no mixed declarations/initializations, <= 4 params per function, etc.).
+
+The project structure includes directories for executor, builtins, lexing, parsing, and headers in `incs/`.
+
+**You should assume:**
+- The shell can already parse and execute simple and piped commands, including built-ins and external commands.
+- The executor uses a `t_pipeline` struct in `t_shell` to track pipeline state and child PIDs.
+- Environment variables are stored as a linked list (`t_env`), and can be converted to an array for `execve`.
+- All memory management and file descriptor handling should be robust and follow best practices.
+
+**In this new conversation I tackle a different part of the project. Please ask clarifying questions if needed, and provide code or design advice that fits the above context and 42 Norminette.**
+
