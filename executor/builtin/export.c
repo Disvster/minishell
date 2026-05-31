@@ -15,7 +15,7 @@
 
 int	envp_new_var(t_shell *sh, char *str);
 
-static size_t keylen(char *s1, char *s2)
+size_t keylen(char *s1, char *s2)
 {
 	int	i;
 	int	j;
@@ -139,7 +139,7 @@ char	*ft_strndup(const char *str, size_t n)// TODO: move this somewhere maybe li
 	return (dup);
 }
 
-int	export_update_var(t_shell *sh, char *str)
+int	export_update_var(t_shell *sh, char *str)//TODO: change param, dont need to search here for env
 {
 	char	*add;
 	char	*new_content;
@@ -191,15 +191,22 @@ int	envp_new_var(t_shell *sh, char *str)
 	return (export_update_var(sh, str));
 }
 
-int	export_replace_content(t_env *env, char *str)
+int	envp_replace_content(t_env *env, char *str, int bi)
 {
 	char *replace;
 	char *tmp;
 
-	tmp = ft_strchr(str, '=');
-	if (!tmp)
-		return (0);
-	tmp += 1;
+	if (!env)
+		return (-1);
+	if (bi == EXPORT)
+	{
+		tmp = ft_strchr(str, '=');
+		if (!tmp)
+			return (0);
+		tmp += 1;
+	}
+	else
+		tmp = str;
 	replace = ft_strdup(tmp);
 	if (!replace && tmp)
 		return (1);// WARNING: malloc error print?
@@ -232,7 +239,7 @@ int	exec_export(t_shell *sh, t_cmd *cmd)
 		if (export_check_update(arr[i]) && env)
 			status = export_update_var(sh/*env*/, arr[i]);// TODO: change param, don't need to search for matching env in list in this function
 		else if (!export_check_update(arr[i]) && env)
-			status = export_replace_content(env, arr[i]);
+			status = envp_replace_content(env, arr[i], EXPORT);
 		else// if ((!export_check_update(arr[i]) || export_check_update(arr[i]) && !env))
 			status = envp_new_var(sh, arr[i]);
 	}

@@ -50,7 +50,9 @@
 
 int	exec_builtin(t_shell *sh, t_cmd *cmd)
 {
-	if (ft_strcmp(cmd->path, "echo") == 0)
+	if (ft_strcmp(cmd->path, "cd") == 0)
+		return (exec_cd(sh, cmd));
+	else if (ft_strcmp(cmd->path, "echo") == 0)
 		return (exec_echo(sh, cmd));
 	else if (ft_strcmp(cmd->path, "env") == 0)
 		return (exec_env(sh));
@@ -140,7 +142,6 @@ static void	exec_pipeline_child(t_shell *sh, t_cmd *curr, int *pipefd)
 	envp = env_list_to_array(sh->envs);
 	if (!envp)
 		exit(1);//WARNING: can I exit here?
-	// printf("%s\n%s\n", curr->path, curr->args[0]);//HACK: db
 	execve(curr->path, curr->args, envp);
 	perror("execve");
 	free_split(envp);

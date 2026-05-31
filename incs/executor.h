@@ -19,6 +19,13 @@
 # include <stdbool.h>
 # include <signal.h>
 
+# ifndef BUFFSIZE
+#  define BUFFSIZE 4096
+# endif
+
+# define EXPORT 4
+# define CD 5
+
 typedef struct s_line
 {
 	char	**specs;
@@ -59,7 +66,13 @@ t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist);
 t_cmd	*create_builtin(t_token *token, t_cmd *bi);
 t_cmd	*build_command_list(t_token *head, t_env *envs);
 
+//utils export
+int		envp_replace_content(t_env *env, char *str, int bi);
+size_t	keylen(char *s1, char *s2);
+t_env	*search_for_key(t_shell *sh, char *key);
+
 //built-ins
+int	exec_cd(t_shell *sh, t_cmd *cmd);
 int	exec_echo(t_shell *sh, t_cmd *cmd);
 int	exec_env(t_shell *sh);
 int	exec_pwd(t_shell *sh);
