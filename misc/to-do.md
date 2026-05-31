@@ -1,10 +1,23 @@
 # MINISHELL To-do List
 
+## 31/05/26
+
+- [ ] signals:
+    - [ ] <C-j> is the same as ENTER (currently exits minishell unsafely if no input is given)
+    - [ ] <C-d> is equal to exit built-in call
+    - [X] <C-l> clears screen (is already working for some reason)
+
+- [ ] implement working history when pressing up arrow
+
+- [ ] readline prompt with pwd (`$HOME == '~'` if possible)
+
+- [ ] REDIRECTS!!
+- [ ] HEREDOC  !!
 
 ## 28/05/26
 
 need fix here
-```c
+```sh
 [minishell]$ echo $(cat Makefile)
 $(t Makefile)
 ```
@@ -17,12 +30,12 @@ $(t Makefile)
 
 - [X] this is now fixed
 ~when I use the `export` command no args, it is printing these vars:~
-```
+```sh
 declare -x XDG_SEAT="seat0"
 declare -x XDG_SEAT="seat0"
 ```
 ~instead of:~
-``` 
+```sh
 declare -x XDG_SEAT="seat0"
 declare -x XDG_SEAT_PATH="/org/freedesktop/DisplayManager/Seat0"
 ```
@@ -31,7 +44,7 @@ declare -x XDG_SEAT_PATH="/org/freedesktop/DisplayManager/Seat0"
     - and env->name is "olaadeus"
     - then `ft_strncmp(str, env->name, keylen(env->name))`
     - this would give a false positive
-```
+```sh
 $> export ola=adeus
 $> export
 declare -x ola="adeus"
