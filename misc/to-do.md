@@ -10,6 +10,7 @@
 - [ ] implement working history when pressing up arrow
 
 - [ ] readline prompt with pwd (`$HOME == '~'` if possible)
+    -  check afonso and wallace's build_prompt() function for inspo
 
 - [ ] REDIRECTS!!
 - [ ] HEREDOC  !!
