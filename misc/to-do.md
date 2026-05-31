@@ -51,6 +51,7 @@ declare -x olateste
         * exit codes of functions that might be wrong or need an error message print
         * or uncertainty if a code line/block will work
     - FIX is things that for sure will not work and need review and re-implementation
+    - HACK is code blocks only for debugging
 
     - [ ] fix PIPES >= 4 error message from "'|" to "'||"
 
