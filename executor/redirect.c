@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 19:45:31 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/31 23:33:42 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/05/31 23:41:22 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,31 +129,47 @@ static void	traverse_forward(t_token *token, t_cmd *cmd, int *i)
 	}
 }
 
-void	populate_redirects(t_token *token, t_cmd *cmd)
-{
-	int	i;
-
-	i = 0;
-	traverse_back(token, cmd, &i);
-	traverse_forward(token, cmd, &i);
-}
-
 void	resolve_redirects(t_cmd *cmd, char **input_file, char **output_file)
 {
-	int	i;
+	int		i;
+	bool	infile;
 
+	i = 0;
+	infile = false;
 	*input_file = NULL;
 	*output_file = NULL;
-	i = 0;
 	while (i < cmd->redirect_count)
 	{
-		if (cmd->redirs[i].type == INFILE)
+		if (cmd->redirs[i].type == INFILE && infile == false)
+		{
 			*input_file = cmd->redirs[i].filename;
+			infile = true;
+		}
 		else if (cmd->redirs[i].type == OUTFILE
 			|| cmd->redirs[i].type == APPEND)
 			*output_file = cmd->redirs[i].filename;
 		i++;
 	}
+}
+
+void	populate_redirects(t_token *token, t_cmd *cmd)
+{
+	int	i;
+
+	i = 0;
+	//redir count for alloc
+	cmd->redirect_count = count_redirects(token);
+	if (cmd->redirect_count == 0)
+		return ;
+	//alloc mem for redir array
+	cmd->redirs = ft_calloc(cmd->redirect_count, sizeof(char **));
+	if (!cmd->redirs)
+		return (ft_printf_fd(2, "malloc error on redirect array"));
+	traverse_back(token, cmd, &i);
+	traverse_forward(token, cmd, &i);
+	resolve_redirects(cmd, &cmd->infile, &cmd->outfile);
+	//depois implementar isto na build_cmdlist()
+	//depois utilizar esta info na execution
 }
 
 // void	*populate_redirect_array(t_token *token, t_cmd *cmd)
