@@ -54,7 +54,7 @@
 #include "../incs/executor.h"
 #include "../incs/minishell.h"
 
-int	count_redirects(t_token *token)
+static int	count_redirects(t_token *token)
 {
 	int		count;
 	t_token	*tmp;
@@ -129,7 +129,7 @@ static void	traverse_forward(t_token *token, t_cmd *cmd, int *i)
 	}
 }
 
-void	resolve_redirects(t_cmd *cmd, char **input_file, char **output_file)
+static void	resolve_redirects(t_cmd *cmd, char **input_file, char **output_file)
 {
 	int		i;
 	bool	infile;
@@ -168,40 +168,98 @@ void	populate_redirects(t_token *token, t_cmd *cmd)
 	traverse_back(token, cmd, &i);
 	traverse_forward(token, cmd, &i);
 	resolve_redirects(cmd, &cmd->infile, &cmd->outfile);
-	//depois implementar isto na build_cmdlist()
-	//depois utilizar esta info na execution
+}
+// NOTE: maybe just open the redirect files after the t_redir* array is created
+//		 and if fd < 0 print error message, then either
+//		 - continue to execution if we have a valid infile even if other ones where wrong
+//		 OR 
+//		 - stop execution of that child process if any infile was wrong
+//		 (outfiles will be created if they don't exists or stop if they don't have permissions?)
+static int	open_redirect_file(t_redirect *redir)
+{
+	int	fd;
+
+	if (redir->type == INFILE)
+		fd = open(redir->filename, O_RDONLY);
+	else if (redir->type == OUTFILE)
+		fd = open(redir->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else if (redir->type == APPEND)
+		fd = open(redir->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else
+		return (-1);
+	return (fd);
 }
 
-// void	*populate_redirect_array(t_token *token, t_cmd *cmd)
-// {
-// 	int		i;
-// 	t_token *tmp;
-//
-// 	i = 0;
-// 	cmd->redirs = ft_calloc(cmd->redirect_count, sizeof(t_redirect));
-// 	while (i < cmd->redirect_count)
-// 	{
-// 		while (tmp && tmp->type != PIPE)
-// 		{
-// 			if (tmp->type == TFILE)
-// 				cmd->redirs[i].filename = tmp->content;// NOTE: CARE OWNERSHIP
-// 			if (tmp->prev && cmd->redirs[i].filename
-// 				&& (tmp->prev->type == INFILE || tmp->prev->type == OUTFILE
-// 					|| tmp->prev->type == APPEND))
-// 			{
-// 				cmd->redirs[i++].type = tmp->type;
-// 				break ;
-// 			}
-// 			tmp = tmp->prev;
-// 		}
-// 		tmp = token; 
-// 		while (tmp && tmp->type != PIPE)
-// 		{
-// 			if (tmp->type == INFILE || tmp->type == OUTFILE || tmp->type == APPEND)
-// 				cmd->redirs[i].type = tmp->type;
-// 			if (tmp->type == TFILE)
-// 				cmd->redirs[i].filename = tmp->content;// NOTE: CARE OWNERSHIP
-// 			tmp = tmp->next;
-// 		}
-// 	}
-// }
+//This feels so hardcoded, probably because It was vibe
+int	apply_redirects(t_cmd *cmd)
+{
+	int	fd;
+
+	if (cmd->infile)
+	{
+		fd = open(cmd->infile, O_RDONLY);
+		if (fd < 0)
+		{
+			perror("minishell");
+			return (-1);
+		}
+		if (dup2(fd, STDIN_FILENO) < 0)
+		{
+			perror("dup2");
+			close(fd);
+			return (-1);
+		}
+		close(fd);
+	}
+	if (cmd->outfile)
+	{
+		fd = open(cmd->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (fd < 0)
+		{
+			perror("minishell");
+			return (-1);
+		}
+		if (dup2(fd, STDOUT_FILENO) < 0)
+		{
+			perror("dup2");
+			close(fd);
+			return (-1);
+		}
+		close(fd);
+	}
+	return (0);
+}
+
+int	validate_redirs(t_cmd *cmd)
+{
+	int	i;
+	int	fd;
+
+	i = 0;
+	while (i < cmd->redirect_count)
+	{
+		if (cmd->redirs[i].type == INFILE)
+		{
+			fd = open(cmd->redirs[i].filename, O_RDONLY);
+			if (fd < 0)
+			{
+				perror("minishell");
+				return (-1);
+			}
+			close(fd);
+		}
+		else if (cmd->redirs[i].type == OUTFILE
+			|| cmd->redirs[i].type == APPEND)
+		{
+			fd = open(cmd->redirs[i].filename, O_WRONLY | O_CREAT, 0644);
+			if (fd < 0)
+			{
+				perror("minishell");
+				return (-1);
+			}
+			close(fd);
+		}
+		i++;
+	}
+	return (0);
+}

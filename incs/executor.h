@@ -90,6 +90,9 @@ int	exec_exit(t_shell *sh, t_cmd *cmd);
 int	exec_unset(t_shell *sh, t_cmd *cmd);
 int	exec_export(t_shell *sh, t_cmd *cmd);
 
+//Redirect
+void	populate_redirects(t_token *token, t_cmd *cmd);
+
 int	exec_pipeline(t_shell *sh, t_cmd *cmds);
 
 #endif

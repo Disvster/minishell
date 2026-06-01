@@ -118,6 +118,7 @@ t_cmd	*create_command(t_token **token, t_env *envlist)
 	// 	...
 	if (cmd)
 	{
+		populate_redirects(*token, cmd);
 		// cmd->next = NULL;
 		// cmd->prev = NULL;
 		i = -1;//add on more skp here?

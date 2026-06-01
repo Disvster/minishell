@@ -76,8 +76,14 @@ void	*cmdlist_clear(t_cmd **head)
 			node->path = NULL;
 		}
 		if (node->args)
-		{
 			free(node->args);
+		if (node->redirs)
+			free(node->redirs);
+		free(node);
+		node = temp;
+	}
+	return (NULL);
+}
 			// WARNING: node->args is a pointer array 
 			// where each variable in the array points to 
 			//	(1 or more)token->content(s)
@@ -86,9 +92,3 @@ void	*cmdlist_clear(t_cmd **head)
 			// 	free(node->args[i]);
 			// 	node->args[i] = NULL;
 			// }
-		}
-		free(node);
-		node = temp;
-	}
-	return (NULL);
-}
