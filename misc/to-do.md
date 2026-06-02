@@ -1,18 +1,23 @@
 # MINISHELL To-do List
 
+## 02/06/26
+
+- [ ] we need to dup the STDIN and STDOUT fd's to `sh->saved_std<in/out>` and restore them always after each command is run, also in exit;
+
 ## 31/05/26
 
 - [ ] signals:
     - [ ] <C-j> is the same as ENTER (currently exits minishell unsafely if no input is given)
     - [ ] <C-d> is equal to exit built-in call
     - [X] <C-l> clears screen (is already working for some reason)
+    - [ ] pressing ESC repeatedly crashes minishell sometimes? 
 
 - [ ] implement working history when pressing up arrow
 
 - [ ] readline prompt with pwd (`$HOME == '~'` if possible)
     -  check afonso and wallace's build_prompt() function for inspo
 
-- [ ] REDIRECTS!!
+- [X] REDIRECTS!!
 - [ ] HEREDOC  !!
 
 ## 28/05/26

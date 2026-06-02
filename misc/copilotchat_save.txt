@@ -66,3 +66,9 @@ The project structure includes directories for executor, builtins, lexing, parsi
 
 **In this new conversation I tackle a different part of the project. Please ask clarifying questions if needed, and provide code or design advice that fits the above context and 42 Norminette.**
 
+while minishell is running, if I type a command like 
+```
+[minishell]$ echo data > data.txt
+```
+data.txt will be created and have "data" written inside.
+but instead of having the next 
