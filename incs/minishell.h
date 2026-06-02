@@ -58,6 +58,7 @@ typedef struct s_shell
 	t_token		*tokens;
 	t_pipeline	pipeline;
 	int			exit_code;	
+	int			saved_fds[3];
 }	t_shell;
 
 // t_dlist	*dlist_new_node(void *data);
@@ -108,5 +109,6 @@ int		envlist_size(t_env *head);
 // General Utils
 char	*strjoinfree(char *s1, char *s2);
 int		ft_strcmp(const char *s1, const char *s2);
+void	restore_fds(t_shell *sh);
 
 #endif

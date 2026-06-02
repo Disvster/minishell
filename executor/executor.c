@@ -50,23 +50,26 @@
 
 int	exec_builtin(t_shell *sh, t_cmd *cmd)
 {
-	if (cmd->redirect_count > 0 && apply_redirects(cmd))
+	int	status;
+
+	status = 0;
+	if (cmd->redirect_count > 0 && apply_redirects(cmd) < 0)
 		return (-1);// FIX: FREE HERE?
 	if (ft_strcmp(cmd->path, "cd") == 0)
-		return (exec_cd(sh, cmd));
+		status = exec_cd(sh, cmd);
 	else if (ft_strcmp(cmd->path, "echo") == 0)
-		return (exec_echo(sh, cmd));
+		status = exec_echo(sh, cmd);
 	else if (ft_strcmp(cmd->path, "env") == 0)
-		return (exec_env(sh));
+		status = exec_env(sh);
 	else if (ft_strcmp(cmd->path, "pwd") == 0)
-		return (exec_pwd(sh));
+		status = exec_pwd(sh);
 	else if (ft_strcmp(cmd->path, "exit") == 0)
-		return (exec_exit(sh, cmd));
+		status = exec_exit(sh, cmd);
 	else if (ft_strcmp(cmd->path, "export") == 0)
-		return (exec_export(sh, cmd));
+		status = exec_export(sh, cmd);
 	else if (ft_strcmp(cmd->path, "unset") == 0)
-		return (exec_unset(sh, cmd));
-	return (1);
+		status = exec_unset(sh, cmd);
+	return (status);
 }
 
 // static int	command_count(t_cmd *head)
@@ -138,7 +141,7 @@ static void	exec_pipeline_child(t_shell *sh, t_cmd *curr, int *pipefd)
 		close(pipefd[WRITE_END]);
 	}
 	sh->pipeline.prev_read = -1;
-	if (curr->redirect_count > 0 && apply_redirects(curr))
+	if (curr->redirect_count > 0 && apply_redirects(curr) < 0)
 		exit(1);// FIX: FREE HERE?
 	if (curr->is_bi)
 		exit(exec_builtin(sh, curr));

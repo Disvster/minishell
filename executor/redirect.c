@@ -83,7 +83,7 @@ static void	traverse_back(t_token *token, t_cmd *cmd, int *i)
 	t_token	*tmp;
 
 	tmp = token;
-	while (tmp && tmp->prev->type != PIPE)
+	while (tmp && tmp->prev && tmp->prev->type != PIPE)
 		tmp = tmp->prev;
 	while (tmp && tmp->type != PIPE && *i < cmd->redirect_count)
 	{
@@ -97,6 +97,7 @@ static void	traverse_back(t_token *token, t_cmd *cmd, int *i)
 				cmd->redirs[*i].filename = NULL;
 			(*i)++;
 		}
+		tmp = tmp->next;
 	}
 }
 
@@ -129,7 +130,7 @@ void	populate_redirects(t_token *token, t_cmd *cmd)
 	cmd->redirect_count = count_redirects(token);
 	if (cmd->redirect_count == 0)
 		return ;
-	cmd->redirs = ft_calloc(cmd->redirect_count, sizeof(char **));
+	cmd->redirs = ft_calloc(cmd->redirect_count, sizeof(t_redirect));
 	if (!cmd->redirs)
 		return (ft_printf_fd(2, "malloc error on redirect array"));
 	traverse_back(token, cmd, &i);
@@ -143,11 +144,12 @@ static int	open_infile(char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{
-		perror("minishell");
-		return (-1);
+		ft_printf_fd(2, "minishell: ");
+		return (perror(filename), -1);
 	}
 	if (dup2(fd, STDIN_FILENO) < 0)
 	{
+		ft_printf_fd(2, "minishell: ");
 		perror("dup2");
 		close(fd);
 		return (-1);
@@ -164,16 +166,17 @@ static int	open_append_or_outfile(char *filename, int type)
 	{
 		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd < 0)
-			return (perror("minishell"), -1);
+			return (ft_printf_fd(2, "minishell: "), perror(filename), -1);
 	}
-	else if (type == APPEND)
+	else
 	{
 		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (fd < 0)
-			return (perror("minishell"), -1);
+			return (ft_printf_fd(2, "minishell: "), perror(filename), -1);
 	}
 	if (dup2(fd, STDOUT_FILENO) < 0)
 	{
+		ft_printf_fd(2, "minishell: ");
 		perror("dup2");
 		close(fd);
 		return (-1);
@@ -184,9 +187,8 @@ static int	open_append_or_outfile(char *filename, int type)
 
 int	apply_redirects(t_cmd *cmd)
 {
-	int	i;
-	int	outfd;
-	int	type;
+	int		i;
+	t_type	type;
 
 	i = 0;
 	while (i < cmd->redirect_count)

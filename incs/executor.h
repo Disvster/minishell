@@ -38,7 +38,7 @@ typedef struct s_line
 
 typedef struct s_redirect
 {
-	int		type;		// INFILE, OUTFILE, APPEND
+	t_type	type;		// INFILE, OUTFILE, APPEND
 	char	*filename; // The file to redirect to/from
 }				t_redirect;
 
