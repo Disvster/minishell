@@ -2,7 +2,21 @@
 
 ## 02/06/26
 
-- [ ] we need to dup the STDIN and STDOUT fd's to `sh->saved_std<in/out>` and restore them always after each command is run, also in exit;
+- [X] we need to dup the STDIN and STDOUT fd's to `sh->saved_std<in/out>` and restore them always after each command is run, also in exit;
+- [ ] find a suitable placement for fd saving and restoring functions (currently in test_main.c);
+- [ ] still missing heredoc implementation
+- [ ] norm:
+    - [ ] function sizes
+    - [ ] functions per line
+- [ ] IMPORTANT check all TODO, NOTE, FIX, WARNING:
+    - TODO is self explanatory
+    - NOTE is a reminder or an explanation
+    - WARNING is either:
+        * exit codes of functions that might be wrong or need an error message print
+        * or uncertainty if a code line/block will work
+    - FIX is things that for sure will not work and need review and re-implementation
+    - HACK is code blocks only for debugging
+    - [ ] implement exit codes;
 
 ## 31/05/26
 
@@ -80,8 +94,8 @@ declare -x olateste
 
 Manel:
 
-- [ ] write functions for the built-in commands
-    - [ ] `cd`
+- [X] write functions for the built-in commands
+    - [X] `cd`
     - [X] `pwd`
     - [X] `echo`
     - [X] `exit`
@@ -95,7 +109,7 @@ Manel:
     - process handling
     - pids
     - [ ] exit status/codes
-- [ ] study redirecting and heredocs
+- [X] study redirecting and heredocs
 
 Festas:
 
