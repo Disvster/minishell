@@ -16,7 +16,8 @@
         * or uncertainty if a code line/block will work
     - FIX is things that for sure will not work and need review and re-implementation
     - HACK is code blocks only for debugging
-    - [ ] implement exit codes;
+- [ ] implement exit codes;
+- [ ] shell shouldn't exit on bad input like unmmatched quotes
 
 ## 31/05/26
 

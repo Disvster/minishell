@@ -49,10 +49,15 @@
 
 I am working on a 42 School Minishell project in C on Linux. My project already has:
 
-- A lexer that tokenizes user input into a linked list of `t_token` structs, with types like COMMAND, ARG, PIPE, INFILE, OUTFILE, etc.
+- A lexer that tokenizes user input into a linked list of `t_token` structs, with types like COMMAND, ARG, PIPE, INFILE, OUTFILE, APPEND, HEREDOC, TFILE, LIMITER, etc.
 - A parser that sets token types, expands environment variables, and builds a command list (`t_cmd` linked list) from the tokens.
 - Built-in command implementations for `cd`, `echo`, `env`, `exit`, `export`, `pwd` and `unset`.
 - An executor that supports pipelines using an iterative approach (with `prev_read` to manage pipe chaining), forks for external commands, and executes built-ins in the parent process if not in a pipeline.
+- **Redirection support** (`<`, `>`, `>>`) with:
+  - `t_redirect` struct storing type, filename, and target fd
+  - `populate_redirects()` function that traverses tokens backward then forward from COMMAND token to collect all redirects
+  - `apply_redirects()` function that opens files and applies dup2() in child processes
+  - For piped commands: redirects applied in child after pipe setup
 - Utilities for environment variable management, token and command list management, and error handling.
 - The code should follow 42 Norminette rules (functions <= 25 lines, no mixed declarations/initializations, <= 4 params per function, etc.).
 
@@ -63,12 +68,9 @@ The project structure includes directories for executor, builtins, lexing, parsi
 - The executor uses a `t_pipeline` struct in `t_shell` to track pipeline state and child PIDs.
 - Environment variables are stored as a linked list (`t_env`), and can be converted to an array for `execve`.
 - All memory management and file descriptor handling should be robust and follow best practices.
+- Redirections are stored in `t_cmd->redirs` array with count in `t_cmd->redirect_count`.
+- Final redirect of each type (INFILE/OUTFILE/APPEND) is the one applied via dup2() (earlier ones are overridden).
+- HEREDOC token type exists but is not yet implemented.
 
 **In this new conversation I tackle a different part of the project. Please ask clarifying questions if needed, and provide code or design advice that fits the above context and 42 Norminette.**
 
-while minishell is running, if I type a command like 
-```
-[minishell]$ echo data > data.txt
-```
-data.txt will be created and have "data" written inside.
-but instead of having the next 
