@@ -18,6 +18,7 @@
 # include <sys/wait.h>
 # include <stdbool.h>
 # include <signal.h>
+# include "minishell.h"
 
 # ifndef BUFFSIZE
 #  define BUFFSIZE 4096
@@ -26,6 +27,7 @@
 # define EXPORT 4
 # define CD 5
 
+// TODO: don't need t_line struct
 typedef struct s_line
 {
 	char	**specs;
@@ -36,10 +38,9 @@ typedef struct s_line
 
 typedef struct s_redirect
 {
-    int     type;      // INFILE, OUTFILE, APPEND
-    char    *filename; // The file to redirect to/from
-    int     fd;        // Original fd (0 for input, 1 for output)
-}   t_redirect;
+	int		type;		// INFILE, OUTFILE, APPEND
+	char	*filename; // The file to redirect to/from
+}				t_redirect;
 
 typedef struct s_cmd
 {
@@ -50,13 +51,9 @@ typedef struct s_cmd
 	int				redirect_count;
 	bool			is_bi;
 	t_redirect		*redirs;
-	char			*infile;
-	char			*outfile;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }				t_cmd;
-
-# include "minishell.h"
 
 //list utils
 t_cmd	*cmdlist_get_head(t_cmd *n);
@@ -92,6 +89,7 @@ int	exec_export(t_shell *sh, t_cmd *cmd);
 
 //Redirect
 void	populate_redirects(t_token *token, t_cmd *cmd);
+int	apply_redirects(t_cmd *cmd);
 
 int	exec_pipeline(t_shell *sh, t_cmd *cmds);
 

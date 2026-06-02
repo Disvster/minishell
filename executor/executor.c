@@ -50,6 +50,8 @@
 
 int	exec_builtin(t_shell *sh, t_cmd *cmd)
 {
+	if (cmd->redirect_count > 0 && apply_redirects(cmd))
+		return (-1);// FIX: FREE HERE?
 	if (ft_strcmp(cmd->path, "cd") == 0)
 		return (exec_cd(sh, cmd));
 	else if (ft_strcmp(cmd->path, "echo") == 0)
@@ -136,7 +138,8 @@ static void	exec_pipeline_child(t_shell *sh, t_cmd *curr, int *pipefd)
 		close(pipefd[WRITE_END]);
 	}
 	sh->pipeline.prev_read = -1;
-	// sh->pipeline.count = 0;
+	if (curr->redirect_count > 0 && apply_redirects(curr))
+		exit(1);// FIX: FREE HERE?
 	if (curr->is_bi)
 		exit(exec_builtin(sh, curr));
 	envp = env_list_to_array(sh->envs);
