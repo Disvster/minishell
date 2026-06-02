@@ -65,7 +65,9 @@ int	exec_exit(t_shell *sh, t_cmd *cmd)
 				status += 256;
 		}
 	}
-	// TODO: restore fds?
+	// TODO: change everything that's below to be in a single minishell free
+	//		function
+	restore_fds(sh);
 	cmdlist_clear(&cmd);
 	tokenlist_clear(&sh->tokens);
 	free_envs(&sh->envs);

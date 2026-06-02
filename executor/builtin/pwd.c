@@ -21,9 +21,9 @@ int	exec_pwd(t_shell *sh)
 	if (!cwd)
 	{
 		ft_printf_fd(2, "ERROR: couldn't get current working directory");
-		return (0);
+		return (1);
 	}
 	ft_printf("%s\n", cwd);
 	free(cwd);
-	return (1);
+	return (0);
 }

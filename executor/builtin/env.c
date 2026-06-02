@@ -30,5 +30,5 @@ int	exec_env(t_shell *sh)
 		}
 		temp = temp->next;
 	}
-	return (1);
+	return (0);
 }
