@@ -94,7 +94,6 @@ int	main(int ac, char **av, char **envp)
 		// 	tok = tok->next;
 		// }
 		t_cmd *cmds = build_command_list(sh.tokens, sh.envs);
-
 		int status = exec_pipeline(&sh, cmds);
 		sh.exit_code = status;
 		cmdlist_clear(&cmds);
