@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:39:50 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/18 18:09:25 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/03 21:33:00 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,11 @@ int		append_expand(t_shell *shl, t_token *token, char **nstr, int *i);
 int		append_letter(char	**nstr, char c, int	*i);
 int		append_exit_code(char **nstr, int exit_code, int *i);
 int		is_edge(char c);
+
+// Heredoc
+int read_heredoc_input(const char *delimiter, int write_fd);
+int handle_heredoc_tokens(t_shell *sh, t_token *tokens);
+int	apply_heredoc(int heredoc_fd);
 
 // Env/Export
 int		init_env_list(t_shell	*shl, char	**envp);

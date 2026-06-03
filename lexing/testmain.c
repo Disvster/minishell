@@ -81,7 +81,7 @@ int	main(int ac, char **av, char **envp)
 		// ft_strjoin();
 		char curr_path[BUFFSIZE];
 		getcwd(curr_path, BUFFSIZE);
-		sh.lineread = readline("[minishell]$ ");
+		sh.lineread = readline("[minishell] ");
 		parsing(&sh);
 		tok = sh.tokens;
 		if (!tok)

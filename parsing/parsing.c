@@ -6,7 +6,7 @@
 /*   By: rodmorei <rodmorei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 18:10:34 by rodmorei          #+#    #+#             */
-/*   Updated: 2026/03/23 18:08:28 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/06/03 21:29:09 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ int	parsing(t_shell	*shell)
 		return(shell->exit_code = 1,tokenlist_clear(&shell->tokens), 0);
 	}
 	if (!syntax_check(shell))
-		return (shell->exit_code = 258, 0);
+		return (shell->exit_code = 2, tokenlist_clear(&shell->tokens), 0);
+	if (!handle_heredoc_tokens(shell, shell->tokens))
+		return (shell->exit_code = 1, tokenlist_clear(&shell->tokens), 0);
 	return (1);
 }
 
