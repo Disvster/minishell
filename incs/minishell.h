@@ -27,6 +27,8 @@
 # define READ_END	0
 # define WRITE_END	1
 
+extern int	g_sig;
+
 typedef struct s_dlist
 {
 	struct s_dlist	*prev;
@@ -99,6 +101,14 @@ int		is_edge(char c);
 int read_heredoc_input(const char *delimiter, int write_fd);
 int handle_heredoc_tokens(t_shell *sh, t_token *tokens);
 int	apply_heredoc(int heredoc_fd);
+
+// Signals
+void	handle_signal(void);
+void	handle_signal_child(void);
+void	handle_sigint(int sig);
+void	handle_sigpipe(int sig);
+void	handle_heredoc_signal(int sig);
+
 
 // Env/Export
 int		init_env_list(t_shell	*shl, char	**envp);

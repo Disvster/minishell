@@ -39,6 +39,7 @@ int read_heredoc_input(const char *delimiter, int write_fd)
 {
 	char *line;
 
+	signal(SIGINT, handle_heredoc_signal);
 	while (1)
     {
         line = readline("> ");

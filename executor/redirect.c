@@ -197,7 +197,7 @@ int	apply_redirects(t_cmd *cmd)
 	{
 		type = cmd->redirs[i].type;
 		if (type == HEREDOC)
-			if (apply_heredoc(cmd->redirs[i].heredoc_fd < 0))
+			if (apply_heredoc(cmd->redirs[i].heredoc_fd) < 0)
 				return (-1);
 		if (type == INFILE)
 		{
