@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 17:21:54 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/22 20:31:18 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/05 17:06:03 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 int	is_builtin(t_token *token)
 {
 	if (!ft_strcmp(token->content, "echo")
-			|| !ft_strcmp(token->content, "env")
-			|| !ft_strcmp(token->content, "pwd")
-			|| !ft_strcmp(token->content, "exit")
-			|| !ft_strcmp(token->content, "cd")
-			|| !ft_strcmp(token->content, "export")
-			|| !ft_strcmp(token->content, "unset"))
+		|| !ft_strcmp(token->content, "env")
+		|| !ft_strcmp(token->content, "pwd")
+		|| !ft_strcmp(token->content, "exit")
+		|| !ft_strcmp(token->content, "cd")
+		|| !ft_strcmp(token->content, "export")
+		|| !ft_strcmp(token->content, "unset"))
 		return (1);
 	return (0);
 }
@@ -74,7 +74,6 @@ char	*find_cmd_path(char *cmd, t_env *envlist)
 	char	**paths;
 	char	*test;
 
-	// NOTE: do I need to create a temp for envlist?
 	while (envlist && ft_strncmp("PATH", envlist->name, 4))
 		envlist = envlist->next;
 	if (!envlist)
@@ -86,4 +85,18 @@ char	*find_cmd_path(char *cmd, t_env *envlist)
 	if (!test)
 		return (free_split(paths), NULL);
 	return (free_split(paths), test);
+}
+
+int	tokenlist_has_commands(t_token *token)
+{
+	t_token	*tmp;
+
+	tmp = token;
+	while (tmp)
+	{
+		if (tmp->type == COMMAND)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
 }

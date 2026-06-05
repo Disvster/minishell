@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 18:39:23 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/31 23:33:42 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/05 17:08:40 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,6 @@ int	exec_builtin(t_shell *sh, t_cmd *cmd)
 	return (status);
 }
 
-// static int	command_count(t_cmd *head)
-// {
-// 	int		count;
-// 	t_cmd	*temp;
-//
-// 	count = 0;
-// 	temp = head;
-// 	while (temp)
-// 	{
-// 		count++;
-// 		temp = temp->next;
-// 	}
-// 	return (count);
-// }
-
 char	**env_list_to_array(t_env *envs)
 {
 	char	**envp;
@@ -113,7 +98,6 @@ char	**env_list_to_array(t_env *envs)
 		tmp = tmp->next;
 		i++;
 	}
-	envp[i] = NULL;
 	return (envp);
 }
 

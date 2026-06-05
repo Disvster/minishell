@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 20:50:33 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/03 22:38:24 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/06/05 17:10:05 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct s_line
 
 typedef struct s_redirect
 {
-	t_type	type;		// INFILE, OUTFILE, APPEND
-	char	*filename;  // The file to redirect to/from
+	t_type	type;
+	char	*filename;
 	int		heredoc_fd;
 }				t_redirect;
 
@@ -74,24 +74,34 @@ t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist);
 t_cmd	*create_builtin(t_token *token, t_cmd *bi);
 t_cmd	*build_command_list(t_token *head, t_env *envs);
 
+int		tokenlist_has_commands(t_token *token);
+
 //utils export
 int		envp_replace_content(t_env *env, char *str, int bi);
 size_t	keylen(char *s1, char *s2);
 t_env	*search_for_key(t_shell *sh, char *key);
+char	*ft_strndup(const char *str, size_t n);
+bool	export_validate_arg(char *s);
+int		envp_new_var(t_shell *sh, char *str);
+void	sort_env_array(char **envp, int size);
+int		export_print_vars(t_shell *sh);
+int		export_err_invalid_identifier(char *s);
+int		export_update_var(t_shell *sh, char *str);
+bool	export_check_update(char *s);
 
 //built-ins
-int	exec_cd(t_shell *sh, t_cmd *cmd);
-int	exec_echo(t_shell *sh, t_cmd *cmd);
-int	exec_env(t_shell *sh);
-int	exec_pwd(t_shell *sh);
-int	exec_exit(t_shell *sh, t_cmd *cmd);
-int	exec_unset(t_shell *sh, t_cmd *cmd);
-int	exec_export(t_shell *sh, t_cmd *cmd);
+int		exec_cd(t_shell *sh, t_cmd *cmd);
+int		exec_echo(t_shell *sh, t_cmd *cmd);
+int		exec_env(t_shell *sh);
+int		exec_pwd(t_shell *sh);
+int		exec_exit(t_shell *sh, t_cmd *cmd);
+int		exec_unset(t_shell *sh, t_cmd *cmd);
+int		exec_export(t_shell *sh, t_cmd *cmd);
 
 //Redirect
 void	populate_redirects(t_token *token, t_cmd *cmd);
-int	apply_redirects(t_cmd *cmd);
+int		apply_redirects(t_cmd *cmd);
 
-int	exec_pipeline(t_shell *sh, t_cmd *cmds);
+int		exec_pipeline(t_shell *sh, t_cmd *cmds);
 
 #endif

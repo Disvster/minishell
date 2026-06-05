@@ -13,13 +13,6 @@
 #include "../../incs/minishell.h"
 #include "../../incs/executor.h"
 
-// int	exec_cd(t_shell *sh, t_cmd *cmd)
-// {
-// 	(void)sh;
-// 	(void)cmd;
-// 	return (-1);
-// }
-
 t_env	*search_for_key(t_shell *sh, char *key)
 {
 	t_env	*env;
@@ -58,7 +51,8 @@ static int	change_dir_to_key(t_shell *sh, char *key)
 	if (chdir(path) == -1)
 		return (cd_error(NULL, path));
 	envp_replace_content(search_for_key(sh, "OLDPWD"), oldpwd, CD);
-	envp_replace_content(search_for_key(sh, "PWD"), getcwd(oldpwd, BUFFSIZE), CD);
+	getcwd(oldpwd, BUFFSIZE);
+	envp_replace_content(search_for_key(sh, "PWD"), oldpwd, CD);
 	return (0);
 }
 
@@ -76,7 +70,8 @@ int	exec_cd(t_shell *sh, t_cmd *cmd)
 	if (chdir(cmd->args[0]) == -1)
 		return (cd_error(NULL, cmd->args[0]));
 	envp_replace_content(search_for_key(sh, "OLDPWD"), oldpwd, CD);
-	envp_replace_content(search_for_key(sh, "PWD"), getcwd(oldpwd, BUFFSIZE), CD);
-	// WARNING: should I check if funcs() above fail (aka return 1 on malloc error)?
+	getcwd(oldpwd, BUFFSIZE);
+	envp_replace_content(search_for_key(sh, "PWD"), oldpwd, CD);
 	return (0);
 }
+// WARNING: should I check if funcs() above fail (aka return 1 on malloc error)?

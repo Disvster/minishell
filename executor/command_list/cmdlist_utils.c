@@ -6,7 +6,7 @@
 /*   By: disaster </var/spool/mail/disaster>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 19:23:34 by disaster          #+#    #+#             */
-/*   Updated: 2026/05/05 19:38:32 by disaster         ###   ########.fr       */
+/*   Updated: 2026/06/05 17:08:01 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,9 @@ void	*cmdlist_clear(t_cmd **head)
 {
 	t_cmd	*temp;
 	t_cmd	*node;
-	// int		i;
 
 	temp = NULL;
 	node = *head;
-	// i = -1;
 	while (node)
 	{
 		temp = node->next;
