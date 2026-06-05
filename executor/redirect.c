@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirs.c                                           :+:      :+:    :+:   */
+/*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 19:45:31 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/31 23:41:22 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/03 22:44:09 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ static void	traverse_back(t_token *token, t_cmd *cmd, int *i)
 			|| tmp->type == APPEND || tmp->type == HEREDOC)
 		{
 			cmd->redirs[*i].type = tmp->type;
+			cmd->redirs[*i].heredoc_fd = tmp->heredoc_fd;
 			if (tmp->next && tmp->next->type == TFILE)
 				cmd->redirs[*i].filename = tmp->next->content;
 			else
@@ -112,6 +113,7 @@ static void	traverse_forward(t_token *token, t_cmd *cmd, int *i)
 			|| tmp->type == APPEND || tmp->type == HEREDOC)
 		{
 			cmd->redirs[*i].type = tmp->type;
+			cmd->redirs[*i].heredoc_fd = tmp->heredoc_fd;
 			if (tmp->next && tmp->next->type == TFILE)
 				cmd->redirs[*i].filename = tmp->next->content;
 			else
@@ -194,6 +196,9 @@ int	apply_redirects(t_cmd *cmd)
 	while (i < cmd->redirect_count)
 	{
 		type = cmd->redirs[i].type;
+		if (type == HEREDOC)
+			if (apply_heredoc(cmd->redirs[i].heredoc_fd) < 0)
+				return (-1);
 		if (type == INFILE)
 		{
 			if (open_infile(cmd->redirs[i].filename) < 0)

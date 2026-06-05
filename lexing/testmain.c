@@ -16,6 +16,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+int	g_sig;
 // TODO: double check if you call this everytime or just when redir is found
 void	save_parent_fds(t_shell *sh)
 {
@@ -81,7 +82,8 @@ int	main(int ac, char **av, char **envp)
 		// ft_strjoin();
 		char curr_path[BUFFSIZE];
 		getcwd(curr_path, BUFFSIZE);
-		sh.lineread = readline("[minishell]$ ");
+		handle_signal();
+		sh.lineread = readline("[minishell] ");
 		parsing(&sh);
 		tok = sh.tokens;
 		if (!tok)
@@ -94,7 +96,6 @@ int	main(int ac, char **av, char **envp)
 		// 	tok = tok->next;
 		// }
 		t_cmd *cmds = build_command_list(sh.tokens, sh.envs);
-
 		int status = exec_pipeline(&sh, cmds);
 		sh.exit_code = status;
 		cmdlist_clear(&cmds);

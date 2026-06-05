@@ -6,7 +6,7 @@
 /*   By: rodmorei <rodmorei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 20:27:25 by rodmorei          #+#    #+#             */
-/*   Updated: 2026/04/29 01:40:34 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/03 21:51:11 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FT_PRINTF_FD_H
@@ -27,8 +27,11 @@ int		ft_puthexa_fd(int fd, unsigned int hex, char format);
 int		ft_hexacount_fd(unsigned int hex);
 
 // DEFINING MACROS:
-# define ERR_QUOTES "Error: Unmatched quotes\n"
-# define ERR_SYNTAX "Error: Syntax error near unexpected token ´%c'\n"
-# define ERR_MALLOC "Error: Memory allocation failed\n"
+# define ERR_QUOTES "[minishell] Error: Unmatched quotes\n"
+# define ERR_SYNTAX "[minishell] Error: Syntax error near unexpected token ´%c'\n"
+# define ERR_MALLOC "[minishell] Error: Memory allocation failed\n"
+# define ERR_PIPE "[minishell] Error: Failed to create pipe \n"
+# define ERR_DELIMITER "[minishell] Error: Heredoc missing delimiter \n"
+# define WARNING_HEREDOC "[minishell] Warning: Heredoc delimited by end-of-file (wanted '%s') \n"
 
 #endif

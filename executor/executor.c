@@ -236,6 +236,7 @@ int	exec_pipeline(t_shell *sh, t_cmd *cmds)
 	curr = cmds;
 	while (curr && sh->pipeline.count < 1024)
 	{
+		handle_signal();
 		pid = setup_pipes_and_fork(sh, curr, pipefd);
 		if (pid < 0)
 			return (1);
@@ -243,6 +244,7 @@ int	exec_pipeline(t_shell *sh, t_cmd *cmds)
 		{
 			if (curr->next)//we close READ_END because it is saved in
 				close(pipefd[READ_END]);//pipeline.prev_read_end, we don't need it
+			handle_signal_child();
 			exec_pipeline_child(sh, curr, pipefd);
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 20:50:33 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/31 22:14:14 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/03 22:38:24 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ typedef struct s_line
 typedef struct s_redirect
 {
 	t_type	type;		// INFILE, OUTFILE, APPEND
-	char	*filename; // The file to redirect to/from
+	char	*filename;  // The file to redirect to/from
+	int		heredoc_fd;
 }				t_redirect;
 
 typedef struct s_cmd

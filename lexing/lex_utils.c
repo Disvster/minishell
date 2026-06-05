@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 17:27:22 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/22 21:09:01 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/03 21:12:36 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_token	*init_token(char *content)
 		temp->has_quotes = false;
 	temp->content = content;
 	temp->type = ARG;
+	temp->heredoc_fd = -1;
 	return (temp);
 }
 

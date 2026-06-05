@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:30:19 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/05 19:33:49 by disaster         ###   ########.fr       */
+/*   Updated: 2026/06/03 20:58:58 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_token
 	char			*content;
 	// t_cmd			*cmd;
 	t_type			type;
+	int				heredoc_fd;
 
 	struct s_token	*next;
 }				t_token;
