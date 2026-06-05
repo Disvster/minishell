@@ -4,7 +4,7 @@
 
 - [X] we need to dup the STDIN and STDOUT fd's to `sh->saved_std<in/out>` and restore them always after each command is run, also in exit;
 - [ ] find a suitable placement for fd saving and restoring functions (currently in test_main.c);
-- [ ] still missing heredoc implementation
+- [X] still missing heredoc implementation
 - [ ] norm:
     - [ ] function sizes
     - [ ] functions per line
@@ -33,7 +33,7 @@
     -  check afonso and wallace's build_prompt() function for inspo
 
 - [X] REDIRECTS!!
-- [ ] HEREDOC  !!
+- [X] HEREDOC  !!
 
 ## 28/05/26
 
@@ -118,7 +118,7 @@ Festas:
 - [X] expansion
 - [X] appending
 - [X] parsing
-- [ ] olhar para signal handling para ajudar o manelito pretty plssss
+- [X] olhar para signal handling para ajudar o manelito pretty plssss
 
 ## 05/03/26
 - [x] Working on expansion
@@ -138,12 +138,12 @@ Festas:
 
 
 ## 12/02/26
-- [ ] start the parsing function, namely the "expansion" function that should:
+- [X] start the parsing function, namely the "expansion" function that should:
     - remove "quotes" from the final token name
     - expand the variables prefaced by '$' (unless the command is export)
     - when expanding '$' variables, behave differently if there are double-quotes or single quotes
-- [ ] in parsing, add the function that will define what each token IS (command, pipe, heredoc, arg, etc.)
-- [ ] expansion may require the types, but may change after expansion. probably will have to set types - expand - set types
+- [X] in parsing, add the function that will define what each token IS (command, pipe, heredoc, arg, etc.)
+- [X] expansion may require the types, but may change after expansion. probably will have to set types - expand - set types
 
 ## 29/01/26
 
@@ -157,16 +157,16 @@ Parsing/Lexer:
 
 ## 05/01/26
 
-- [ ] Study shell and bash behaviours
+- [X] Study shell and bash behaviours
     - https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html 
     - https://youtu.be/yTR00r8vBH8?si=YOOw-30E4j5XHpyj
-- [ ] study built-in commands' behaviours and error management
+- [X] study built-in commands' behaviours and error management
 
 - [X] how to run a "minishell" program that behaves as if you type "bash"
     - typing both `exit` or `CTR-D` stops the program aka quits the shell
     - signals will be stored in the global variable
 
-- [ ] how to handle signals
+- [X] how to handle signals
 
 - [X] understand how to do the parsing and what are concepts like "lexing" or "tokenizing"
 - [ ] how to handle the command history
