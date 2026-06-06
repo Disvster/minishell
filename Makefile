@@ -3,8 +3,19 @@ CFLAGS = -Wall -Wextra -Werror -Iincs/
 LDFLAGS = -Lvendor/readline/lib -lreadline
 LIBFT = libft_manmaria/libft.a
 LIBFT_DIR = libft_manmaria/
-SRC_DIRS = src src/lexing src/parsing src/token_list_utils src/ft_printf_fd src/executor src/executor/builtin src/executor/command_list src/signal
-# executor/builtin
+SRC_DIRS = src \
+		   src/env_list \
+		   src/executor \
+		   src/executor/builtin \
+		   src/executor/command_list \
+		   src/expansion \
+		   src/ft_printf_fd \
+		   src/heredoc \
+		   src/lexing \
+		   src/parsing \
+		   src/signal \
+		   src/token_list_utils
+
 SRCS = $(foreach d,$(SRC_DIRS),$(wildcard $(d)/*.c))
 #SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(SRCS:.c=.o)
