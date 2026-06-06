@@ -13,6 +13,7 @@ SRC_DIRS = src \
 		   src/heredoc \
 		   src/lexing \
 		   src/parsing \
+		   src/redirect \
 		   src/signal \
 		   src/token_list_utils
 

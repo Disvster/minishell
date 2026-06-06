@@ -48,9 +48,9 @@ char	*cp_ename(char	*env)
 
 char	*cp_econt(char	*env)
 {
-	int	i;
-	int	len;
-	char *str;
+	int		i;
+	int		len;
+	char	*str;
 
 	i = 0;
 	len = ft_strlen(env);

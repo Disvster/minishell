@@ -30,10 +30,11 @@ int	pipe_checker(t_token *tok)
 		if ((temp->type >= APPEND && temp->type <= OUTFILE)
 			&& !temp->next)
 			return (ft_printf_fd(2, ERR_SYNTAX, *temp->content), 0);
-		if (((temp->type >= APPEND && temp->type <= OUTFILE) || temp->type == PIPE)
+		if (((temp->type >= APPEND && temp->type <= OUTFILE)
+				|| temp->type == PIPE)
 			&& temp->next && temp->next->type == PIPE)
 			return (ft_printf_fd(2, ERR_SYNTAX, *temp->next->content), 0);
-		if ((temp->type >= APPEND && temp->type <= OUTFILE)	&& temp->next
+		if ((temp->type >= APPEND && temp->type <= OUTFILE) && temp->next
 			&& (temp->next->type >= APPEND && temp->next->type <= OUTFILE))
 			return (ft_printf_fd(2, ERR_SYNTAX, *temp->next->content), 0);
 		temp = temp->next;

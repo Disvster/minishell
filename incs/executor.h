@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 20:50:33 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/05 17:10:05 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/06 15:01:54 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,11 @@ int		exec_unset(t_shell *sh, t_cmd *cmd);
 int		exec_export(t_shell *sh, t_cmd *cmd);
 
 //Redirect
+void	traverse_back(t_token *token, t_cmd *cmd, int *i);
+void	traverse_forward(t_token *token, t_cmd *cmd, int *i);
+int		open_infile(char *filename);
+int		open_append_or_outfile(char *filename, int type);
+int		count_redirects(t_token *token);
 void	populate_redirects(t_token *token, t_cmd *cmd);
 int		apply_redirects(t_cmd *cmd);
 
