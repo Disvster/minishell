@@ -130,4 +130,3 @@ int	open_append_or_outfile(char *filename, int type)
 	close(fd);
 	return (0);
 }
-

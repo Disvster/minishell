@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 20:50:33 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/06 15:01:54 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/06 15:10:57 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ void	cmdlist_add_last(t_cmd **head, t_cmd *node);
 void	cmdlist_add_first(t_cmd **head, t_cmd *node);
 void	*cmdlist_clear(t_cmd **head);
 
-char	**env_list_to_array(t_env *envs);
-
 int		is_builtin(t_token *token);
 char	*pipex_strjoin(char *path, char *cmd);
 char	*search_paths(char **paths, char *cmd);
@@ -107,6 +105,11 @@ int		count_redirects(t_token *token);
 void	populate_redirects(t_token *token, t_cmd *cmd);
 int		apply_redirects(t_cmd *cmd);
 
+//Executor
+char	**env_list_to_array(t_env *envs);
+int		setup_pipes_and_fork(t_shell *sh, t_cmd *curr, int *pipefd);
+int		init_pipeline(t_shell *sh);
+int		exec_builtin(t_shell *sh, t_cmd *cmd);
 int		exec_pipeline(t_shell *sh, t_cmd *cmds);
 
 #endif
