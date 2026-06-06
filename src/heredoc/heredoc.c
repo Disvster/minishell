@@ -9,12 +9,13 @@
 /*   Updated: 2026/06/03 22:44:09 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../incs/minishell.h"
 
-int handle_heredoc_tokens(t_shell *sh, t_token *tokens)
+int	handle_heredoc_tokens(t_shell *sh, t_token *tokens)
 {
-	t_token *tok;
-	int     pipefd[2];
+	t_token	*tok;
+	int		pipefd[2];
 
 	tok = tokens;
 	while (tok)
@@ -35,19 +36,19 @@ int handle_heredoc_tokens(t_shell *sh, t_token *tokens)
 	return (0);
 }
 
-int read_heredoc_input(const char *delimiter, int write_fd)
+int	read_heredoc_input(const char *delimiter, int write_fd)
 {
-	char *line;
+	char	*line;
 
 	signal(SIGINT, handle_heredoc_signal);
 	while (1)
-    {
-        line = readline("> ");
-        if (!line)
-            return (ft_printf_fd(2, WARNING_HEREDOC, delimiter), 0);
-        if (ft_strcmp(line, delimiter) == 0)
+	{
+		line = readline("> ");
+		if (!line)
+			return (ft_printf_fd(2, WARNING_HEREDOC, delimiter), 0);
+		if (ft_strcmp(line, delimiter) == 0)
 		{
-            free(line);
+			free(line);
 			break ;
 		}
 		ft_putstr_fd(line, write_fd);

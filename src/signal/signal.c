@@ -9,13 +9,14 @@
 /*   Updated: 2026/06/03 20:58:58 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../incs/minishell.h"
 
 void	handle_signal(void)
 {
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGPIPE,handle_sigpipe);
+	signal(SIGPIPE, handle_sigpipe);
 }
 
 void	handle_sigint(int sig)
@@ -52,4 +53,3 @@ void	handle_heredoc_signal(int sig)
 		close(STDIN_FILENO);
 	}
 }
-

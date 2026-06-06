@@ -14,7 +14,7 @@
 int	expansion(t_token *head, t_shell *shl)
 {
 	t_token	*temp;
-	char *tmpstr;
+	char	*tmpstr;
 
 	tmpstr = NULL;
 	temp = head;

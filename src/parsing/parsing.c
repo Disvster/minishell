@@ -18,9 +18,7 @@ int	parsing(t_shell	*shell)
 	set_types(shell->tokens);
 	set_commands(shell->tokens);
 	if (!expansion(shell->tokens, shell))
-	{
-		return(shell->exit_code = 1,tokenlist_clear(&shell->tokens), 0);
-	}
+		return (shell->exit_code = 1, tokenlist_clear(&shell->tokens), 0);
 	if (!syntax_check(shell))
 		return (shell->exit_code = 2, tokenlist_clear(&shell->tokens), 0);
 	if (handle_heredoc_tokens(shell, shell->tokens) < 0)
@@ -31,6 +29,7 @@ int	parsing(t_shell	*shell)
 void	set_types(t_token *tlist)
 {
 	t_token	*temp;
+
 	temp = tlist;
 	while (temp)
 	{
@@ -46,8 +45,8 @@ void	set_types(t_token *tlist)
 			temp->type = PIPE;
 		else if (temp->prev && temp->prev->type == HEREDOC)
 			temp->type = LIMITER;
-		else if (temp->prev && (temp->prev->type == INFILE || temp->prev->type == OUTFILE
-				|| temp->prev->type == APPEND))
+		else if (temp->prev && (temp->prev->type == INFILE
+				|| temp->prev->type == OUTFILE || temp->prev->type == APPEND))
 			temp->type = TFILE;
 		temp = temp->next;
 	}
