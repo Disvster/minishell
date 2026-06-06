@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/libft.h"
+#include "../../../../incs/libft.h"
 
 size_t	count_words(char const *s, char c)
 {

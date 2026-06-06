@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/libft.h"
+#include "../../../../incs/libft.h"
 
 static size_t	count_letters(char const *s, char c, char **p_s)
 {

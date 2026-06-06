@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/ft_printf.h"
+#include "../../../../incs/ft_printf.h"
 
 int	ft_strcmp_pf(char *str1, char *str2)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/get_next_line_bonus.h"
+#include "../../incs/get_next_line_bonus.h"
 
 size_t	ft_strclen(const char *s, int c)
 {

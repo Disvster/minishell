@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/libft.h"
+#include "../../../../incs/libft.h"
 
 long	ft_atol(const char *nptr)
 {

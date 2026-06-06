@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/get_next_line.h"
+#include "../../incs/get_next_line.h"
 
 size_t	ft_strclen(const char *s, int c)
 {

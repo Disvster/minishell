@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/ft_printf.h"
+#include "../../../../incs/ft_printf.h"
 
 void	ft_flagcheck_helper(const char *s, t_flags **fb)
 {

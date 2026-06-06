@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/ft_printf.h"
+#include "../../../../incs/ft_printf.h"
 
 size_t	ft_strlcpy_pf(char *dst, const char *src, size_t size)
 {

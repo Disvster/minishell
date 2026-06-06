@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/get_next_line.h"
+#include "../../incs/get_next_line.h"
 
 int	find_line(char *s)
 {
