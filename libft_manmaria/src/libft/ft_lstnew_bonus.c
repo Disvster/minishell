@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../incs/libft.h"
+#include "../../incs/libft.h"
 
 t_list	*ft_lstnew(void *content)
 {

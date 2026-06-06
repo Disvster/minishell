@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../incs/ft_printf.h"
+#include "../../incs/ft_printf.h"
 
 int	ft_printf(const char *str, ...)
 {
