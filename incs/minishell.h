@@ -98,7 +98,9 @@ int		append_exit_code(char **nstr, int exit_code, int *i);
 int		is_edge(char c);
 
 // Heredoc
-int read_heredoc_input(const char *delimiter, int write_fd);
+int read_heredoc_input_quoted(const char *delimiter, int write_fd);
+int read_heredoc_input_unquoted(const char *delimiter, int write_fd, t_shell *shl);
+int	write_expanded(int	fd, char *str, t_shell *shl, int *index);
 int handle_heredoc_tokens(t_shell *sh, t_token *tokens);
 int	apply_heredoc(int heredoc_fd);
 
