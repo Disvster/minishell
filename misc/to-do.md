@@ -1,5 +1,11 @@
 # MINISHELL To-do List
 
+## 08/06/26
+- [X] implemented "working history" (its already preprogrammed in readline
+- [X] HEREDOC COMPLETE
+
+- [ ] we need to get going with exit code definition (on error and not only), may be functions that need to check g_sig to see if they can keep running, others the exit code.
+
 ## 02/06/26
 
 - [X] we need to dup the STDIN and STDOUT fd's to `sh->saved_std<in/out>` and restore them always after each command is run, also in exit;
@@ -21,13 +27,13 @@
 
 ## 31/05/26
 
-- [ ] signals:
+- [X] signals:
     - [ ] <C-j> is the same as ENTER (currently exits minishell unsafely if no input is given)
     - [ ] <C-d> is equal to exit built-in call
     - [X] <C-l> clears screen (is already working for some reason)
     - [ ] pressing ESC repeatedly crashes minishell sometimes? 
 
-- [ ] implement working history when pressing up arrow
+- [X] implement working history when pressing up arrow
 
 - [ ] readline prompt with pwd (`$HOME == '~'` if possible)
     -  check afonso and wallace's build_prompt() function for inspo

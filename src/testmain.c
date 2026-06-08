@@ -84,6 +84,12 @@ int	main(int ac, char **av, char **envp)
 		getcwd(curr_path, BUFFSIZE);
 		handle_signal();
 		sh.lineread = readline("[minishell] ");
+		if (!sh.lineread)
+		{
+			ft_printf_fd(1, "exit\n");
+			break;
+		}
+		add_history(sh.lineread);
 		parsing(&sh);
 		tok = sh.tokens;
 		if (!tok)
@@ -116,5 +122,6 @@ int	main(int ac, char **av, char **envp)
 		// ENV cmd test
 		// exec_env(shl);
 	}
+	rl_clear_history()
 	return (0);
 }
