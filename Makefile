@@ -1,3 +1,5 @@
+SHELL :=/bin/bash
+
 CC = clang -g
 CFLAGS = -Wall -Wextra -Werror -Iincs/
 LDFLAGS = -Lvendor/readline/lib -lreadline
