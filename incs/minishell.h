@@ -127,5 +127,6 @@ int		envlist_size(t_env *head);
 char	*strjoinfree(char *s1, char *s2);
 int		ft_strcmp(const char *s1, const char *s2);
 void	restore_fds(t_shell *sh);
+void	restore_g_sig(t_shell *sh);
 
 #endif

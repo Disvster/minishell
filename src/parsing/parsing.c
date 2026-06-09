@@ -23,7 +23,8 @@ int	parsing(t_shell	*shell)
 	if (!syntax_check(shell))
 		return (shell->exit_code = 2, tokenlist_clear(&shell->tokens), 1);
 	if (handle_heredoc_tokens(shell, shell->tokens) < 0)
-		return (tokenlist_clear(&shell->tokens), 0);
+		return (handle_signal(), tokenlist_clear(&shell->tokens), 0);
+	handle_signal();
 	return (0);
 }
 

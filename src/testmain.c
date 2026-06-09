@@ -32,6 +32,21 @@ void	save_parent_fds(t_shell *sh)
 	// }
 }
 
+void restore_g_sig(t_shell *sh)
+{
+	if (g_sig == 130)
+	{
+		g_sig = 0;
+		sh->exit_code = 130;
+	}
+	if (g_sig == 141)
+	{
+		g_sig = 0;
+		sh->exit_code = 141;
+	}
+	return ;
+}
+
 void	restore_fds(t_shell *sh)
 {
 	int	*saved;
@@ -69,12 +84,11 @@ int	main(int ac, char **av, char **envp)
 	// env = NULL;
 	// env = shl.envs;
 
-
+	g_sig = 0;
 	while (1)
 	{
-		g_sig = 0;
 		save_parent_fds(&sh);
-
+		restore_g_sig(&sh);
 		// TODO: BUILD readline PROMPT
 		// t_env *home =  search_for_key(&sh, "HOME");
 		// if (!ft_strncmp(curr_path, home->name, keylen(curr_path, home->name)))
