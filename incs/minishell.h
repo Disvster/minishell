@@ -71,8 +71,8 @@ typedef struct s_shell
 // void	dlist_list_clear(t_dlist **lst, void (*del)(void *data));
 
 int		skip_whitespace(char *line);
-void	*lexing(char *lineread, int *err_code);
-t_token	*tokenizer(char *lineread, int *i, int *err_code);
+int		lexing(t_token **final, char *lineread, int *err_code);
+int		tokenizer(t_token **final, char *lineread, int *i, int *err_code);
 int		token_length(char *line);
 int		is_meta(char ch);
 int		exist_quotes(char *line);

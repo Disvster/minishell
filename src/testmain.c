@@ -91,7 +91,6 @@ int	main(int ac, char **av, char **envp)
 			break;
 		}
 		add_history(sh.lineread);
-		parsing(&sh);
 		// tok = sh.tokens;
 		// if (!tok)
 		// 	return (1);
@@ -102,17 +101,19 @@ int	main(int ac, char **av, char **envp)
 		// 	//printf("Token Type :%d \n", tok->type);
 		// 	tok = tok->next;
 		// }
-		t_cmd *cmds = build_command_list(sh.tokens, sh.envs);
-		int status = exec_pipeline(&sh, cmds);
-		sh.exit_code = status;
-		cmdlist_clear(&cmds);
-		tokenlist_clear(&sh.tokens);
-		restore_fds(&sh);
-
+		if (parsing(&sh) == 0)
+		{
+			t_cmd *cmds = build_command_list(sh.tokens, sh.envs);
+			int status = exec_pipeline(&sh, cmds);
+			sh.exit_code = status;
+			cmdlist_clear(&cmds);
+			tokenlist_clear(&sh.tokens);
+			restore_fds(&sh);
+		}
 		// TODO: need to follow child processes in GDB to check errors
 		// set follow-mode- <child/parent> (?)
 		//
-		// ENV LIST TESTER:
+		// ENV LIST TESTER:Yes, checking the parsing return value is exactly right
 		// while (env)
 		// {
 		// 	printf("Env Name:%s \n", env->name);

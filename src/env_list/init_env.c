@@ -67,3 +67,29 @@ char	*cp_econt(char	*env)
 		return (NULL);
 	return (str);
 }
+
+int	shell_lvl_change(t_shell *shl, int lvl_change)
+{
+	int		new_lvl;
+	char	*temp;
+	t_env	*temp_env;
+
+	temp = NULL;
+	new_lvl = 0;
+	temp_env = find_env(shl, "SHLVL");
+	if (!temp_env)
+		return (shl->exit_code = 1,
+			ft_printf_fd(2, "ERROR : SHLVL not found\n"), 2);
+	new_lvl = ft_atoi(temp_env->content) + lvl_change;
+	if (new_lvl > 999)
+		return (temp_env->content = "1",
+			ft_printf_fd(2, "warning : SHLVL too high, resetting to 1\n")
+			, 2);
+	temp = ft_itoa(new_lvl);
+	if (!temp)
+		return (shl->exit_code = 1, ft_printf_fd(2, ERR_MALLOC), 2);
+	if (temp_env->content)
+		free (temp_env->content);
+	temp_env->content = temp;
+	return (0);
+}

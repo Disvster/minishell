@@ -12,7 +12,7 @@
 
 #include "../../incs/minishell.h"
 
-t_token	*tokenizer(char *lineread, int *i, int *err_code)
+int tokenizer(t_token **final, char *lineread, int *i, int *err_code)
 {
 	t_token	*token;
 	int		j;
@@ -21,25 +21,26 @@ t_token	*tokenizer(char *lineread, int *i, int *err_code)
 	token = NULL;
 	j = token_length(lineread + *i);
 	if (j < 0)
-		return (*err_code = 2, ft_printf_fd(2, ERR_QUOTES), NULL);
+		return (*err_code = 2, ft_printf_fd(2, ERR_QUOTES), 1);
 	if (j > 0 && !is_meta(lineread[*i]))
 	{
 		token = init_token(ft_substr(lineread, *i, j));
 		if (!token)
-			return (*err_code = 1, ft_printf_fd(2, ERR_MALLOC), NULL);
+			return (*err_code = 1, ft_printf_fd(2, ERR_MALLOC), 1);
 		*i += j;
 	}
 	else if (is_meta(lineread[*i]))
 	{
 		token = meta_token(lineread + *i, &j);
 		if (!token)
-			return (*err_code = 2, NULL);
+			return (*err_code = 2, 1);
 		*i += j;
 	}
-	return (token);
+	*final = token;
+	return (0);
 }
 
-void	*lexing(char *lineread, int *err_code)
+int	lexing(t_token **final, char *lineread, int *err_code)
 {
 	t_token	*lexer;
 	t_token	*token;
@@ -53,12 +54,12 @@ void	*lexing(char *lineread, int *err_code)
 		i += skip_whitespace(lineread + i);
 		if (!lineread[i])
 			break ;
-		token = tokenizer(lineread, &i, err_code);
-		if (!token)
-			return (tokenlist_clear(&lexer), NULL);
+		if (tokenizer(&token, lineread, &i, err_code) != 0)
+			return (tokenlist_clear(&lexer), 1);
 		token->prev = NULL;
 		token->next = NULL;
 		tokenlist_add_last(&lexer, token);
 	}
-	return (lexer);
+	*final = lexer;
+	return (0);
 }

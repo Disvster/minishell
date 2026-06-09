@@ -133,5 +133,6 @@ int	write_expanded(int fd, char *str, t_shell *shl, int *index)
 	if (!temp)
 		return (ft_printf_fd(2, ERR_MALLOC), 1);
 	ft_putstr_fd(temp, fd);
+	free(temp);
 	return (0);
 }

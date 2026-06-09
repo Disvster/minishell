@@ -14,16 +14,17 @@
 
 int	parsing(t_shell	*shell)
 {
-	shell->tokens = lexing(shell->lineread, &shell->exit_code);
+	if (lexing(&shell->tokens, shell->lineread, &shell->exit_code) != 0)
+		return (1);
 	set_types(shell->tokens);
 	set_commands(shell->tokens);
 	if (!expansion(shell->tokens, shell))
-		return (shell->exit_code = 1, tokenlist_clear(&shell->tokens), 0);
+		return (shell->exit_code = 1, tokenlist_clear(&shell->tokens), 1);
 	if (!syntax_check(shell))
-		return (shell->exit_code = 2, tokenlist_clear(&shell->tokens), 0);
+		return (shell->exit_code = 2, tokenlist_clear(&shell->tokens), 1);
 	if (handle_heredoc_tokens(shell, shell->tokens) < 0)
 		return (tokenlist_clear(&shell->tokens), 0);
-	return (1);
+	return (0);
 }
 
 void	set_types(t_token *tlist)
