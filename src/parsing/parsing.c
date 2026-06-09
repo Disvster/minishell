@@ -14,7 +14,6 @@
 
 int	parsing(t_shell	*shell)
 {
-	restore_g_sig(shell);
 	if (lexing(&shell->tokens, shell->lineread, &shell->exit_code) != 0)
 		return (1);
 	set_types(shell->tokens);
@@ -27,7 +26,7 @@ int	parsing(t_shell	*shell)
 		return (restore_fds(shell), handle_signal(),
 			tokenlist_clear(&shell->tokens), 0);
 	handle_signal();
-	restore_fds(shell);
+	dup2(shell->saved_fds[0], STDIN_FILENO);
 	return (0);
 }
 

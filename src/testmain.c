@@ -93,7 +93,6 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		save_parent_fds(&sh);
-		restore_g_sig(&sh);
 		// TODO: BUILD readline PROMPT
 		// t_env *home =  search_for_key(&sh, "HOME");
 		// if (!ft_strncmp(curr_path, home->name, keylen(curr_path, home->name)))
@@ -109,6 +108,7 @@ int	main(int ac, char **av, char **envp)
 			ft_printf_fd(1, "exit\n");
 			break;
 		}
+		restore_g_sig(&sh);
 		add_history(sh.lineread);
 		// tok = sh.tokens;
 		// if (!tok)
