@@ -27,11 +27,13 @@ int		ft_puthexa_fd(int fd, unsigned int hex, char format);
 int		ft_hexacount_fd(unsigned int hex);
 
 // DEFINING MACROS:
-# define ERR_QUOTES "[minishell] Error: Unmatched quotes\n"
-# define ERR_SYNTAX "[minishell] Error: Syntax error near unexpected token ´%c'\n"
-# define ERR_MALLOC "[minishell] Error: Memory allocation failed\n"
-# define ERR_PIPE "[minishell] Error: Failed to create pipe \n"
-# define ERR_DELIMITER "[minishell] Error: Heredoc missing delimiter \n"
-# define WARNING_HEREDOC "[minishell] Warning: Heredoc delimited by end-of-file (wanted '%s') \n"
+# define SH_ERR "minishell: error: "
+# define SH_WAR "minishell: warning: "
+# define ERR_QUOTES "Unmatched quotes\n"
+# define ERR_SYNTAX "Syntax error near unexpected token ´%c'\n"
+# define ERR_MALLOC "Memory allocation failed\n"
+# define ERR_PIP "Failed to create pipe \n"
+# define ERR_DEL "Heredoc missing delimiter \n"
+# define WAR_HDOC "Heredoc delimited by end-of-file (wanted '%s') \n"
 
 #endif

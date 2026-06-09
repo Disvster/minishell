@@ -22,7 +22,7 @@ t_token	*meta_token(char *lineread, int *j)
 	if (*j <= 2)
 		return (init_token(ft_substr(lineread, 0, *j)));
 	else
-		return (ft_printf_fd(2, ERR_SYNTAX, ch), NULL);
+		return (ft_printf_fd(2, SH_ERR ERR_SYNTAX, ch), NULL);
 }
 
 void	free_token_data(void	*token)

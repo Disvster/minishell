@@ -23,9 +23,9 @@ int	handle_heredoc_tokens(t_shell *sh, t_token *tokens)
 		if (tok->type == HEREDOC)
 		{
 			if (!tok->next || tok->next->type != LIMITER)
-				return (ft_printf_fd(2, ERR_DELIMITER), sh->exit_code = 2, -1);
+				return (ft_printf_fd(2, SH_ERR ERR_DEL), sh->exit_code = 2, -1);
 			if (pipe(pipefd) < 0)
-				return (ft_printf_fd(2, ERR_PIPE), sh->exit_code = 1, -1);
+				return (ft_printf_fd(2, SH_ERR ERR_PIP), sh->exit_code = 1, -1);
 			if (tok->next->has_quotes
 				&& read_hdc_quoted(tok->next->content, pipefd[1], sh) != 0)
 				return (close(pipefd[0]), sh->exit_code = 1, -1);
@@ -54,7 +54,7 @@ int	read_hdc_unquoted(const char *delimiter, int write_fd, t_shell *sh)
 		if (g_sig == 130)
 			return (sh->exit_code = 130, 0);
 		if (!line)
-			return (ft_printf_fd(2, WARNING_HEREDOC, delimiter), 0);
+			return (ft_printf_fd(2, SH_WAR WAR_HDOC, delimiter), 0);
 		if (ft_strcmp(line, delimiter) == 0)
 			return (free(line), 0);
 		i = 0;
@@ -81,7 +81,7 @@ int	read_hdc_quoted(const char *delimiter, int write_fd, t_shell *sh)
 		if (g_sig == 130)
 			return (sh->exit_code = 130, 0);
 		if (!line)
-			return (ft_printf_fd(2, WARNING_HEREDOC, delimiter), 0);
+			return (ft_printf_fd(2, SH_WAR WAR_HDOC, delimiter), 0);
 		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
@@ -131,7 +131,7 @@ int	write_expanded(int fd, char *str, t_shell *shl, int *index)
 	*index += 1;
 	temp = env_identifier(shl, &str[1], index);
 	if (!temp)
-		return (ft_printf_fd(2, ERR_MALLOC), 1);
+		return (ft_printf_fd(2, SH_WAR ERR_MALLOC), 1);
 	ft_putstr_fd(temp, fd);
 	free(temp);
 	return (0);

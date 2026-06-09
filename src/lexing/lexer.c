@@ -12,7 +12,7 @@
 
 #include "../../incs/minishell.h"
 
-int tokenizer(t_token **final, char *lineread, int *i, int *err_code)
+int	tokenizer(t_token **final, char *lineread, int *i, int *err_code)
 {
 	t_token	*token;
 	int		j;
@@ -21,12 +21,12 @@ int tokenizer(t_token **final, char *lineread, int *i, int *err_code)
 	token = NULL;
 	j = token_length(lineread + *i);
 	if (j < 0)
-		return (*err_code = 2, ft_printf_fd(2, ERR_QUOTES), 1);
+		return (*err_code = 2, ft_printf_fd(2, SH_ERR ERR_QUOTES), 1);
 	if (j > 0 && !is_meta(lineread[*i]))
 	{
 		token = init_token(ft_substr(lineread, *i, j));
 		if (!token)
-			return (*err_code = 1, ft_printf_fd(2, ERR_MALLOC), 1);
+			return (*err_code = 1, ft_printf_fd(2, SH_ERR ERR_MALLOC), 1);
 		*i += j;
 	}
 	else if (is_meta(lineread[*i]))

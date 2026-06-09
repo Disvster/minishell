@@ -52,7 +52,7 @@ int	append_exit_code(char **nstr, int exit_code, int *i)
 
 	ex_code = ft_itoa(exit_code);
 	if (!ex_code)
-		return (ft_printf_fd(2, ERR_MALLOC), 0);
+		return (ft_printf_fd(2, SH_ERR ERR_MALLOC), 0);
 	*nstr = strjoinfree(*nstr, ex_code);
 	if (!nstr)
 		return (0);
