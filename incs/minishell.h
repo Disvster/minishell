@@ -85,7 +85,7 @@ int		parsing(t_shell	*shell);
 void	set_types(t_token *tlist);
 void	set_commands(t_token *tlist);
 int		env_len(char *s);
-int	syntax_check(t_shell *shl);
+int		syntax_check(t_shell *shl);
 int		pipe_checker(t_token *tok);
 
 // Expansion/Appending
@@ -98,11 +98,11 @@ int		append_exit_code(char **nstr, int exit_code, int *i);
 int		is_edge(char c);
 
 // Heredoc
-int read_heredoc_input_quoted(const char *delimiter, int write_fd);
-int read_heredoc_input_unquoted(const char *delimiter, int write_fd, t_shell *shl);
-int	write_expanded(int	fd, char *str, t_shell *shl, int *index);
-int handle_heredoc_tokens(t_shell *sh, t_token *tokens);
-int	apply_heredoc(int heredoc_fd);
+int		read_hdc_quoted(const char	*delimiter, int write_fd, t_shell *sh);
+int		read_hdc_unquoted(const char *delimiter, int write_fd, t_shell *sh);
+int		write_expanded(int fd, char	*str, t_shell *shl, int *index);
+int		handle_heredoc_tokens(t_shell *sh, t_token *tokens);
+int		apply_heredoc(int heredoc_fd);
 
 // Signals
 void	handle_signal(void);
@@ -110,7 +110,6 @@ void	handle_signal_child(void);
 void	handle_sigint(int sig);
 void	handle_sigpipe(int sig);
 void	handle_heredoc_signal(int sig);
-
 
 // Env/Export
 int		init_env_list(t_shell	*shl, char	**envp);

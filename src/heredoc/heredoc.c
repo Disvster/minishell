@@ -26,10 +26,12 @@ int	handle_heredoc_tokens(t_shell *sh, t_token *tokens)
 				return (ft_printf_fd(2, ERR_DELIMITER), sh->exit_code = 2, -1);
 			if (pipe(pipefd) < 0)
 				return (ft_printf_fd(2, ERR_PIPE), sh->exit_code = 1, -1);
-			if  (tok->next->has_quotes && read_heredoc_input_quoted(tok->next->content, pipefd[1]) != 0)
-				return (close(pipefd[1]), sh->exit_code = 1, -1);
-			if  (!tok->next->has_quotes && read_heredoc_input_unquoted(tok->next->content, pipefd[1], sh) != 0)
-				return (close(pipefd[1]), sh->exit_code = 1, -1);
+			if (tok->next->has_quotes
+				&& read_hdc_quoted(tok->next->content, pipefd[1], sh) != 0)
+				return (close(pipefd[0]), sh->exit_code = 1, -1);
+			else if (!tok->next->has_quotes
+				&& read_hdc_unquoted(tok->next->content, pipefd[1], sh) != 0)
+				return (close(pipefd[0]), sh->exit_code = 1, -1);
 			close(pipefd[1]);
 			tok->heredoc_fd = pipefd[0];
 		}
@@ -38,10 +40,10 @@ int	handle_heredoc_tokens(t_shell *sh, t_token *tokens)
 	return (0);
 }
 
-int	read_heredoc_input_unquoted(const char *delimiter, int write_fd, t_shell *sh)
+int	read_hdc_unquoted(const char *delimiter, int write_fd, t_shell *sh)
 {
 	char	*line;
-	int	i;
+	int		i;
 
 	line = NULL;
 	i = 0;
@@ -49,23 +51,25 @@ int	read_heredoc_input_unquoted(const char *delimiter, int write_fd, t_shell *sh
 	while (1)
 	{
 		line = readline("> ");
+		if (g_sig == 130)
+			return (sh->exit_code = 130, 0);
 		if (!line)
 			return (ft_printf_fd(2, WARNING_HEREDOC, delimiter), 0);
 		if (ft_strcmp(line, delimiter) == 0)
-		{
-			free(line);
-			break ;
-		}
+			return (free(line), 0);
 		i = 0;
 		while (line[i])
-			write_expanded(write_fd, &line[i], sh, &i);
+		{
+			if (write_expanded(write_fd, &line[i], sh, &i) != 0)
+				return (close(write_fd), 1);
+		}
 		ft_putstr_fd("\n", write_fd);
 		free(line);
 	}
 	return (0);
 }
 
-int	read_heredoc_input_quoted(const char *delimiter, int write_fd)
+int	read_hdc_quoted(const char *delimiter, int write_fd, t_shell *sh)
 {
 	char	*line;
 
@@ -74,6 +78,8 @@ int	read_heredoc_input_quoted(const char *delimiter, int write_fd)
 	while (1)
 	{
 		line = readline("> ");
+		if (g_sig == 130)
+			return (sh->exit_code = 130, 0);
 		if (!line)
 			return (ft_printf_fd(2, WARNING_HEREDOC, delimiter), 0);
 		if (ft_strcmp(line, delimiter) == 0)
@@ -105,9 +111,9 @@ int	apply_heredoc(int heredoc_fd)
 	return (0);
 }
 
-int	write_expanded(int	fd, char *str, t_shell *shl, int *index)
+int	write_expanded(int fd, char *str, t_shell *shl, int *index)
 {
-	char *temp;
+	char	*temp;
 
 	temp = NULL;
 	if (str[0] != '$')

@@ -58,12 +58,12 @@ int	main(int ac, char **av, char **envp)
 {
 	t_shell	sh;
 	// t_env	*env;
-	t_token	*tok;
-
+	// t_token	*tok;
+	//
 	(void)ac;
 	(void)av;
-	tok = NULL;
-	// shl = malloc(sizeof(t_shell));
+	// tok = NULL;
+	// // shl = malloc(sizeof(t_shell));
 	// shl.exit_code = 0;
 	init_env_list(&sh, envp);
 	// env = NULL;
@@ -72,6 +72,7 @@ int	main(int ac, char **av, char **envp)
 
 	while (1)
 	{
+		g_sig = 0;
 		save_parent_fds(&sh);
 
 		// TODO: BUILD readline PROMPT
@@ -91,9 +92,9 @@ int	main(int ac, char **av, char **envp)
 		}
 		add_history(sh.lineread);
 		parsing(&sh);
-		tok = sh.tokens;
-		if (!tok)
-			return (1);
+		// tok = sh.tokens;
+		// if (!tok)
+		// 	return (1);
 		// while (tok)
 		// {
 		// 	printf("Token:%s \n", tok->content);
@@ -122,6 +123,6 @@ int	main(int ac, char **av, char **envp)
 		// ENV cmd test
 		// exec_env(shl);
 	}
-	rl_clear_history()
+	rl_clear_history();
 	return (0);
 }
