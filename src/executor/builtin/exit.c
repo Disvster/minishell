@@ -45,7 +45,7 @@ static int	err_exit(const char *s)
 	return (2);
 }
 
-// NOTE: sh->exit_code will receive the return of exec_exit
+// NOTE: sh->exit_code will receive the return of exec_exit?
 int	exec_exit(t_shell *sh, t_cmd *cmd)
 {
 	int		status;
@@ -65,11 +65,7 @@ int	exec_exit(t_shell *sh, t_cmd *cmd)
 				status += 256;
 		}
 	}
-	// TODO: change everything that's below to be in a single minishell free
-	//		function
-	restore_fds(sh);
 	cmdlist_clear(&cmd);
-	tokenlist_clear(&sh->tokens);
-	free_envs(&sh->envs);
+	minishell_clear(sh, TRUE);
 	exit(status);
 }

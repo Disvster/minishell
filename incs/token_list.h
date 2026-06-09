@@ -34,7 +34,6 @@ typedef struct s_token
 
 	bool			has_quotes;
 	char			*content;
-	// t_cmd			*cmd;
 	t_type			type;
 	int				heredoc_fd;
 

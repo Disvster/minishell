@@ -27,15 +27,6 @@
 # define EXPORT 4
 # define CD 5
 
-// TODO: don't need t_line struct
-typedef struct s_line
-{
-	char	**specs;
-	bool	spec_count;
-	bool	single_q;
-	bool	double_q;
-}				t_line;
-
 typedef struct s_redirect
 {
 	t_type	type;

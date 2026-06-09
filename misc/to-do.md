@@ -1,7 +1,12 @@
 # MINISHELL To-do List
 
+## 09/06/26
+
+- [ ] maybe remove token_list_clear calls in parsing and let main handle it.
+- [ ] incorrect syntax input exit code apparently is 2, review parsing/lexing for this
+
 ## 08/06/26
-- [X] implemented "working history" (its already preprogrammed in readline
+- [X] implemented "working history" (its already preprogrammed in readline)
 - [X] HEREDOC COMPLETE
 
 - [ ] we need to get going with exit code definition (on error and not only), may be functions that need to check g_sig to see if they can keep running, others the exit code.
