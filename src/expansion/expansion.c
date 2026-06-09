@@ -46,15 +46,15 @@ char	*expand(t_token *token, t_shell *shl)//, char *nstr)
 		if (s[i] == '"' || s[i] == '\'')
 		{
 			if (!append_quoted(shl, token, &nstr, &i))
-				return (NULL);
+				return (free(nstr), NULL);
 		}
 		else if (s[i] == '$')
 		{
 			if (!append_expand(shl, token, &nstr, &i))
-				return (NULL);
+				return (free(nstr), NULL);
 		}
 		else if (!append_letter(&nstr, s[i], &i))
-			return (NULL);
+			return (free(nstr), NULL);
 	}
 	return (nstr);
 }
@@ -115,7 +115,7 @@ int	append_letter(char	**nstr, char c, int	*i)
 	temp[1] = 0;
 	*i += 1;
 	*nstr = strjoinfree(*nstr, temp);
-	if (!nstr)
+	if (!*nstr)
 		return (ft_printf_fd(2, SH_ERR ERR_MALLOC), 0);
 	return (1);
 }

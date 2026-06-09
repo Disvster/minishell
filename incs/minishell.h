@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:39:50 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/03 21:33:00 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/06/09 17:45:06 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	handle_signal_child(void);
 void	handle_sigint(int sig);
 void	handle_sigpipe(int sig);
 void	handle_heredoc_signal(int sig);
+void	block_signals(void);
 
 // Env/Export
 int		init_env_list(t_shell	*shl, char	**envp);

@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 18:39:23 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/06 15:11:11 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/09 17:52:46 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,21 @@ static void	wait_for_children(t_shell *sh)
 	int		i;
 
 	i = 0;
+
+	block_signals();
 	while (i < sh->pipeline.count)
 	{
 		waitpid(sh->pipeline.pids[i], &status, 0);
 		if (i == sh->pipeline.count - 1)
-			sh->exit_code = WEXITSTATUS(status);
+		{
+			if (WIFEXITED(status))
+				sh->exit_code = WEXITSTATUS(status);
+			if (WIFSIGNALED(status))
+				sh->exit_code = 128 + WTERMSIG(status);
+		}
 		i++;
 	}
+	handle_signal();
 }
 
 int	exec_pipeline(t_shell *sh, t_cmd *cmds)

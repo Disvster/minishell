@@ -6,7 +6,7 @@
 /*   By: rodmorei <rodmorei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 20:25:11 by rodmorei          #+#    #+#             */
-/*   Updated: 2026/06/03 20:58:58 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/06/09 17:52:43 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	handle_signal_child(void)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
+	signal(SIGPIPE, SIG_DFL);
 }
 
 void	handle_heredoc_signal(int sig)
