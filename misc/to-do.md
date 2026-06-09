@@ -27,15 +27,15 @@
 
 ## 31/05/26
 
-- [X] signals:
+- [o] signals:
     - [ ] <C-j> is the same as ENTER (currently exits minishell unsafely if no input is given)
-    - [ ] <C-d> is equal to exit built-in call
+    - [X] <C-d> is equal to exit built-in call
     - [X] <C-l> clears screen (is already working for some reason)
     - [ ] pressing ESC repeatedly crashes minishell sometimes? 
 
 - [X] implement working history when pressing up arrow
 
-- [ ] readline prompt with pwd (`$HOME == '~'` if possible)
+- [ ] readline prompt with pwd (`$HOME == '~'` if possibe)
     -  check afonso and wallace's build_prompt() function for inspo
 
 - [X] REDIRECTS!!
