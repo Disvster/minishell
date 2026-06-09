@@ -16,7 +16,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-int	g_sig;
+int	g_sig = 0;
 // TODO: double check if you call this everytime or just when redir is found
 void	save_parent_fds(t_shell *sh)
 {
@@ -34,6 +34,11 @@ void	save_parent_fds(t_shell *sh)
 
 void restore_g_sig(t_shell *sh)
 {
+	if (g_sig == 131)
+	{
+		g_sig = 0;
+		sh->exit_code = 130;
+	}
 	if (g_sig == 130)
 	{
 		g_sig = 0;

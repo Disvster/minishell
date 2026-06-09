@@ -116,7 +116,11 @@ static void	wait_for_children(t_shell *sh)
 			if (WIFEXITED(status))
 				sh->exit_code = WEXITSTATUS(status);
 			if (WIFSIGNALED(status))
+			{
+				if (WTERMSIG(status) == SIGINT)
+					write(STDOUT_FILENO, "\n", 1);
 				sh->exit_code = 128 + WTERMSIG(status);
+			}
 		}
 		i++;
 	}
