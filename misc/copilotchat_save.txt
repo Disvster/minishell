@@ -1,50 +1,61 @@
--> Executor:
-> #file:executor/executor.c
-
--> Built-ins:
-> #file:executor/builtin/cd.c
-> #file:executor/builtin/echo.c
-> #file:executor/builtin/env.c
-> #file:executor/builtin/exit.c
-> #file:executor/builtin/export.c
-> #file:executor/builtin/pwd.c
-> #file:executor/builtin/unset.c
-
--> Command List Builder
-> #file:executor/command_list/cmdlist.c
-> #file:executor/command_list/cmdlist_helpers.c
-> #file:executor/command_list/cmdlist_utils.c
-
 -> Header Files:
 > #file:incs/executor.h
 > #file:incs/minishell.h
 > #file:incs/token_list.h
 
--> Lexer:
-> #file:lexing/lexer.c
-> #file:lexing/lex_utils.c
-> #file:lexing/lex_utils2.c
+-> Environment List Builder:
+> #file:src/env_list/init_env.c
+> #file:src/env_list/env_list_utils.c
 
--> Test Main:
-> #file:lexing/testmain.c
+-> Built-ins:
+> #file:src/executor/builtin/cd.c
+> #file:src/executor/builtin/echo.c
+> #file:src/executor/builtin/env.c
+> #file:src/executor/builtin/exit.c
+> #file:src/executor/builtin/export.c
+> #file:src/executor/builtin/pwd.c
+> #file:src/executor/builtin/unset.c
 
--> Parsing:
-> #file:parsing/parsing.c
-> #file:parsing/parsing_utils.c
-> #file:parsing/syntax_check.c
+-> Command List Builder
+> #file:src/executor/command_list/cmdlist.c
+> #file:src/executor/command_list/cmdlist_helpers.c
+> #file:src/executor/command_list/cmdlist_utils.c
+
+-> Executor:
+> #file:src/executor/executor.c
+> #file:src/executor/executor_helpers.c
 
 -> Expansions:
-> #file:parsing/expansion.c
-> #file:parsing/expansion_utils.c
+> #file:src/expansion/expansion.c
+> #file:src/expansion/expansion_utils.c
 
--> Environment List Builder:
-> #file:parsing/init_env.c
-> #file:parsing/env_list_utils.c
+-> Heredoc:
+> #file:src/heredoc/heredoc.c
+
+-> Lexer:
+> #file:src/lexing/lexer.c
+> #file:src/lexing/lex_utils.c
+> #file:src/lexing/lex_utils2.c
+
+-> Test Main:
+> #file:src/lexing/testmain.c
+
+-> Parsing:
+> #file:src/parsing/parsing.c
+> #file:src/parsing/parsing_utils.c
+> #file:src/parsing/syntax_check.c
+
+->Redirect:
+> #file:src/redirect/redirect.c
+> #file:src/redirect/redirect_utils.c
+
+-> Signal:
+> #file:src/signal/signal.c
+> #file:src/signal/signal_block.c
 
 -> Token List Utils:
-> #file:token_list_utils/list_utils.c
-> #file:token_list_utils/list_utils2.c
-> #file:main.c
+> #file:src/token_list_utils/list_utils.c
+> #file:src/token_list_utils/list_utils2.c
 
 
 I am working on a 42 School Minishell project in C on Linux. My project already has:
