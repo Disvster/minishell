@@ -100,6 +100,8 @@ int	append_expand(t_shell *shl, t_token *token, char **nstr, int *i)
 	}
 	*i += 1;
 	env_name = env_identifier(shl, &str[*i], i);
+	if (!env_name)
+		return (0);
 	*nstr = strjoinfree(*nstr, env_name);
 	free(env_name);
 	if (!*nstr)
