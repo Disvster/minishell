@@ -1,9 +1,16 @@
 # MINISHELL To-do List
 
 ## 10/06/26
-STRESS TEST:
+
+### STRESS TEST:
+
 - [ ] upon unsetting PATH, program does not work with relative paths
 - [ ] also upon unsetting PATH, the response is "command not found" instead of "no such file or directory"
+
+------
+
+- [ ] we are not freeing nothing in child processes executing built-in commands
+
 ## 09/06/26
 
 - [ ] maybe remove token_list_clear calls in parsing and let main handle it.
