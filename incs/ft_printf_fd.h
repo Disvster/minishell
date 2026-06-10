@@ -35,5 +35,6 @@ int		ft_hexacount_fd(unsigned int hex);
 # define ERR_PIP "Failed to create pipe \n"
 # define ERR_DEL "Heredoc missing delimiter \n"
 # define WAR_HDOC "Heredoc delimited by end-of-file (wanted '%s') \n"
+# define ERR_DIREC "Is a directory\n"
 
 #endif

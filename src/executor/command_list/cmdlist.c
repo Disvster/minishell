@@ -37,7 +37,7 @@ t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist)
 	ext->path = find_cmd_path(token->content, envlist);
 	if (!ext->path)
 		return (free(ext),
-			ft_printf_fd(2, "Error: %s: command not found\n", token->content),
+			ft_printf_fd(2, "Error: %s: Command not found\n", token->content),
 			NULL);
 	temp = token->next;
 	while (temp && temp->type == ARG)

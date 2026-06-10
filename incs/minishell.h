@@ -14,7 +14,9 @@
 # define MINISHELL_H
 
 # include "../libft_manmaria/incs/libft.h"
+# include <errno.h>
 # include <signal.h>
+# include <sys/stat.h>
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
