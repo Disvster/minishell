@@ -22,12 +22,12 @@ int	expansion(t_token *head, t_shell *shl)
 	{
 		tmpstr = expand(temp, shl);
 		if (!tmpstr)
-			return (free(temp->content), 0);
+			return (1);
 		free (temp->content);
 		temp->content = tmpstr;
 		temp = temp->next;
 	}
-	return (1);
+	return (0);
 }
 
 char	*expand(t_token *token, t_shell *shl)//, char *nstr)

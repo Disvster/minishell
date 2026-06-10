@@ -18,9 +18,9 @@ int	parsing(t_shell	*shell)
 		return (1);
 	set_types(shell->tokens);
 	set_commands(shell->tokens);
-	if (!expansion(shell->tokens, shell))
+	if (expansion(shell->tokens, shell) != 0)
 		return (shell->exit_code = 1, 1);
-	if (!syntax_check(shell))
+	if (syntax_check(shell) != 0)
 		return (shell->exit_code = 2, 1);
 	if (handle_heredoc_tokens(shell, shell->tokens) != 0)
 		return (1);

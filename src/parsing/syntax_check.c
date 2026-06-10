@@ -14,8 +14,8 @@
 int	syntax_check(t_shell *shl)
 {
 	if (!pipe_checker(shl->tokens))
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 int	pipe_checker(t_token *tok)
