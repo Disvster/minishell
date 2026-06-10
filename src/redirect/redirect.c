@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 19:45:31 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/06 15:02:07 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/10 16:43:19 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	populate_redirects(t_token *token, t_cmd *cmd)
 		return ;
 	cmd->redirs = ft_calloc(cmd->redirect_count, sizeof(t_redirect));
 	if (!cmd->redirs)
-		return (ft_printf_fd(2, "malloc error on redirect array"));
+		return (ft_printf_fd(2, "malloc error on redirect array"));//TODO: change error msg
 	traverse_back(token, cmd, &i);
 	traverse_forward(token, cmd, &i);
 }
