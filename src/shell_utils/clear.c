@@ -17,6 +17,8 @@ int	minishell_clear(t_shell *sh, bool close_shell)
 {
 	if (sh->lineread)
 		free(sh->lineread);
+	if (sh->prompt)
+		free(sh->prompt);
 	tokenlist_clear(&sh->tokens);
 	restore_fds(sh);
 	if (close_shell == true)
