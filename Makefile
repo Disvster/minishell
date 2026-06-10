@@ -16,6 +16,7 @@ SRC_DIRS = src \
 		   src/lexing \
 		   src/parsing \
 		   src/redirect \
+		   src/shell_utils \
 		   src/signal \
 		   src/token_list_utils
 

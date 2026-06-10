@@ -66,6 +66,6 @@ int	exec_exit(t_shell *sh, t_cmd *cmd)
 		}
 	}
 	cmdlist_clear(&cmd);
-	minishell_clear(sh, TRUE);
+	minishell_clear(sh, true);
 	exit(status);
 }

@@ -23,7 +23,7 @@ char	*env_identifier(t_shell *shl, char *to_id, int *index)
 	variable = NULL;
 	while (to_id[i] && (ft_isalnum(to_id[i]) || to_id[i] == '_'))
 		i++;
-	env_name = ft_substr(to_id, 0, i);
+	env_name = ft_substr(to_id, 0, i); //TODO:protect malloc;
 	*index += i;
 	variable = find_env(shl, env_name);
 	if (variable)

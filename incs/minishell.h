@@ -101,6 +101,7 @@ int		is_edge(char c);
 int		read_hdc_quoted(const char	*delimiter, int write_fd, t_shell *sh);
 int		read_hdc_unquoted(const char *delimiter, int write_fd, t_shell *sh);
 int		write_expanded(int fd, char	*str, t_shell *shl, int *index);
+int		read_heredoc_token(t_shell	*sh, t_token	*tok, int *pipefds);
 int		handle_heredoc_tokens(t_shell *sh, t_token *tokens);
 int		apply_heredoc(int heredoc_fd);
 
@@ -128,5 +129,6 @@ char	*strjoinfree(char *s1, char *s2);
 int		ft_strcmp(const char *s1, const char *s2);
 void	restore_fds(t_shell *sh);
 void	restore_g_sig(t_shell *sh);
+int	minishell_clear(t_shell *sh, bool close_shell);
 
 #endif

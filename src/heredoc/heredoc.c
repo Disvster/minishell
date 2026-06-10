@@ -23,17 +23,11 @@ int	handle_heredoc_tokens(t_shell *sh, t_token *tokens)
 		if (tok->type == HEREDOC)
 		{
 			if (!tok->next || tok->next->type != LIMITER)
-				return (ft_printf_fd(2, SH_ERR ERR_DEL), sh->exit_code = 2, -1);
+				return (ft_printf_fd(2, SH_ERR ERR_DEL), sh->exit_code = 2, 1);
 			if (pipe(pipefd) < 0)
-				return (ft_printf_fd(2, SH_ERR ERR_PIP), sh->exit_code = 1, -1);
-			if (tok->next->has_quotes
-				&& read_hdc_quoted(tok->next->content, pipefd[1], sh) != 0)
-				return (close(pipefd[0]), sh->exit_code = 1, -1);
-			else if (!tok->next->has_quotes
-				&& read_hdc_unquoted(tok->next->content, pipefd[1], sh) != 0)
-				return (close(pipefd[0]), sh->exit_code = 1, -1);
-			close(pipefd[1]);
-			tok->heredoc_fd = pipefd[0];
+				return (ft_printf_fd(2, SH_ERR ERR_PIP), sh->exit_code = 1, 1);
+			if (read_heredoc_token(sh, tok, pipefd) != 0)
+				return (1);
 		}
 		tok = tok->next;
 	}
