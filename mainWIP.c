@@ -64,6 +64,11 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		handle_signal();
+		sh.prompt = cwd_prompt(&sh);
+		if (!sh.prompt)
+			sh.lineread = readline("[minishell] ");
+		else
+			sh.lineread = readline(sh.prompt);
 		save_parent_fds(&sh);
 		sh.lineread = readline(cwd_prompt(&sh));
 		if (!sh.lineread)

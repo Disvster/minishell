@@ -102,9 +102,14 @@ int	main(int ac, char **av, char **envp)
 		char curr_path[BUFFSIZE];
 		getcwd(curr_path, BUFFSIZE);
 		handle_signal();
-		sh.lineread = readline("[minishell] ");
+		sh.prompt = cwd_prompt(&sh);
+		if (!sh.prompt)
+			sh.lineread = readline("[minishell] ");
+		else
+			sh.lineread = readline(sh.prompt);
 		if (!sh.lineread)
 		{
+			minishell_clear(&sh, true);
 			ft_printf_fd(1, "exit\n");
 			break;
 		}
@@ -142,6 +147,7 @@ int	main(int ac, char **av, char **envp)
 
 		// ENV cmd test
 		// exec_env(shl);
+		free(sh.prompt);
 	}
 	rl_clear_history();
 	return (0);

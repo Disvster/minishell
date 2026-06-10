@@ -33,8 +33,7 @@ char	*cwd_prompt(t_shell *sh)
 		ft_strlcat(buffer, cwd, 1024);
 	ft_strlcat(buffer, "] ", 1024);
 	free(home);
-	sh->prompt = buffer;
-	return (sh->prompt);
+	return (ft_strdup(buffer));
 }
 
 char	*get_env_content(t_env *head, char *search)
