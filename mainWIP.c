@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 22:06:56 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/09 22:13:13 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/10 18:10:31 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@ int	main(int ac, char **av, char **envp)
 	{
 		handle_signal();
 		save_parent_fds(&sh);
-		sh.lineread = readline("[minishell] ");// TODO: build prompt
+		sh.lineread = readline(cwd_prompt(&sh));
 		if (!sh.lineread)
-			minishell_clear(sh, TRUE);
+			return (ft_printf("exit\n"), minishell_clear(&sh, true));
 		if (sh.lineread[0] != '\0')
 			add_history(sh.lineread);
 		if (parsing(&sh) != 0)
 		{
-			minishell_clear(&sh, FALSE);
+			minishell_clear(&sh, false);
 			continue ;
 		}
 		if (executor(&sh) != 0)
@@ -80,7 +80,7 @@ int	main(int ac, char **av, char **envp)
 			sh.exit_code = 1;
 			perror("minishell: executor");
 		}
-		minishell_clear(&sh, FALSE);
+		minishell_clear(&sh, false);
 	}
 	return (0);
 }

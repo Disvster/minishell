@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 17:39:50 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/09 17:45:06 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/06/10 18:10:00 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_shell
 	t_pipeline	pipeline;
 	int			exit_code;	
 	int			saved_fds[3];
+	char		*prompt;
 }	t_shell;
 
 // t_dlist	*dlist_new_node(void *data);
@@ -129,6 +130,8 @@ char	*strjoinfree(char *s1, char *s2);
 int		ft_strcmp(const char *s1, const char *s2);
 void	restore_fds(t_shell *sh);
 void	restore_g_sig(t_shell *sh);
-int	minishell_clear(t_shell *sh, bool close_shell);
+int		minishell_clear(t_shell *sh, bool close_shell);
+char	*get_env_content(t_env *head, char *search);
+char	*cwd_prompt(t_shell *sh);
 
 #endif

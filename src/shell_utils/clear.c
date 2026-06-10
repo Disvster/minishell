@@ -23,8 +23,6 @@ int	minishell_clear(t_shell *sh, bool close_shell)
 	{
 		free_envs(&sh->envs);
 		rl_clear_history();
-		ft_printf("exit\n");
-		exit(sh->exit_code);
 	}
-	return (0);
+	return (sh->exit_code);
 }

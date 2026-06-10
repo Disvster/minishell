@@ -97,6 +97,7 @@ void	populate_redirects(t_token *token, t_cmd *cmd);
 int		apply_redirects(t_cmd *cmd);
 
 //Executor
+int		executor(t_shell *sh);
 char	**env_list_to_array(t_env *envs);
 int		setup_pipes_and_fork(t_shell *sh, t_cmd *curr, int *pipefd);
 int		init_pipeline(t_shell *sh);

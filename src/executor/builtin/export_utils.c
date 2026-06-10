@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 16:55:01 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/05 16:59:12 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/10 18:12:14 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	export_print_vars(t_shell *sh)
 	return (0);
 }
 
-int	export_err_invalid_identifier(char *s)
+int	export_err_invalid_identifier(char *s)//TODO: put this in printf_fd.h
 {
 	ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n", s);
 	return (1);
