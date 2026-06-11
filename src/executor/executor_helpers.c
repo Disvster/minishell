@@ -123,7 +123,7 @@ void	execve_error(t_shell *shl, t_cmd *command, char	*path)
 		minishell_clear(shl, true);
 		exit (126);
 	}
-	if (!ft_strchr(command->path, '/'))
+	if (!ft_strchr(command->path, '/') && errno != EACCES)
 	{
 		ft_printf_fd(2, ERR_CMD);
 		cmdlist_clear(&command);
