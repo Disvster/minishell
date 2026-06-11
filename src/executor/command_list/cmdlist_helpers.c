@@ -60,7 +60,7 @@ int	search_paths(char **paths, char *cmd, char	**test)
 		{
 			*test = pipex_strjoin(paths[i], cmd);
 			if (!*test)
-				return (ft_printf_fd(2, SH_ERR ERR_MALLOC), 1);
+				return (1);
 			if (access(*test, X_OK) == 0)
 				return (0);
 			free(*test);
@@ -89,6 +89,8 @@ int	find_cmd_path(t_cmd	*ext, char *cmd, t_env *envlist)
 	}
 	status = search_paths(paths, cmd, &test);
 	free_split(paths);
+	if (!test && cmd)
+		return (ft_printf_fd(2, SH_ERR ERR_MALLOC), 1);
 	ext->path = test;
 	return (status);
 }
