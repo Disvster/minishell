@@ -122,12 +122,14 @@ void	execve_error(t_shell *shl, t_cmd *command, char	*path)
 	if (errno == EACCES && stat(path, &stt) == 0 && S_ISDIR(stt.st_mode))
 	{
 		ft_printf_fd(2, ERR_DIREC);
-		// TODO: ADD CLEANUP HERE
+		cmdlist_clear(&command);
+		minishell_clear(shl, true);
 		exit (126);
 	}
 	else
 	{
-		// TODO: ADD CLEANUP HERE
+		cmdlist_clear(&command);
+		minishell_clear(shl, true);
 		ft_printf_fd(2, "%s\n", strerror(errno));
 		if (errno == EACCES)
 			exit(126);
