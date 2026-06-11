@@ -11,21 +11,26 @@
 /* ************************************************************************** */
 #include "../../incs/minishell.h"
 
-int	expansion(t_token *head, t_shell *shl)
+int	expansion(t_token **head, t_shell *shl)
 {
 	t_token	*temp;
 	char	*tmpstr;
 
 	tmpstr = NULL;
-	temp = head;
+	temp = *head;
 	while (temp)
 	{
 		tmpstr = expand(temp, shl);
 		if (!tmpstr)
 			return (1);
-		free (temp->content);
-		temp->content = tmpstr;
-		temp = temp->next;
+		if (temp->content[0] == '$' && tmpstr[0] == '\0')
+			delete_token(tmpstr, &temp);
+		else
+		{
+			free (temp->content);
+			temp->content = tmpstr;
+			temp = temp->next;
+		}
 	}
 	return (0);
 }
