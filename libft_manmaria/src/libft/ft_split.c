@@ -30,6 +30,8 @@ char	**free_split(char **save)
 {
 	char	**marcemon;
 
+	if (!save)
+		return (NULL);
 	marcemon = save;
 	while (1)
 	{
