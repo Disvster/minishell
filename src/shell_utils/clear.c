@@ -24,8 +24,7 @@ int	minishell_clear(t_shell *sh, bool close_shell)
 	restore_fds(sh);
 	if (close_shell == true)
 	{
-		if (sh->envs)
-			free_envs(&sh->envs);
+		free_envs(&sh->envs);
 		rl_clear_history();
 	}
 	return (sh->exit_code);

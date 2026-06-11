@@ -80,8 +80,8 @@ static void	exec_pipeline_child(t_shell *sh, t_cmd *curr, int *pipefd)
 	if (!envp)
 		exit(1);//WARNING: can I exit here?
 	execve(curr->path, curr->args, envp);
-	execve_error(sh, curr, curr->path);
 	free_split(envp);
+	execve_error(sh, curr, curr->path);
 	exit(127);
 }
 
