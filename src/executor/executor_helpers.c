@@ -125,9 +125,9 @@ void	execve_error(t_shell *shl, t_cmd *command, char	*path)
 	}
 	if (!ft_strchr(command->path, '/'))
 	{
+		ft_printf_fd(2, ERR_CMD);
 		cmdlist_clear(&command);
 		minishell_clear(shl, true);
-		ft_printf_fd(2, ERR_CMD);
 		exit (127);
 	}
 	cmdlist_clear(&command);
