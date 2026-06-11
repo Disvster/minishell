@@ -98,7 +98,7 @@ int		append_quoted(t_shell *shl, t_token	*token, char **nstr, int	*i);
 int		append_expand(t_shell *shl, t_token *token, char **nstr, int *i);
 int		append_letter(char	**nstr, char c, int	*i);
 int		append_exit_code(char **nstr, int exit_code, int *i);
-void		delete_token(char *str, t_token **tok);
+void		delete_token(char *str, t_token **tok, t_token **head);
 int		is_edge(char c);
 
 // Heredoc

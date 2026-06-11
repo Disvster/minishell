@@ -64,7 +64,7 @@ void	set_commands(t_token *tlist)
 	check = 0;
 	while (temp)
 	{
-		if (check == 0 && temp->type == ARG)
+		if (check == 0 && (temp->type == ARG || temp->type == COMMAND))
 		{
 			temp->type = COMMAND;
 			check = 1;

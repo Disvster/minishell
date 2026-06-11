@@ -24,7 +24,7 @@ int	expansion(t_token **head, t_shell *shl)
 		if (!tmpstr)
 			return (1);
 		if (temp->content[0] == '$' && tmpstr[0] == '\0')
-			delete_token(tmpstr, &temp);
+			delete_token(tmpstr, &temp, head);
 		else
 		{
 			free (temp->content);
