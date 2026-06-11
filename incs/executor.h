@@ -101,7 +101,7 @@ int		executor(t_shell *sh);
 char	**env_list_to_array(t_env *envs);
 int		setup_pipes_and_fork(t_shell *sh, t_cmd *curr, int *pipefd);
 int		init_pipeline(t_shell *sh);
-int		exec_builtin(t_shell *sh, t_cmd *cmd);
+int		exec_builtin(t_shell *sh, t_cmd *cmd, bool in_child);
 int		exec_pipeline(t_shell *sh, t_cmd *cmds);
 void	execve_error(t_shell *shl, t_cmd *command, char	*path);
 

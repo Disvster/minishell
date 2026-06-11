@@ -82,17 +82,13 @@ int	init_pipeline(t_shell *sh)
 	return (0);
 }
 
-int	exec_builtin(t_shell *sh, t_cmd *cmd)
+int	exec_builtin(t_shell *sh, t_cmd *cmd, bool in_child)
 {
 	int	status;
 
 	status = 0;
 	if (cmd->redirect_count > 0 && apply_redirects(cmd) < 0)
-	{
-		cmdlist_clear(&cmd);
-		minishell_clear(sh, true);
-		return (1);
-	}
+		return (cmdlist_clear(&cmd), minishell_clear(sh, in_child), 1);
 	if (ft_strcmp(cmd->path, "cd") == 0)
 		status = exec_cd(sh, cmd);
 	else if (ft_strcmp(cmd->path, "echo") == 0)
@@ -107,6 +103,11 @@ int	exec_builtin(t_shell *sh, t_cmd *cmd)
 		status = exec_export(sh, cmd);
 	else if (ft_strcmp(cmd->path, "unset") == 0)
 		status = exec_unset(sh, cmd);
+	if (in_child == true)
+	{
+		cmdlist_clear(&cmd);
+		minishell_clear(sh, in_child);
+	}
 	return (status);
 }
 

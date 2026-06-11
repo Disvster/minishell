@@ -75,7 +75,7 @@ static void	exec_pipeline_child(t_shell *sh, t_cmd *curr, int *pipefd)
 	if (curr->redirect_count > 0 && apply_redirects(curr) < 0)
 		exit(1);// FIX: FREE HERE?
 	if (curr->is_bi)
-		exit(exec_builtin(sh, curr));
+		exit(exec_builtin(sh, curr, true));
 	envp = env_list_to_array(sh->envs);
 	if (!envp)
 		exit(1);//WARNING: can I exit here?
@@ -136,7 +136,7 @@ int	exec_pipeline(t_shell *sh, t_cmd *cmds)
 	if (!cmds)
 		return (1);// WARNING: error code?
 	if (!cmds->next && cmds->is_bi)
-		return (exec_builtin(sh, cmds));
+		return (exec_builtin(sh, cmds, false));
 	init_pipeline(sh);
 	curr = cmds;
 	while (curr && sh->pipeline.count < 1024)
