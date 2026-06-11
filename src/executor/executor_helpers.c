@@ -115,10 +115,7 @@ void	execve_error(t_shell *shl, t_cmd *command, char	*path)
 {
 	struct stat	stt;
 
-	(void)shl;
-	ft_printf_fd(2, SH_);
-	if (command->args[0])
-		ft_printf_fd(2, "%s: ", command->args[0]);
+	ft_printf_fd(2, SH_ "%s: ", command->args[0]);
 	if (errno == EACCES && stat(path, &stt) == 0 && S_ISDIR(stt.st_mode))
 	{
 		ft_printf_fd(2, ERR_DIREC);
@@ -126,16 +123,19 @@ void	execve_error(t_shell *shl, t_cmd *command, char	*path)
 		minishell_clear(shl, true);
 		exit (126);
 	}
-	else
+	if (!ft_strchr(command->path, '/'))
 	{
 		cmdlist_clear(&command);
 		minishell_clear(shl, true);
-		ft_printf_fd(2, "%s\n", strerror(errno));
-		if (errno == EACCES)
-			exit(126);
-		if (errno == ENOENT)
-			exit(127);
-		if (errno == EACCES)
-			exit(1);
+		ft_printf_fd(2, ERR_CMD);
+		exit (127);
 	}
+	cmdlist_clear(&command);
+	minishell_clear(shl, true);
+	ft_printf_fd(2, "%s\n", strerror(errno));
+	if (errno == EACCES)
+		exit(126);
+	if (errno == ENOENT)
+		exit(127);
+	exit(1);
 }
