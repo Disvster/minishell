@@ -34,13 +34,14 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-void delete_token(char *str, t_token **token)
+void delete_token(char *str, t_token **token, t_token	**head)
 {
 	t_token	*tok;
-	t_token	*temp;
 
 	tok = *token;
-	temp = tok->next;
+	*token = tok->next;
+	if (!tok->prev)
+		*head = *token;
 	free(str);
 	if (tok->prev)
 		tok->prev->next = tok->next;
@@ -48,5 +49,4 @@ void delete_token(char *str, t_token **token)
 		tok->next->prev = tok->prev;
 	free(tok->content);
 	free(tok);
-	*token = temp;
 }
