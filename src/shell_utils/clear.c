@@ -19,11 +19,13 @@ int	minishell_clear(t_shell *sh, bool close_shell)
 		free(sh->lineread);
 	if (sh->prompt)
 		free(sh->prompt);
-	tokenlist_clear(&(sh->tokens));
+	if (sh->tokens)
+		tokenlist_clear(&(sh->tokens));
 	restore_fds(sh);
 	if (close_shell == true)
 	{
-		free_envs(&(sh->envs));
+		if (sh->envs)
+			free_envs(&(sh->envs));
 		rl_clear_history();
 	}
 	return (sh->exit_code);
