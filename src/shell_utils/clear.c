@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../incs/executor.h"
 #include "../../incs/minishell.h"
 #include <readline/readline.h>
 
@@ -28,4 +29,11 @@ int	minishell_clear(t_shell *sh, bool close_shell)
 		rl_clear_history();
 	}
 	return (sh->exit_code);
+}
+
+void	cleanup_and_exit(int exit_code, t_shell *sh, t_cmd *cmd_list)
+{
+	cmdlist_clear(&cmd_list);
+	minishell_clear(sh, true);
+	exit(exit_code);
 }

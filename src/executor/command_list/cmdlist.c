@@ -40,9 +40,10 @@ int	create_external(t_token *token, t_cmd *ext, t_env *envlist)
 	if (status == 1)
 		return (status);
 	temp = token->next;
-	while (temp && temp->type == ARG)
+	while (temp && (temp->type != PIPE && temp->type != COMMAND))
 	{
-		ext->arg_count++;
+		if (temp->type == ARG)
+			ext->arg_count++;
 		temp = temp->next;
 	}
 	ext->args = ft_calloc((ext->arg_count + 2), sizeof(char *));
@@ -64,9 +65,10 @@ int	create_builtin(t_token *token, t_cmd *bi)
 	bi->path = token->content;
 	temp = token->next;
 	bi->is_bi = true;
-	while (temp && temp->type == ARG)
+	while (temp && (temp->type != PIPE && temp->type != COMMAND))
 	{
-		bi->arg_count++;
+		if (temp->type == ARG)
+			bi->arg_count++;
 		temp = temp->next;
 	}
 	if (bi->arg_count > 0)

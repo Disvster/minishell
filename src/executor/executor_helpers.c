@@ -87,22 +87,25 @@ int	exec_builtin(t_shell *sh, t_cmd *cmd, bool in_child)
 	int	status;
 
 	status = 0;
-	if (cmd->redirect_count > 0 && apply_redirects(cmd) < 0)
-		return (cmdlist_clear(&cmd), minishell_clear(sh, in_child), 1);
-	if (ft_strcmp(cmd->path, "cd") == 0)
-		status = exec_cd(sh, cmd);
-	else if (ft_strcmp(cmd->path, "echo") == 0)
-		status = exec_echo(sh, cmd);
-	else if (ft_strcmp(cmd->path, "env") == 0)
-		status = exec_env(sh);
-	else if (ft_strcmp(cmd->path, "pwd") == 0)
-		status = exec_pwd(sh);
-	else if (ft_strcmp(cmd->path, "exit") == 0)
-		status = exec_exit(sh, cmd);
-	else if (ft_strcmp(cmd->path, "export") == 0)
-		status = exec_export(sh, cmd);
-	else if (ft_strcmp(cmd->path, "unset") == 0)
-		status = exec_unset(sh, cmd);
+	if (!(cmd->redirect_count > 0 && apply_redirects(cmd) < 0))
+	{
+		if (ft_strcmp(cmd->path, "cd") == 0)
+			status = exec_cd(sh, cmd);
+		else if (ft_strcmp(cmd->path, "echo") == 0)
+			status = exec_echo(sh, cmd);
+		else if (ft_strcmp(cmd->path, "env") == 0)
+			status = exec_env(sh);
+		else if (ft_strcmp(cmd->path, "pwd") == 0)
+			status = exec_pwd(sh);
+		else if (ft_strcmp(cmd->path, "exit") == 0)
+			status = exec_exit(sh, cmd);
+		else if (ft_strcmp(cmd->path, "export") == 0)
+			status = exec_export(sh, cmd);
+		else if (ft_strcmp(cmd->path, "unset") == 0)
+			status = exec_unset(sh, cmd);
+	}
+	else
+		status = 1;
 	if (in_child == true)
 	{
 		cmdlist_clear(&cmd);
