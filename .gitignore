@@ -6,3 +6,4 @@ obj/
 minishell
 *vgcore*
 test/
+minishell_tester/
