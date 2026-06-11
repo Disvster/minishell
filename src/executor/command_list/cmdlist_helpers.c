@@ -50,8 +50,8 @@ int	search_paths(char **paths, char *cmd, char	**test)
 	if (ft_strchr(cmd, '/'))
 	{
 		if (access(cmd, X_OK) == 0)
-			return (*test = cmd, 0); // WARNING: Ownership
-		return (*test = cmd, 127);
+			return (*test = ft_strdup(cmd), 0); // WARNING: Ownership
+		return (*test = ft_strdup(cmd), 127);
 	}
 	i = -1;
 	if (paths)
@@ -67,7 +67,7 @@ int	search_paths(char **paths, char *cmd, char	**test)
 			*test = NULL;
 		}
 	}
-	return (*test = cmd, 127);
+	return (*test = ft_strdup(cmd), 127);
 }
 
 int	find_cmd_path(t_cmd	*ext, char *cmd, t_env *envlist)

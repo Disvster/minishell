@@ -92,7 +92,7 @@ int	main(int ac, char **av, char **envp)
 			sh.lineread = readline(sh.prompt);
 		save_parent_fds(&sh);
 		if (!sh.lineread)
-			return (ft_printf("exit\n"), minishell_clear(&sh, true));
+			return (ft_printf("exit\n"), minishell_clear(&sh, true), 0);
 		if (sh.lineread[0] != '\0')
 			add_history(sh.lineread);
 		if (parsing(&sh) != 0)
