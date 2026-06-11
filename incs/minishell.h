@@ -124,7 +124,7 @@ char	*cp_ename(char	*env);
 char	*cp_econt(char	*env);
 t_env	*new_env(char	*name, char	*cont, bool	exp);
 int		env_addback(t_env	**head, t_env	*node);
-int		free_envs(t_env	**head);
+void		free_envs(t_env	**head);
 int		envlist_size(t_env *head);
 
 // General Utils

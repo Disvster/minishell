@@ -25,15 +25,17 @@ int	init_env_list(t_shell	*shl, char	**envp)
 	{
 		temp = new_env(cp_ename(envp[i]), cp_econt(envp[i]), true);
 		if (!temp)
-			return (free_envs(&head));
+			return (free_envs(&head), 1);
 		if (!head)
 			head = temp;
 		else
 			env_addback(&head, temp);
+		if (!temp->content)
+			return (free_envs(&head), 1);
 		i++;
 	}
 	shl->envs = head;
-	return (1);
+	return (0);
 }
 
 char	*cp_ename(char	*env)

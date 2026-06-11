@@ -80,8 +80,9 @@ int	main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
-	init_env_list(&sh, envp);
 	ft_bzero(&sh, sizeof(t_shell));
+	if (init_env_list(&sh, envp) != 0)
+		return (1);
 	while (1)
 	{
 		handle_signal();
