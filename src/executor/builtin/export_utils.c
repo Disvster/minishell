@@ -104,7 +104,7 @@ int	export_print_vars(t_shell *sh)
 	return (0);
 }
 
-int	export_err_invalid_identifier(char *s)//TODO: put this in printf_fd.h
+int	export_err_invalid_identifier(char *s)
 {
 	ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n", s);
 	return (1);

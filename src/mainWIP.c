@@ -16,7 +16,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-int	g_sig = 0;// TODO: remove all other g_sig = 0 calls (signals.c ?)
+int	g_sig = 0;
 
 void	save_parent_fds(t_shell *sh)
 {

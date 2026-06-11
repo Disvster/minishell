@@ -33,7 +33,7 @@ int	exec_export(t_shell *sh, t_cmd *cmd)
 		while (env && ft_strncmp(env->name, arr[i], keylen(arr[i], env->name)))
 			env = env->next;
 		if (export_check_update(arr[i]) && env)
-			status = export_update_var(sh/*env*/, arr[i]);// TODO: change param, don't need to search for matching env in list in this function
+			status = export_update_var(env, arr[i]);
 		else if (!export_check_update(arr[i]) && env)
 			status = envp_replace_content(env, arr[i], EXPORT);
 		else// if ((!export_check_update(arr[i]) || export_check_update(arr[i]) && !env))

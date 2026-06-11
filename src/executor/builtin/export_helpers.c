@@ -41,21 +41,15 @@ bool	export_check_update(char *s)
 	return (true);
 }
 
-int	export_update_var(t_shell *sh, char *str)//TODO: change param, dont need to search here for env
+int	export_update_var(t_env *env, char *str)
 {
 	char	*add;
 	char	*new_content;
-	t_env	*env;
 
-	env = sh->envs;
 	add = ft_strchr(str, '=');
 	if (!add)
 		return (1);
 	add += 1;
-	while (env && ft_strncmp(env->name, str, keylen(env->name, str)))
-		env = env->next;
-	if (!env)
-		return (1);
 	if (env->content)
 		new_content = ft_strjoin(env->content, add);
 	else
