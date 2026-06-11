@@ -73,7 +73,7 @@ static void	exec_pipeline_child(t_shell *sh, t_cmd *curr, int *pipefd)
 	}
 	sh->pipeline.prev_read = -1;
 	if (curr->redirect_count > 0 && apply_redirects(curr) < 0)
-		cleanup_and_exit(1, sh, curr);// FIX: FREE HERE?
+		cleanup_and_exit(1, sh, curr);
 	if (curr->is_bi)
 		exit(exec_builtin(sh, curr, true));
 	envp = env_list_to_array(sh->envs);

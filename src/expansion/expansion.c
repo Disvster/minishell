@@ -53,7 +53,7 @@ char	*expand(t_token *token, t_shell *shl)//, char *nstr)
 			if (!append_quoted(shl, token, &nstr, &i))
 				return (free(nstr), NULL);
 		}
-		else if (s[i] == '$')
+		else if (s[i] == '$' && s[i + 1])
 		{
 			if (!append_expand(shl, token, &nstr, &i))
 				return (free(nstr), NULL);
@@ -100,18 +100,16 @@ int	append_expand(t_shell *shl, t_token *token, char **nstr, int *i)
 	{
 		if (!append_letter(nstr, '$', i) || !append_letter(nstr, str[*i], i))
 			return (0);
-		*i += 2;
-		return (1);
+		return (*i += 2, 1);
 	}
 	*i += 1;
 	env_name = env_identifier(shl, &str[*i], i);
 	if (!env_name)
 		return (0);
 	*nstr = strjoinfree(*nstr, env_name);
-	free(env_name);
 	if (!*nstr)
-		return (ft_printf_fd(2, SH_ERR ERR_MALLOC), 0);
-	return (1);
+		return (free(env_name), ft_printf_fd(2, SH_ERR ERR_MALLOC), 0);
+	return (free(env_name), 1);
 }
 
 int	append_letter(char	**nstr, char c, int	*i)
