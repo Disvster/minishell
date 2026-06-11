@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:08:06 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/06 15:11:01 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/11 17:02:54 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	execve_error(t_shell *shl, t_cmd *command, char	*path)
 	(void)shl;
 	ft_printf_fd(2, SH_ERR);
 	if (command->args[0])
-		ft_printf_fd(2, "%s : ", command->args[0]);
+		ft_printf_fd(2, "%s: ", command->args[0]);
 	if (errno == EACCES && stat(path, &stt) == 0 && S_ISDIR(stt.st_mode))
 	{
 		ft_printf_fd(2, ERR_DIREC);

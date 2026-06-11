@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 17:21:54 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/05 17:06:03 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/11 17:06:23 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,48 +43,54 @@ char	*pipex_strjoin(char *path, char *cmd)
 	return (new_cmd);
 }
 
-char	*search_paths(char **paths, char *cmd)
+int	search_paths(char **paths, char *cmd, char	**test)
 {
-	char	*test;
 	int		i;
 
 	if (ft_strchr(cmd, '/'))
 	{
 		if (access(cmd, X_OK) == 0)
-			return (ft_strdup(cmd));
-		return (NULL);
+			return (*test = cmd, 0); // WARNING: Ownership
+		return (*test = cmd, 127);
 	}
 	i = -1;
-	test = NULL;
-	while (paths[++i])
+	if (paths)
 	{
-		test = pipex_strjoin(paths[i], cmd);
-		if (!test)
-			return (NULL);
-		if (access(test, X_OK) == 0)
-			break ;
-		free(test);
-		test = NULL;
+		while (paths[++i])
+		{
+			*test = pipex_strjoin(paths[i], cmd);
+			if (!*test)
+				return (ft_printf_fd(2, SH_ERR ERR_MALLOC), 1);
+			if (access(*test, X_OK) == 0)
+				return (0);
+			free(*test);
+			*test = NULL;
+		}
 	}
-	return (test);
+	return (*test = cmd, 127);
 }
 
-char	*find_cmd_path(char *cmd, t_env *envlist)
+int	find_cmd_path(t_cmd	*ext, char *cmd, t_env *envlist)
 {
+	int		status;
 	char	**paths;
 	char	*test;
 
+	status = 0;
+	paths = NULL;
+	test = NULL;
 	while (envlist && ft_strncmp("PATH", envlist->name, 4))
 		envlist = envlist->next;
-	if (!envlist)
-		return (NULL);
-	paths = ft_split(envlist->content, ':');
-	if (!paths)
-		return (NULL);
-	test = search_paths(paths, cmd);
-	if (!test)
-		return (free_split(paths), NULL);
-	return (free_split(paths), test);
+	if (envlist)
+	{
+		paths = ft_split(envlist->content, ':');
+		if (!paths)
+			return (ft_printf_fd(2, SH_ERR ERR_MALLOC), 1);
+	}
+	status = search_paths(paths, cmd, &test);
+	free_split(paths);
+	ext->path = test;
+	return (status);
 }
 
 int	tokenlist_has_commands(t_token *token)

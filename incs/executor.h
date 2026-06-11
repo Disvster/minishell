@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 20:50:33 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/06 15:10:57 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/11 17:06:00 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ void	*cmdlist_clear(t_cmd **head);
 
 int		is_builtin(t_token *token);
 char	*pipex_strjoin(char *path, char *cmd);
-char	*search_paths(char **paths, char *cmd);
-char	*find_cmd_path(char *cmd, t_env *envlist);
-t_cmd	*create_command(t_token **token, t_env *envlist);
-t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist);
-t_cmd	*create_builtin(t_token *token, t_cmd *bi);
-t_cmd	*build_command_list(t_token *head, t_env *envs);
+int		search_paths(char **paths, char *cmd, char **test);
+int		find_cmd_path(t_cmd *ext, char *cmd, t_env *envlist);
+int		create_command(t_cmd **command, t_token **token, t_env *envlist);
+int		create_external(t_token *token, t_cmd *ext, t_env *envlist);
+int		create_builtin(t_token *token, t_cmd *bi);
+t_cmd	*build_command_list(t_token *head, t_env *envs, int *status);
 
 int		tokenlist_has_commands(t_token *token);
 
@@ -103,5 +103,6 @@ int		setup_pipes_and_fork(t_shell *sh, t_cmd *curr, int *pipefd);
 int		init_pipeline(t_shell *sh);
 int		exec_builtin(t_shell *sh, t_cmd *cmd);
 int		exec_pipeline(t_shell *sh, t_cmd *cmds);
+void	execve_error(t_shell *shl, t_cmd *command, char	*path);
 
 #endif

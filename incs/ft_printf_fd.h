@@ -27,6 +27,7 @@ int		ft_puthexa_fd(int fd, unsigned int hex, char format);
 int		ft_hexacount_fd(unsigned int hex);
 
 // DEFINING MACROS:
+# define SH_ "minishell: "
 # define SH_ERR "minishell: error: "
 # define SH_WAR "minishell: warning: "
 # define ERR_QUOTES "Unmatched quotes\n"
@@ -36,5 +37,6 @@ int		ft_hexacount_fd(unsigned int hex);
 # define ERR_DEL "Heredoc missing delimiter \n"
 # define WAR_HDOC "Heredoc delimited by end-of-file (wanted '%s') \n"
 # define ERR_DIREC "Is a directory\n"
-
+# define ERR_PATH "%s: No such file or directory\n"
+# define ERR_CMD "%s: Command not found\n"
 #endif

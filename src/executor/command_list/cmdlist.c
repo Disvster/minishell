@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 01:38:51 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/05 17:06:47 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/11 17:02:54 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ void	populate_args(t_token *token, t_cmd *cmd, bool is_bi)
 	}
 }
 
-t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist)
+int	create_external(t_token *token, t_cmd *ext, t_env *envlist)
 {
 	t_token	*temp;
+	int	status;
 
-	ext->path = find_cmd_path(token->content, envlist);
-	if (!ext->path)
-		return (free(ext),
-			ft_printf_fd(2, "Error: %s: Command not found\n", token->content),
-			NULL);
+	status = 0;
+	status = find_cmd_path(ext, token->content, envlist);
+	if (status == 1)
+		return (status);
 	temp = token->next;
 	while (temp && temp->type == ARG)
 	{
@@ -47,17 +47,17 @@ t_cmd	*create_external(t_token *token, t_cmd *ext, t_env *envlist)
 	}
 	ext->args = ft_calloc((ext->arg_count + 2), sizeof(char *));
 	if (!ext->args)
-		return (NULL);
+		return (ft_printf_fd(2, SH_ERR ERR_MALLOC), 1);
 	ext->args[0] = token->content;
 	if (ext->arg_count > 0)
 	{
 		temp = token->next;
 		populate_args(temp, ext, false);
 	}
-	return (ext);
+	return (status);
 }
 
-t_cmd	*create_builtin(t_token *token, t_cmd *bi)
+int	create_builtin(t_token *token, t_cmd *bi)
 {
 	t_token	*temp;
 
@@ -74,39 +74,42 @@ t_cmd	*create_builtin(t_token *token, t_cmd *bi)
 		temp = token->next;
 		bi->args = ft_calloc((bi->arg_count + 1), sizeof(char *));
 		if (!bi->args)
-			return (NULL);
+			return (ft_printf_fd(2, SH_ERR ERR_MALLOC), 1);
 		populate_args(temp, bi, true);
 	}
-	return (bi);
+	return (0);
 }
 
-t_cmd	*create_command(t_token **token, t_env *envlist)
+int	create_command(t_cmd **command, t_token **token, t_env *envlist)
 {
 	t_cmd	*cmd;
 	int		i;
+	int		status;
 
 	cmd = NULL;
+	status = 0;
 	if ((*token)->type == COMMAND)
 	{
 		cmd = ft_calloc(1, sizeof(t_cmd));
 		if (!cmd)
-			return (NULL);
+			return (ft_printf_fd(2, SH_ERR ERR_MALLOC), 1);
 		if (is_builtin(*token))
-			cmd = create_builtin(*token, cmd);
+			status = create_builtin(*token, cmd);
 		else
-			cmd = create_external(*token, cmd, envlist);
+			status = create_external(*token, cmd, envlist);
 	}
-	if (cmd)
+	if (cmd && status != 1)
 	{
 		populate_redirects(*token, cmd);
 		i = -1;
 		while (*token && ++i < cmd->arg_count)
 			*token = (*token)->next;
 	}
-	return (cmd);
+	*command = cmd;
+	return (status);
 }
 
-t_cmd	*build_command_list(t_token *head, t_env *envs)
+t_cmd	*build_command_list(t_token *head, t_env *envs, int *status)
 {
 	t_token	*token;
 	t_cmd	*cmds;
@@ -121,9 +124,9 @@ t_cmd	*build_command_list(t_token *head, t_env *envs)
 	{
 		if (token->type == COMMAND)
 		{
-			command = create_command(&token, envs);
-			if (!command && tokenlist_has_commands(token))
-				return (ft_printf_fd(2, SH_ERR ERR_MALLOC), cmdlist_clear(&cmds));
+			*status = create_command(&command, &token, envs);
+			if (*status == 1)
+				return (cmdlist_clear(&cmds));
 			cmdlist_add_last(&cmds, command);
 		}
 		if (!token)

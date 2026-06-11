@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "incs/minishell.h"
-#include "incs/executor.h"
+#include "../incs/minishell.h"
+#include "../incs/executor.h"
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>

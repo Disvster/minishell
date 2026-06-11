@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 18:39:23 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/09 17:52:46 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/06/11 17:02:54 by rodmorei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	exec_pipeline_child(t_shell *sh, t_cmd *curr, int *pipefd)
 	if (!envp)
 		exit(1);//WARNING: can I exit here?
 	execve(curr->path, curr->args, envp);
-	perror("execve");
+	execve_error(sh, curr, curr->path);
 	free_split(envp);
 	exit(127);
 }
@@ -165,11 +165,10 @@ int	executor(t_shell *sh)
 	t_cmd	*cmdlist;
 	int		status;
 
-	// if (!sh || !sh->tokens)
-	// 	return (1);// WARNING: error code?
-	cmdlist = build_command_list(sh->tokens, sh->envs);
-	if (!cmdlist)
-		return (sh->exit_code = 1, 1);// WARNING: error code?
+	status = 0;
+	cmdlist = build_command_list(sh->tokens, sh->envs, &status);
+	if (status == 1)
+		return (sh->exit_code = 1, 1);
 	status = exec_pipeline(sh, cmdlist);
 	cmdlist_clear(&cmdlist);
 	sh->exit_code = status; //NOTE: in case exec_pip returns 1 ?
