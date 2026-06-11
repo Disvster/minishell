@@ -81,6 +81,7 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	init_env_list(&sh, envp);
+	ft_bzero(&sh, sizeof(t_shell));
 	while (1)
 	{
 		handle_signal();
