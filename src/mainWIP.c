@@ -91,7 +91,6 @@ int	main(int ac, char **av, char **envp)
 		else
 			sh.lineread = readline(sh.prompt);
 		save_parent_fds(&sh);
-		sh.lineread = readline(cwd_prompt(&sh));
 		if (!sh.lineread)
 			return (ft_printf("exit\n"), minishell_clear(&sh, true));
 		if (sh.lineread[0] != '\0')
