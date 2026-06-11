@@ -57,9 +57,9 @@ int	append_exit_code(char **nstr, int exit_code, int *i)
 		return (ft_printf_fd(2, SH_ERR ERR_MALLOC), 0);
 	*nstr = strjoinfree(*nstr, ex_code);
 	if (!nstr)
-		return (0);
+		return (free(ex_code), 0);
 	*i += ft_strlen(ex_code) + 1;
-	return (1);
+	return (free(ex_code), 1);
 }
 
 int	is_edge(char c)

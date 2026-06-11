@@ -36,16 +36,18 @@ static bool	valid_exit_code(const char *s)
 static int	err_exit(const char *s)
 {
 	if (!s)
+	{
 		ft_printf_fd(2, "minishell: exit: too many arguments\n");
+		return (1);
+	}
 	else
 	{
 		ft_printf_fd(2, "minishell: exit: %s", s);
 		ft_printf_fd(2, ": numeric argument required\n");
+		return (2);
 	}
-	return (2);
 }
 
-// NOTE: sh->exit_code will receive the return of exec_exit?
 int	exec_exit(t_shell *sh, t_cmd *cmd)
 {
 	int		status;
@@ -55,16 +57,13 @@ int	exec_exit(t_shell *sh, t_cmd *cmd)
 	if (cmd->args)
 	{
 		if (!valid_exit_code(cmd->args[0]))
-			status = err_exit(cmd->args[0]);
-		else if (cmd->args[1])
-			status = err_exit(NULL);
-		else
-		{
-			status = ft_atoi(cmd->args[0]) % 256;
-			if (status < 0)
-				status += 256;
-		}
+			return (err_exit(cmd->args[0]));
+		if (cmd->args[1])
+			return (err_exit(NULL));
 	}
+	status = ft_atoi(cmd->args[0]) % 256;
+	if (status < 0)
+		status += 256;
 	cmdlist_clear(&cmd);
 	minishell_clear(sh, true);
 	exit(status);

@@ -28,7 +28,10 @@ int	exec_export(t_shell *sh, t_cmd *cmd)
 	while (arr[++i])
 	{
 		if (!export_validate_arg(arr[i]))
+		{
 			status = export_err_invalid_identifier(arr[i]);
+			continue ;
+		}
 		env = sh->envs;
 		while (env && ft_strncmp(env->name, arr[i], keylen(arr[i], env->name)))
 			env = env->next;
@@ -36,8 +39,9 @@ int	exec_export(t_shell *sh, t_cmd *cmd)
 			status = export_update_var(sh, arr[i]);
 		else if (!export_check_update(arr[i]) && env)
 			status = envp_replace_content(env, arr[i], EXPORT);
-		else// if ((!export_check_update(arr[i]) || export_check_update(arr[i]) && !env))
+		else
 			status = envp_new_var(sh, arr[i]);
 	}
 	return (status);
 }
+// NOTE: line 5: if ((!export_check_update(arr[i]) || export_check_update(arr[i]) && !env))

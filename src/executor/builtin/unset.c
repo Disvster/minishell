@@ -20,6 +20,8 @@ int	exec_unset(t_shell *sh, t_cmd *cmd)
 	t_env	*save;
 
 	i = -1;
+	if (!cmd->args)
+		return (0);
 	while (cmd->args[++i])
 	{
 		tmp = sh->envs;
