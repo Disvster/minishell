@@ -134,7 +134,7 @@ int	exec_pipeline(t_shell *sh, t_cmd *cmds)
 	t_cmd	*curr;
 
 	if (!cmds)
-		return (0);// WARNING: error code?
+		return (1);// WARNING: error code?
 	if (!cmds->next && cmds->is_bi)
 		return (exec_builtin(sh, cmds));
 	init_pipeline(sh);
@@ -147,8 +147,8 @@ int	exec_pipeline(t_shell *sh, t_cmd *cmds)
 			return (1);
 		if (pid == 0)
 		{
-			if (curr->next) //we close READ_END because it is saved in
-				close(pipefd[READ_END]);//pipeline.prev_read_end, we don't need it
+			if (curr->next)
+				close(pipefd[READ_END]);
 			handle_signal_child();
 			exec_pipeline_child(sh, curr, pipefd);
 		}
@@ -158,19 +158,20 @@ int	exec_pipeline(t_shell *sh, t_cmd *cmds)
 	}
 	wait_for_children(sh);
 	return (sh->exit_code);
-}
+}//NOTE: idk what to do with this sh->exit_code return below
 
 int	executor(t_shell *sh)
 {
 	t_cmd	*cmdlist;
 	int		status;
 
-	if (!sh || !sh->tokens)
-		return (1);// WARNING: error code?
+	// if (!sh || !sh->tokens)
+	// 	return (1);// WARNING: error code?
 	cmdlist = build_command_list(sh->tokens, sh->envs);
 	if (!cmdlist)
-		return (1);// WARNING: error code?
+		return (sh->exit_code = 1, 1);// WARNING: error code?
 	status = exec_pipeline(sh, cmdlist);
 	cmdlist_clear(&cmdlist);
+	sh->exit_code = status; //NOTE: in case exec_pip returns 1 ?
 	return (status);
 }

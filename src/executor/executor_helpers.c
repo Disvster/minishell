@@ -88,7 +88,11 @@ int	exec_builtin(t_shell *sh, t_cmd *cmd)
 
 	status = 0;
 	if (cmd->redirect_count > 0 && apply_redirects(cmd) < 0)
-		return (-1);// FIX: FREE HERE?
+	{
+		cmdlist_clear(&cmd);
+		minishell_clear(sh, true);
+		return (1);
+	}
 	if (ft_strcmp(cmd->path, "cd") == 0)
 		status = exec_cd(sh, cmd);
 	else if (ft_strcmp(cmd->path, "echo") == 0)
@@ -110,18 +114,19 @@ void	execve_error(t_shell *shl, t_cmd *command, char	*path)
 {
 	struct stat	stt;
 
+	(void)shl;
 	ft_printf_fd(2, SH_ERR);
 	if (command->args[0])
 		ft_printf_fd(2, "%s : ", command->args[0]);
 	if (errno == EACCES && stat(path, &stt) == 0 && S_ISDIR(stt.st_mode))
 	{
 		ft_printf_fd(2, ERR_DIREC);
-		// ADD CLEANUP HERE
+		// TODO: ADD CLEANUP HERE
 		exit (126);
 	}
 	else
 	{
-		// ADD CLEANUP HERE
+		// TODO: ADD CLEANUP HERE
 		ft_printf_fd(2, "%s\n", strerror(errno));
 		if (errno == EACCES)
 			exit(126);

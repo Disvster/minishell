@@ -123,7 +123,7 @@ t_cmd	*build_command_list(t_token *head, t_env *envs)
 		{
 			command = create_command(&token, envs);
 			if (!command && tokenlist_has_commands(token))
-				return (cmdlist_clear(&cmds));
+				return (ft_printf_fd(2, SH_ERR ERR_MALLOC), cmdlist_clear(&cmds));
 			cmdlist_add_last(&cmds, command);
 		}
 		if (!token)
