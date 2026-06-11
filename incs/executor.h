@@ -75,7 +75,7 @@ int		envp_new_var(t_shell *sh, char *str);
 void	sort_env_array(char **envp, int size);
 int		export_print_vars(t_shell *sh);
 int		export_err_invalid_identifier(char *s);
-int		export_update_var(t_env *env, char *str);
+int		export_update_var(t_shell *sh, char *str);
 bool	export_check_update(char *s);
 
 //built-ins
