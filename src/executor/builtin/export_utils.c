@@ -83,7 +83,7 @@ int	export_print_vars(t_shell *sh)
 
 	envp = env_list_to_array(sh->envs);
 	if (!envp)
-		return (1);//TODO: print error? error code? 127?
+		return (ft_printf_fd(2, SH_WAR ERR_MALLOC), 1);
 	sort_env_array(envp, envlist_size(sh->envs));
 	i = -1;
 	while (envp[++i])

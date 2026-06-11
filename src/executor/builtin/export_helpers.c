@@ -61,7 +61,7 @@ int	export_update_var(t_shell *sh, char *str)//TODO: change param, dont need to 
 	else
 		new_content = ft_strdup(add);
 	if (!new_content && add)
-		return (1);// WARNING: malloc error print?
+		return (ft_printf_fd(2, SH_WAR ERR_MALLOC), 1);
 	if (env->content)
 		free(env->content);
 	env->content = new_content;
@@ -83,10 +83,10 @@ int	envp_new_var(t_shell *sh, char *str)
 	else
 		name = ft_strdup(str);
 	if (!name)
-		return (1);// WARNING: malloc error print?
+		return (ft_printf_fd(2, SH_WAR ERR_MALLOC), 1);
 	new_var = new_env(name, NULL, false);
 	if (!new_var)
-		return (1);
+		return (ft_printf_fd(2, SH_WAR ERR_MALLOC), 1);
 	env_addback(&sh->envs, new_var);
 	if (str[i] == 0)
 		return (0);// NOTE:env_addback returns 1 on success
@@ -111,7 +111,7 @@ int	envp_replace_content(t_env *env, char *str, int bi)
 		tmp = str;
 	replace = ft_strdup(tmp);
 	if (!replace && tmp)
-		return (1);// WARNING: malloc error print?
+		return (ft_printf_fd(2, SH_WAR ERR_MALLOC), 1);
 	if (env->content)
 		free(env->content);
 	env->content = replace;

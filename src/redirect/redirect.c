@@ -63,7 +63,7 @@ void	populate_redirects(t_token *token, t_cmd *cmd)
 		return ;
 	cmd->redirs = ft_calloc(cmd->redirect_count, sizeof(t_redirect));
 	if (!cmd->redirs)
-		return (ft_printf_fd(2, "malloc error on redirect array"));//TODO: change error msg
+		return (ft_printf_fd(2, SH_ERR ERR_MALLOC));
 	traverse_back(token, cmd, &i);
 	traverse_forward(token, cmd, &i);
 }

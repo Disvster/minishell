@@ -116,7 +116,7 @@ void	execve_error(t_shell *shl, t_cmd *command, char	*path)
 	struct stat	stt;
 
 	(void)shl;
-	ft_printf_fd(2, SH_ERR);
+	ft_printf_fd(2, SH_);
 	if (command->args[0])
 		ft_printf_fd(2, "%s: ", command->args[0]);
 	if (errno == EACCES && stat(path, &stt) == 0 && S_ISDIR(stt.st_mode))
