@@ -46,7 +46,7 @@ int	read_hdc_unquoted(const char *delimiter, int write_fd, t_shell *sh)
 	{
 		line = readline("> ");
 		if (g_sig == 130)
-			return (free(line), sh->exit_code = 130, 0);
+			return (free(line), close(write_fd), 130);
 		if (!line)
 			return (ft_printf_fd(2, SH_WAR WAR_HDOC, delimiter), 0);
 		if (ft_strcmp(line, delimiter) == 0)
@@ -73,7 +73,7 @@ int	read_hdc_quoted(const char *delimiter, int write_fd, t_shell *sh)
 	{
 		line = readline("> ");
 		if (g_sig == 130)
-			return (sh->exit_code = 130, 0);
+			return (sh->exit_code = 130, close(write_fd), 130);
 		if (!line)
 			return (ft_printf_fd(2, SH_WAR WAR_HDOC, delimiter), 0);
 		if (ft_strcmp(line, delimiter) == 0)

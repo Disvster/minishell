@@ -40,7 +40,7 @@ int	read_heredoc_token(t_shell *sh, t_token	*tok, int *pipefds)
 	close(stdin_backup);
 	if (heredoc_return != 0)
 	{
-		sh->exit_code = 1;
+		sh->exit_code = heredoc_return;
 		close (read_fd);
 	}
 	else
