@@ -39,11 +39,6 @@ void	save_parent_fds(t_shell *sh, bool in_fork)
 
 void	restore_g_sig(t_shell *sh)
 {
-	if (g_sig == 131)
-	{
-		g_sig = 0;
-		sh->exit_code = 130;
-	}
 	if (g_sig == 130)
 	{
 		g_sig = 0;

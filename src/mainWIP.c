@@ -37,6 +37,7 @@ static int	repl_loop(t_shell *sh)
 			sh->lineread = readline("[minishell] ");
 		else
 			sh->lineread = readline(sh->prompt);
+		restore_g_sig(sh);
 		if (!sh->lineread)
 			return (ft_printf("exit\n"), minishell_clear(sh, true), 0);
 		if (sh->lineread[0] != '\0')
