@@ -60,10 +60,13 @@ int	exec_exit(t_shell *sh, t_cmd *cmd)
 			return (err_exit(cmd->args[0]));
 		if (cmd->args[1])
 			return (err_exit(NULL));
+		else
+		{
+			status = ft_atoi(cmd->args[0]) % 256;
+			if (status < 0)
+				status += 256;
+		}
 	}
-	status = ft_atoi(cmd->args[0]) % 256;
-	if (status < 0)
-		status += 256;
 	cmdlist_clear(&cmd);
 	minishell_clear(sh, true);
 	exit(status);

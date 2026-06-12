@@ -95,7 +95,12 @@ int	main(int ac, char **av, char **envp)
 		save_parent_fds(&sh);
 		if (!sh.lineread)
 			return (ft_printf("exit\n"), minishell_clear(&sh, true), 0);
-		if (sh.lineread[0] != '\0')
+		if (sh.lineread[0] == '\0')//HACK: harcoded
+		{
+			sh.exit_code = 0;
+			continue ;
+		}
+		else
 			add_history(sh.lineread);
 		if (parsing(&sh) != 0)
 		{
