@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../../incs/minishell.h"
 
-int	read_heredoc_token(t_shell	*sh, t_token	*tok, int *pipefds)
+int	read_heredoc_token(t_shell *sh, t_token	*tok, int *pipefds)
 {
 	int	write_fd;
 	int	read_fd;
