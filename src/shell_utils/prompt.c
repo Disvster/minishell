@@ -19,12 +19,12 @@ char	*cwd_prompt(t_shell *sh)
 	char	*home;
 	char	buffer[1024];
 	char	cwd[1024];
-	
+
 	home = get_env_content(sh->envs, "HOME");
 	ft_bzero(buffer, 1024);
 	ft_strlcpy(buffer, "[minishell @ ", 1024);
 	getcwd(cwd, 1024);
-	if (home && ft_strnstr(cwd, home, ft_strlen(home)) == cwd )
+	if (home && ft_strnstr(cwd, home, ft_strlen(home)) == cwd)
 	{
 		ft_strlcat(buffer, "~", 1024);
 		ft_strlcat(buffer, cwd + ft_strlen(home), 1024);
@@ -52,4 +52,3 @@ char	*get_env_content(t_env *head, char *search)
 		return (ft_printf_fd(2, SH_ERR ERR_MALLOC), NULL);
 	return (cont);
 }
-
