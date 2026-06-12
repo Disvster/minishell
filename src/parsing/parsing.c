@@ -20,6 +20,9 @@ int	parsing(t_shell	*shell)
 	set_commands(shell->tokens);
 	if (expansion(&shell->tokens, shell) != 0)
 		return (shell->exit_code = 1, 1);
+	if (!shell->tokens || (shell->tokens && !shell->tokens->next
+			&& shell->tokens->content[0] == '\0'))
+		return (1);
 	set_types(shell->tokens);
 	set_commands(shell->tokens);
 	if (syntax_check(shell) != 0)
