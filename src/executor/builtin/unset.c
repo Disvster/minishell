@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 18:54:47 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/18 21:11:55 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/12 22:46:04 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	exec_unset(t_shell *sh, t_cmd *cmd)
 		while (tmp)
 		{
 			save = tmp->next;
-			if (ft_strcmp(tmp->name, cmd->args[i]) == 0)
+			if (ft_strncmp(tmp->name, cmd->args[i], keylen(cmd->args[i], cmd->args[i])))
 			{
 				free(tmp->name);
 				free(tmp->content);

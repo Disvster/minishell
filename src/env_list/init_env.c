@@ -6,7 +6,7 @@
 /*   By: rodmorei <rodmorei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 22:30:18 by rodmorei          #+#    #+#             */
-/*   Updated: 2026/05/05 19:38:25 by disaster         ###   ########.fr       */
+/*   Updated: 2026/06/12 21:15:54 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*cp_econt(char	*env)
 	else
 		str = ft_substr(env, i + 1, len - i - 1);
 	if (!str)
-		return (NULL);
+		return (ft_printf_fd(2, SH_ERR ERR_MALLOC), NULL);
 	return (str);
 }
 

@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 17:02:45 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/05 17:10:15 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/12 22:40:56 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	envp_new_var(t_shell *sh, char *str)
 		return (ft_printf_fd(2, SH_WAR ERR_MALLOC), 1);
 	env_addback(&sh->envs, new_var);
 	if (str[i] == 0)
-		return (0);// NOTE:env_addback returns 1 on success
+		return (0);
 	return (export_update_var(sh, str));
 }
 

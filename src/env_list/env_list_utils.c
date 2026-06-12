@@ -6,7 +6,7 @@
 /*   By: rodmorei <rodmorei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 18:37:23 by rodmorei          #+#    #+#             */
-/*   Updated: 2026/05/18 22:42:17 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/12 21:16:04 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ t_env	*new_env(char *name, char *cont, bool exp)
 	}
 	if (!name)
 		return (free(env), free(cont), NULL);
-	// if  (!cont)// FIX:
-	// 	return (free(env), free(name), NULL);
 	env->next = NULL;
 	env->prev = NULL;
 	env->name = name;
