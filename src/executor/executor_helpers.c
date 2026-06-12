@@ -107,10 +107,7 @@ int	exec_builtin(t_shell *sh, t_cmd *cmd, bool in_child)
 	else
 		status = 1;
 	if (in_child == true)
-	{
-		cmdlist_clear(&cmd);
-		minishell_clear(sh, in_child);
-	}
+		cleanup_and_exit(status, sh, cmd);
 	return (status);
 }
 
