@@ -56,9 +56,9 @@ int	append_exit_code(char **nstr, int exit_code, int *i)
 	if (!ex_code)
 		return (ft_printf_fd(2, SH_ERR ERR_MALLOC), 0);
 	*nstr = strjoinfree(*nstr, ex_code);
-	if (!nstr)
+	if (!*nstr)// HACK: cp: !nstr
 		return (free(ex_code), 0);
-	*i += ft_strlen(ex_code) + 1;
+	*i += 2;// //HACK: cp: += 1
 	return (free(ex_code), 1);
 }
 

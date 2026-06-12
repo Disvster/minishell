@@ -48,6 +48,7 @@ int	setup_pipes_and_fork(t_shell *sh, t_cmd *curr, int *pipefd)
 {
 	pid_t	pid;
 
+	// save_parent_fds(sh, true);
 	if (curr->next)//if (not on last cmd)
 	{
 		if (pipe(pipefd) < 0)//creates read/write fds
@@ -87,7 +88,7 @@ int	exec_builtin(t_shell *sh, t_cmd *cmd, bool in_child)
 	int	status;
 
 	status = 0;
-	if (!(cmd->redirect_count > 0 && apply_redirects(cmd) < 0))
+	if (!(cmd->redirect_count > 0 && (in_child || apply_redirects(cmd) < 0)))
 	{
 		if (ft_strcmp(cmd->path, "cd") == 0)
 			status = exec_cd(sh, cmd);
@@ -107,7 +108,7 @@ int	exec_builtin(t_shell *sh, t_cmd *cmd, bool in_child)
 	else
 		status = 1;
 	if (in_child == true)
-		cleanup_and_exit(status, sh, cmd);
+		cleanup_and_exit(status, sh, cmdlist_get_head(cmd));
 	return (status);
 }
 

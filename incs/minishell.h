@@ -125,7 +125,7 @@ char	*cp_ename(char	*env);
 char	*cp_econt(char	*env);
 t_env	*new_env(char	*name, char	*cont, bool	exp);
 int		env_addback(t_env	**head, t_env	*node);
-void		free_envs(t_env	**head);
+void	free_envs(t_env	**head);
 int		envlist_size(t_env *head);
 
 // General Utils
@@ -136,5 +136,6 @@ void	restore_g_sig(t_shell *sh);
 int		minishell_clear(t_shell *sh, bool close_shell);
 char	*get_env_content(t_env *head, char *search);
 char	*cwd_prompt(t_shell *sh);
+void	save_parent_fds(t_shell *sh, bool in_fork);
 
 #endif

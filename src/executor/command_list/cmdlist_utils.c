@@ -69,24 +69,17 @@ void	*cmdlist_clear(t_cmd **head)
 	{
 		temp = node->next;
 		if (node->is_bi == false && node->path)
-		{
 			free(node->path);
-			node->path = NULL;
-		}
 		if (node->args)
 			free(node->args);
 		if (node->redirs)
 			free(node->redirs);
+		node->path = NULL;
+		node->args = NULL;
+		node->redirs = NULL;
 		free(node);
+		node = NULL;
 		node = temp;
 	}
 	return (NULL);
 }
-			// WARNING: node->args is a pointer array 
-			// where each variable in the array points to 
-			//	(1 or more)token->content(s)
-			// while (node->args[++i])
-			// {
-			// 	free(node->args[i]);
-			// 	node->args[i] = NULL;
-			// }

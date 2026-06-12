@@ -1,5 +1,10 @@
 # MINISHELL To-do List
 
+
+## 12/06/26
+
+- [ ]  expand ~
+
 ## 10/06/26
 
 ### STRESS TEST:

@@ -71,11 +71,11 @@ static void	exec_pipeline_child(t_shell *sh, t_cmd *curr, int *pipefd)
 		close(pipefd[READ_END]);
 		close(pipefd[WRITE_END]);
 	}
-	sh->pipeline.prev_read = -1;
+	// sh->pipeline.prev_read = -1;// WARNING:
 	if (curr->redirect_count > 0 && apply_redirects(curr) < 0)
 		cleanup_and_exit(1, sh, curr);
 	if (curr->is_bi)
-		exit(exec_builtin(sh, curr, true));
+		exec_builtin(sh, curr, true);
 	envp = env_list_to_array(sh->envs);
 	if (!envp)
 		return(ft_printf_fd(2, SH_ERR ERR_MALLOC), cleanup_and_exit(1, sh, curr));
@@ -135,6 +135,13 @@ int	exec_pipeline(t_shell *sh, t_cmd *cmds)
 
 	if (!cmds)
 		return (1);// WARNING: error code?
+	if (!cmds->next && cmds->is_bi)
+	{
+		save_parent_fds(sh, true);
+		int status = exec_builtin(sh, cmds, false);
+		restore_fds(sh);
+		return (status);
+	}
 	if (!cmds->next && cmds->is_bi)
 		return (exec_builtin(sh, cmds, false));
 	init_pipeline(sh);

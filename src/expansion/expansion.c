@@ -46,7 +46,7 @@ char	*expand(t_token *token, t_shell *shl)//, char *nstr)
 	nstr = ft_strdup("");
 	if (!nstr)
 		return (0);
-	while (s[i])
+	while (s && s[i])
 	{
 		if (s[i] == '"' || s[i] == '\'')
 		{
