@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 17:29:43 by manmaria          #+#    #+#             */
-/*   Updated: 2026/05/22 20:58:20 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/12 23:16:41 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	exec_exit(t_shell *sh, t_cmd *cmd)
 	int		status;
 
 	status = 0;
-	write (1, "exit\n", 5);
+	write (sh->saved_fds[1], "exit\n", 5);
 	if (cmd->args)
 	{
 		if (!valid_exit_code(cmd->args[0]))
