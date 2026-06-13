@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 16:11:46 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/09 16:33:12 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/13 20:31:06 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ int	minishell_clear(t_shell *sh, bool close_shell)
 
 void	cleanup_and_exit(int exit_code, t_shell *sh, t_cmd *cmd_list)
 {
-	cmdlist_clear(&cmd_list);
+	t_cmd *head;
+
+	head = cmdlist_get_head(cmd_list);
+	cmdlist_clear(&head);
 	minishell_clear(sh, true);
 	exit(exit_code);
 }

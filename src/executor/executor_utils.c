@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/13 18:43:22 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/13 20:21:32 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/13 20:31:29 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	exec_builtin(t_shell *sh, t_cmd *cmd, bool in_child)
 			status = exec_unset(sh, cmd);
 	}
 	if (in_child == true)
-		cleanup_and_exit(status, sh, cmdlist_get_head(cmd));
+		cleanup_and_exit(status, sh, cmd);
 	return (status);
 }
 
@@ -81,23 +81,18 @@ void	execve_error(t_shell *shl, t_cmd *command, char	*path)
 	if (errno == EACCES && stat(path, &stt) == 0 && S_ISDIR(stt.st_mode))
 	{
 		ft_printf_fd(2, ERR_DIREC);
-		cmdlist_clear(&command);
-		minishell_clear(shl, true);
-		exit (126);
+		cleanup_and_exit(126, shl, command);
 	}
 	if (!ft_strchr(command->path, '/') && errno != EACCES)
 	{
 		ft_printf_fd(2, ERR_CMD);
-		cmdlist_clear(&command);
-		minishell_clear(shl, true);
-		exit (127);
+		cleanup_and_exit(127, shl, command);
 	}
-	cmdlist_clear(&command);
-	minishell_clear(shl, true);
 	ft_printf_fd(2, "%s\n", strerror(errno));
 	if (errno == EACCES)
-		exit(126);
+		cleanup_and_exit(126, shl, command);
 	if (errno == ENOENT)
-		exit(127);
+		cleanup_and_exit(127, shl, command);
+	cleanup_and_exit(1, shl, command);
 	exit(1);
 }
