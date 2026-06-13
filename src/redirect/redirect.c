@@ -94,3 +94,30 @@ int	apply_redirects(t_cmd *cmd)
 	}
 	return (0);
 }
+
+int	attempt_open(t_token	*token)
+{
+	int	fd;
+	char	*filename;
+
+	filename = NULL;
+	while (token)
+	{
+		fd = 0;
+		if (token->next && token->next->type == TFILE)
+		{
+			if (token->next)
+				filename = token->next->content;
+			if (token->type == INFILE)
+				fd = open(filename, O_RDONLY);
+			else if (token->type == OUTFILE)
+				fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			else if (token->type == APPEND)
+				fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			if (fd < 0)
+				return (ft_printf_fd(2, "minishell: "), perror(filename), 1);
+		}
+		token = token->next;
+	}
+	return (0);
+}

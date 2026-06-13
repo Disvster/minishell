@@ -115,6 +115,8 @@ int	executor(t_shell *sh)
 	cmdlist = build_command_list(sh->tokens, sh->envs, &status);
 	if (status == 1)
 		return (sh->exit_code = 1, 1);
+	if (status == 2)
+		return (sh->exit_code = attempt_open(sh->tokens), 1);
 	if (!cmdlist->next && cmdlist->is_bi)
 	{
 		save_parent_fds(sh, true);

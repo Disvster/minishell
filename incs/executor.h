@@ -95,6 +95,7 @@ int		open_append_or_outfile(char *filename, int type);
 int		count_redirects(t_token *token);
 void	populate_redirects(t_token *token, t_cmd *cmd);
 int		apply_redirects(t_cmd *cmd);
+int		attempt_open(t_token	*token);
 
 //Executor
 int		executor(t_shell *sh);

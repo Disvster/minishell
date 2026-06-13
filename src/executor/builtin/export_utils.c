@@ -41,7 +41,7 @@ bool	export_validate_arg(char *s)
 		return (false);
 	while (*s && *s != '=' && *s != '+')
 	{
-		if (!ft_isalpha(*s) && *s != '_')
+		if (!ft_isalnum(*s) && *s != '_')
 			return (false);
 		s++;
 	}

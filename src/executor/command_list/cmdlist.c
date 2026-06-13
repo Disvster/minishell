@@ -135,5 +135,7 @@ t_cmd	*build_command_list(t_token *head, t_env *envs, int *status)
 			break ;
 		token = token->next;
 	}
+	if (!cmds)
+		*status = 2;
 	return (cmds);
 }
