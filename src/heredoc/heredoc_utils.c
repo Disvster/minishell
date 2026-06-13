@@ -44,7 +44,7 @@ int	read_heredoc_token(t_shell *sh, t_token	*tok, int *pipefds)
 	int	stdin_backup;
 	int	heredoc_return;
 
-	hdc_fds_init(&write_fd, &write_fd, &stdin_backup, pipefds);
+	hdc_fds_init(&write_fd, &read_fd, &stdin_backup, pipefds);
 	if (stdin_backup < 0)
 		return (hdc_stdin_backup_error(&read_fd, &write_fd));
 	hdc_quote_check(&heredoc_return, tok, write_fd, sh);
