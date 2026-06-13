@@ -22,7 +22,7 @@ int	count_redirects(t_token *token)
 	while (tmp && tmp->type != PIPE)
 	{
 		if (tmp->type == INFILE || tmp->type == OUTFILE
-			|| tmp->type == APPEND || tmp->type == HEREDOC) // WARNING: heredoc
+			|| tmp->type == APPEND || tmp->type == HEREDOC)
 			count++;
 		tmp = tmp->prev;
 	}
@@ -30,7 +30,7 @@ int	count_redirects(t_token *token)
 	while (tmp && tmp->type != PIPE)
 	{
 		if (tmp->type == INFILE || tmp->type == OUTFILE
-			|| tmp->type == APPEND || tmp->type == HEREDOC) // WARNING: heredoc
+			|| tmp->type == APPEND || tmp->type == HEREDOC)
 			count++;
 		tmp = tmp->next;
 	}

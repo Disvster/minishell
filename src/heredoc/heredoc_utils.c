@@ -11,6 +11,22 @@
 /* ************************************************************************** */
 #include "../../incs/minishell.h"
 
+static int	hdc_stdin_backup_error(int *read_fd, int *write_fd)
+{
+	perror("dup");
+	close(*read_fd);
+	close(*write_fd);
+	return (1);
+}
+
+static void	hdc_fds_init(int *write_fd, int *read_fd, int *stdin_backup,
+	int *pipefds)
+{
+	*write_fd = pipefds[1];
+	*read_fd = pipefds[0];
+	*stdin_backup = dup(STDIN_FILENO);
+}
+
 int	read_heredoc_token(t_shell *sh, t_token	*tok, int *pipefds)
 {
 	int	write_fd;
@@ -18,16 +34,9 @@ int	read_heredoc_token(t_shell *sh, t_token	*tok, int *pipefds)
 	int	stdin_backup;
 	int	heredoc_return;
 
-	write_fd = pipefds[1];
-	read_fd = pipefds[0];
-	stdin_backup = dup(STDIN_FILENO);
+	hdc_fds_init(&write_fd, &write_fd, &stdin_backup, pipefds);
 	if (stdin_backup < 0)
-	{
-		perror("dup");
-		close(read_fd);
-		close(write_fd);
-		return (1);
-	}
+		return (hdc_stdin_backup_error(&read_fd, &write_fd));
 	heredoc_return = 0;
 	if (tok->next->has_quotes)
 		heredoc_return = read_hdc_quoted(tok->next->content, write_fd, sh);

@@ -13,15 +13,13 @@
 #include "../../../incs/minishell.h"
 #include "../../../incs/executor.h"
 
-int	exec_export(t_shell *sh, t_cmd *cmd)
+static int	export_loop(t_shell *sh, t_cmd *cmd)
 {
-	int		i;
-	int		status;
 	t_env	*env;
+	int		status;
+	int		i;
 
-	status = 0;
-	if (!cmd->args || !cmd->args[0])
-		return (export_print_vars(sh));
+	env = sh->envs;
 	i = -1;
 	while (cmd->args[++i])
 	{
@@ -31,7 +29,8 @@ int	exec_export(t_shell *sh, t_cmd *cmd)
 			continue ;
 		}
 		env = sh->envs;
-		while (env && ft_strncmp(env->name, cmd->args[i], keylen(cmd->args[i], env->name)))
+		while (env && ft_strncmp(env->name, cmd->args[i],
+				keylen(cmd->args[i], env->name)))
 			env = env->next;
 		if (export_check_update(cmd->args[i]) && env)
 			status = export_update_var(sh, cmd->args[i]);
@@ -42,5 +41,13 @@ int	exec_export(t_shell *sh, t_cmd *cmd)
 	}
 	return (status);
 }
-// NOTE: line 40: else if
-// ((!export_check_update(cmd->args[i]) || export_check_update(cmd->args[i]) && !env))
+
+int	exec_export(t_shell *sh, t_cmd *cmd)
+{
+	int		status;
+
+	status = 0;
+	if (!cmd->args || !cmd->args[0])
+		return (export_print_vars(sh));
+	return (export_loop(sh, cmd));
+}

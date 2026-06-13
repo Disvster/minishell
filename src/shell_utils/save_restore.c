@@ -79,4 +79,3 @@ void	restore_fds(t_shell *sh)
 		saved[2] = -1;
 	}
 }
-

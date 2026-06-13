@@ -33,7 +33,7 @@ void	populate_args(t_token *token, t_cmd *cmd, bool is_bi)
 int	create_external(t_token *token, t_cmd *ext, t_env *envlist)
 {
 	t_token	*temp;
-	int	status;
+	int		status;
 
 	status = 0;
 	status = find_cmd_path(ext, token->content, envlist);
@@ -137,7 +137,3 @@ t_cmd	*build_command_list(t_token *head, t_env *envs, int *status)
 	}
 	return (cmds);
 }
-// NOTE: cmdlist_clear cleans list and returns NULL
-// and the function that calls build_command_list() 
-// takes care of the cleanup and error management
-// if (token->next)
