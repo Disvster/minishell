@@ -39,7 +39,7 @@ int	minishell_clear(t_shell *sh, bool close_shell)
 
 void	cleanup_and_exit(int exit_code, t_shell *sh, t_cmd *cmd_list)
 {
-	t_cmd *head;
+	t_cmd	*head;
 
 	head = cmdlist_get_head(cmd_list);
 	cmdlist_clear(&head);

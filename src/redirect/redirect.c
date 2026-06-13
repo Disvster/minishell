@@ -97,7 +97,7 @@ int	apply_redirects(t_cmd *cmd)
 
 int	attempt_open(t_token	*token)
 {
-	int	fd;
+	int		fd;
 	char	*filename;
 
 	filename = NULL;
