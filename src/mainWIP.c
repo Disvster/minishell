@@ -47,7 +47,7 @@ static int	repl_loop(t_shell *sh)
 			minishell_clear(sh, false);
 			continue ;
 		}
-		executor(sh);// NOTE: what happens when return != 0? probably fine no?
+		executor(sh);
 		minishell_clear(sh, false);
 	}
 }
