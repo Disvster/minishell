@@ -88,7 +88,9 @@ int	exec_builtin(t_shell *sh, t_cmd *cmd, bool in_child)
 	int	status;
 
 	status = 0;
-	if (!(cmd->redirect_count > 0 && (in_child || apply_redirects(cmd) < 0)))
+	if (cmd->redirect_count > 0 && !in_child && apply_redirects(cmd) < 0)
+		status = 1;
+	else
 	{
 		if (ft_strcmp(cmd->path, "cd") == 0)
 			status = exec_cd(sh, cmd);
@@ -105,8 +107,6 @@ int	exec_builtin(t_shell *sh, t_cmd *cmd, bool in_child)
 		else if (ft_strcmp(cmd->path, "unset") == 0)
 			status = exec_unset(sh, cmd);
 	}
-	else
-		status = 1;
 	if (in_child == true)
 		cleanup_and_exit(status, sh, cmdlist_get_head(cmd));
 	return (status);

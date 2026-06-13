@@ -71,7 +71,6 @@ static void	exec_pipeline_child(t_shell *sh, t_cmd *curr, int *pipefd)
 		close(pipefd[READ_END]);
 		close(pipefd[WRITE_END]);
 	}
-	// sh->pipeline.prev_read = -1;// WARNING:
 	if (curr->redirect_count > 0 && apply_redirects(curr) < 0)
 		cleanup_and_exit(1, sh, curr);
 	if (curr->is_bi)
