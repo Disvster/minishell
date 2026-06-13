@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 20:50:33 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/11 17:06:00 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/06/13 19:58:50 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,11 @@ int		apply_redirects(t_cmd *cmd);
 int		executor(t_shell *sh);
 char	**env_list_to_array(t_env *envs);
 int		setup_pipes_and_fork(t_shell *sh, t_cmd *curr, int *pipefd);
-int		init_pipeline(t_shell *sh);
+void	init_pipeline(t_shell *sh);
 int		exec_builtin(t_shell *sh, t_cmd *cmd, bool in_child);
 int		exec_pipeline(t_shell *sh, t_cmd *cmds);
 void	execve_error(t_shell *shl, t_cmd *command, char	*path);
 void	cleanup_and_exit(int exit_code, t_shell *sh, t_cmd *cmd_list);
+void	dup_and_close_pipefds(t_shell *sh, t_cmd *curr, int *pipefd);
 
 #endif

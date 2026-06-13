@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:08:06 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/11 17:02:54 by rodmorei         ###   ########.fr       */
+/*   Updated: 2026/06/13 20:01:44 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,48 +15,25 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-char	**env_list_to_array(t_env *envs)
+void	init_pipeline(t_shell *sh)
 {
-	char	**envp;
-	int		count;
-	int		i;
-	t_env	*tmp;
-	char	*temp;
-
-	count = envlist_size(envs);
-	envp = ft_calloc(count + 1, sizeof(char *));
-	if (!envp)
-		return (NULL);
-	i = 0;
-	tmp = envs;
-	while (tmp && i < count)
-	{
-		temp = ft_strjoin(tmp->name, "=");
-		if (!temp)
-			return (free_split(envp), NULL);
-		envp[i] = ft_strjoin(temp, tmp->content);
-		free(temp);
-		if (!envp[i])
-			return (free_split(envp), NULL);
-		tmp = tmp->next;
-		i++;
-	}
-	return (envp);
+	sh->pipeline.count = 0;
+	sh->pipeline.prev_read = -1;
+	ft_memset(sh->pipeline.pids, -1, 1024 * sizeof(pid_t));
 }
 
 int	setup_pipes_and_fork(t_shell *sh, t_cmd *curr, int *pipefd)
 {
 	pid_t	pid;
 
-	// save_parent_fds(sh, true);
-	if (curr->next)//if (not on last cmd)
+	if (curr->next)
 	{
-		if (pipe(pipefd) < 0)//creates read/write fds
+		if (pipe(pipefd) < 0)
 		{
 			perror("pipe");
-			if (sh->pipeline.prev_read != -1)//If(not on last command)
-				close(sh->pipeline.prev_read);//close(write fd of cmd before)
-			return (-1);// WARNING: exit code?
+			if (sh->pipeline.prev_read != -1)
+				close(sh->pipeline.prev_read);
+			return (-1);
 		}
 	}
 	pid = fork();
@@ -64,10 +41,7 @@ int	setup_pipes_and_fork(t_shell *sh, t_cmd *curr, int *pipefd)
 	{
 		perror("fork");
 		if (curr->next)
-		{
-			close(pipefd[0]);
-			close(pipefd[1]);
-		}
+			(close(pipefd[0]), close(pipefd[1]));//HACK:
 		if (sh->pipeline.prev_read != -1)
 			close(sh->pipeline.prev_read);
 		return (-1);
@@ -75,68 +49,25 @@ int	setup_pipes_and_fork(t_shell *sh, t_cmd *curr, int *pipefd)
 	return (pid);
 }
 
-int	init_pipeline(t_shell *sh)
+void	dup_and_close_pipefds(t_shell *sh, t_cmd *curr, int *pipefd)
 {
-	sh->pipeline.count = 0;
-	sh->pipeline.prev_read = -1;
-	ft_memset(sh->pipeline.pids, -1, 1024 * sizeof(pid_t));
-	return (0);
-}
-
-int	exec_builtin(t_shell *sh, t_cmd *cmd, bool in_child)
-{
-	int	status;
-
-	status = 0;
-	if (cmd->redirect_count > 0 && !in_child && apply_redirects(cmd) < 0)
-		status = 1;
-	else
+	if (sh->pipeline.prev_read != -1)
 	{
-		if (ft_strcmp(cmd->path, "cd") == 0)
-			status = exec_cd(sh, cmd);
-		else if (ft_strcmp(cmd->path, "echo") == 0)
-			status = exec_echo(sh, cmd);
-		else if (ft_strcmp(cmd->path, "env") == 0)
-			status = exec_env(sh);
-		else if (ft_strcmp(cmd->path, "pwd") == 0)
-			status = exec_pwd(sh);
-		else if (ft_strcmp(cmd->path, "exit") == 0)
-			status = exec_exit(sh, cmd);
-		else if (ft_strcmp(cmd->path, "export") == 0)
-			status = exec_export(sh, cmd);
-		else if (ft_strcmp(cmd->path, "unset") == 0)
-			status = exec_unset(sh, cmd);
+		if (dup2(sh->pipeline.prev_read, STDIN_FILENO) < 0)
+		{
+			perror("dup2");
+			exit(1);//FIX: cant just exit here without freeing
+		}
+		close(sh->pipeline.prev_read);
 	}
-	if (in_child == true)
-		cleanup_and_exit(status, sh, cmdlist_get_head(cmd));
-	return (status);
-}
-
-void	execve_error(t_shell *shl, t_cmd *command, char	*path)
-{
-	struct stat	stt;
-
-	ft_printf_fd(2, SH_ "%s: ", command->args[0]);
-	if (errno == EACCES && stat(path, &stt) == 0 && S_ISDIR(stt.st_mode))
+	if (curr->next)
 	{
-		ft_printf_fd(2, ERR_DIREC);
-		cmdlist_clear(&command);
-		minishell_clear(shl, true);
-		exit (126);
+		if (dup2(pipefd[WRITE_END], STDOUT_FILENO) < 0)
+		{
+			perror("dup2");
+			exit(1);//FIX: cant just exit here without freeing
+		}
+		close(pipefd[READ_END]);
+		close(pipefd[WRITE_END]);
 	}
-	if (!ft_strchr(command->path, '/') && errno != EACCES)
-	{
-		ft_printf_fd(2, ERR_CMD);
-		cmdlist_clear(&command);
-		minishell_clear(shl, true);
-		exit (127);
-	}
-	cmdlist_clear(&command);
-	minishell_clear(shl, true);
-	ft_printf_fd(2, "%s\n", strerror(errno));
-	if (errno == EACCES)
-		exit(126);
-	if (errno == ENOENT)
-		exit(127);
-	exit(1);
 }
