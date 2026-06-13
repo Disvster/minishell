@@ -43,7 +43,7 @@ char	*get_env_content(t_env *head, char *search)
 
 	curr = head;
 	cont = NULL;
-	while (curr && ft_strncmp(curr->name, search, keylen(search, curr->name)))
+	while (curr && ft_strncmp(curr->name, search, keylen(curr->name, search)))
 		curr = curr->next;
 	if (!curr || curr->exported == false)
 		return (NULL);

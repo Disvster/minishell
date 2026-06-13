@@ -120,10 +120,10 @@ int	executor(t_shell *sh)
 		save_parent_fds(sh, true);
 		status = exec_builtin(sh, cmdlist, false);
 		restore_fds(sh);
-		return (status);
 	}
 	else
 		status = exec_pipeline(sh, cmdlist);
+	cmdlist = cmdlist_get_head(cmdlist);
 	cmdlist_clear(&cmdlist);
 	sh->exit_code = status;
 	return (status);

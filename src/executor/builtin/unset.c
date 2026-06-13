@@ -20,14 +20,14 @@ int	exec_unset(t_shell *sh, t_cmd *cmd)
 	t_env	*save;
 
 	i = -1;
-	while (cmd-> args && cmd->args[++i])
+	while (cmd->args && cmd->args[++i])
 	{
 		tmp = sh->envs;
 		while (tmp)
 		{
 			save = tmp->next;
 			if (ft_strncmp(tmp->name, cmd->args[i],
-					keylen(cmd->args[i], cmd->args[i])))
+					keylen(tmp->name, cmd->args[i])) == 0)
 			{
 				(free(tmp->name), free(tmp->content));
 				if (tmp->prev)
