@@ -47,7 +47,7 @@ static int	repl_loop(t_shell *sh)
 			minishell_clear(sh, false);
 			continue ;
 		}
-		executor(sh);
+		executor(sh);// NOTE: what happens when return != 0? probably fine no?
 		minishell_clear(sh, false);
 	}
 }
@@ -63,5 +63,5 @@ int	main(int ac, char **av, char **envp)
 	if (init_env_list(&sh, envp) != 0)
 		return (1);
 	repl_loop(&sh);
-	return (0);
+	return (sh.exit_code);
 }
