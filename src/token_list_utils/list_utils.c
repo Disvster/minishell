@@ -69,6 +69,8 @@ void	tokenlist_clear(t_token **lst)
 			free(node->content);
 			node->content = NULL;
 		}
+		if (node->heredoc_fd > 0)
+			close(node->heredoc_fd);
 		free(node);
 		node = NULL;
 		node = tmp;
