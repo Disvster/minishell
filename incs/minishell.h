@@ -23,7 +23,6 @@
 # include <stdbool.h>
 # include <linux/limits.h>
 # include "token_list.h"
-// # include "executor.h"
 # include "ft_printf_fd.h"
 
 # define READ_END	0
@@ -50,10 +49,10 @@ typedef struct s_env
 
 typedef struct s_pipeline
 {
-    int     prev_read;      // Read end of previous pipe
-    pid_t   pids[1024];     // Store all child PIDs
-    int     count;          // Number of children forked
-}   t_pipeline;
+	int		prev_read;
+	pid_t	pids[1024];
+	int		count;
+}				t_pipeline;
 
 typedef struct s_shell
 {
@@ -98,7 +97,7 @@ int		append_quoted(t_shell *shl, t_token	*token, char **nstr, int	*i);
 int		append_expand(t_shell *shl, t_token *token, char **nstr, int *i);
 int		append_letter(char	**nstr, char c, int	*i);
 int		append_exit_code(char **nstr, int exit_code, int *i);
-void		delete_token(char *str, t_token **tok, t_token **head);
+void	delete_token(char *str, t_token **tok, t_token **head);
 int		is_edge(char c);
 
 // Heredoc
