@@ -116,6 +116,7 @@ int	attempt_open(t_token	*token)
 				fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (fd < 0)
 				return (ft_printf_fd(2, "minishell: "), perror(filename), 1);
+			close(fd);
 		}
 		token = token->next;
 	}
