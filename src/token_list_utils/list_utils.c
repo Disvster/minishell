@@ -70,6 +70,7 @@ void	tokenlist_clear(t_token **lst)
 			node->content = NULL;
 		}
 		free(node);
+		node = NULL;
 		node = tmp;
 	}
 	*lst = NULL;

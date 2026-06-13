@@ -81,5 +81,6 @@ void	*cmdlist_clear(t_cmd **head)
 		node = NULL;
 		node = temp;
 	}
+	*head = NULL;
 	return (NULL);
 }
