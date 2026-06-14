@@ -33,18 +33,20 @@ static bool	valid_exit_code(const char *s)
 	return (true);
 }
 
-static int	err_exit(const char *s)
+static int	err_exit(const char *s, int *should_exit)
 {
 	if (!s)
 	{
 		ft_printf_fd(2, "minishell: exit: too many arguments\n");
-		return (1);
+		*should_exit = 0;
+		return (2);
 	}
 	else
 	{
 		ft_printf_fd(2, "minishell: exit: %s", s);
 		ft_printf_fd(2, ": numeric argument required\n");
-		return (2);
+		*should_exit = 1;
+		return (1);
 	}
 }
 
@@ -78,37 +80,25 @@ int	exec_exit(t_shell *sh, t_cmd *cmd)
 	int	should_exit;
 
 	status = 0;
-	should_exit = 1;// Assume we'll exit unless we hit the "too many args" case
-	write(sh->saved_fds[1], "exit\n", 5);
+	should_exit = 1;
+	write(2, "exit\n", 5);
 	if (cmd->args)
 	{
 		if (!valid_exit_code(cmd->args[0]))
-		// {
-			status = err_exit(cmd->args[0]);
-		// 	should_exit = 1;
-		// }
+			status = err_exit(cmd->args[0], &should_exit);
 		else if (cmd->args[1])
-		{
-			status = err_exit(NULL);// Returns 1 for "too many arguments"
-			should_exit = 0;// Don't exit the shell on this error
-		}
+			status = err_exit(NULL, &should_exit);
 		else
-		{
 			status = ft_atoi(cmd->args[0]) % 256;
-			if (status < 0)
-				status += 256;
-			// should_exit = 1;
-		}
 	}
+	if (status < 0)
+		status += 256;
 	cmd = cmdlist_get_head(cmd);
 	cmdlist_clear(&cmd);
 	if (should_exit)
 	{
 		minishell_clear(sh, true);
 		exit(status);
-		// cleanup_and_exit(status, sh, cmd);
-	// 	exit(status);
 	}
-	sh->exit_code = status;
 	return (status);
 }

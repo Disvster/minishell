@@ -41,8 +41,13 @@ void	cleanup_and_exit(int exit_code, t_shell *sh, t_cmd *cmd_list)
 {
 	t_cmd	*head;
 
-	head = cmdlist_get_head(cmd_list);
-	cmdlist_clear(&head);
+	if (!cmd_list)
+		head = NULL;
+	else
+	{
+		head = cmdlist_get_head(cmd_list);
+		cmdlist_clear(&head);
+	}
 	minishell_clear(sh, true);
 	exit(exit_code);
 }
