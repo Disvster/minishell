@@ -25,7 +25,7 @@ static void	exec_pipeline_child(t_shell *sh, t_cmd *curr, int *pipefd)
 	if (curr->is_bi)
 		exec_builtin(sh, curr, true);
 	if (curr->redirect_count < 0)
-		cleanup_and_exit(1, sh, curr);
+		cleanup_and_exit(0, sh, curr);
 	envp = env_list_to_array(sh->envs);
 	if (!envp)
 	{
