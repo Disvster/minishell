@@ -3,7 +3,7 @@
 # Minishell
 
 ## Description
-Minishell is, as the name suggests, a simple shell implementation that attempts to replicate the behaviour of bash in as many parameters as possible. Additionally, it includes the creation of built-in commands such as echo, cd, export and many others. The project works as a way of putting together all the knowledge acquired in previous works (e.g. signal handling in minitalk or pipe handling in pipex) in order to create something palpable and - hopefully - functional.
+Minishell is, as the name suggests, a simple shell implementation that attempts to replicate the behaviour of bash in as many parameters as possible. Additionally, it includes the creation of built-in commands such as echo, cd, export and many others present in the "Features" section of this README. The project works as a way of putting together all the knowledge acquired in previous works (e.g. signal handling in minitalk or pipe handling in pipex) in order to create something palpable and - hopefully - functional.
 
 ## Instructions
 
@@ -16,12 +16,8 @@ make
 ```
 
 ### Run Commands
-After executing, minishell will prompt you to write what command or action you want to perform. Simply write what you would usually into your bash shell and watch minishell perform the command!
+After executing, minishell will prompt you to write what command or action you want to perform. Simply write what you would usually into your bash shell and watch minishell go.
 
-``` bash
-minishell> echo I am just a little shell uwu 
-minishell> I am just a little shell uwu
-```
 
 ## Features
 
@@ -41,8 +37,7 @@ minishell> I am just a little shell uwu
 - Split into clear modules for lexing, parsing, expansion, heredoc, redirection, signals, and execution
 - Uses custom linked lists for tokens, commands, and environment storage
 - Keeps its own shell environment list instead of depending directly on `envp`
-- Uses GNU Readline for prompt input and history
-- Reuses a custom `libft` and `ft_printf` implementation from the bundled library
+- Heredoc handling as fd buffers using pipe()
 
 ## Usage examples
 
@@ -95,4 +90,4 @@ minishell
 - [Stack Overflow](https://stackoverflow.com) - It's not anything new, but there is nothing better to solve a frustrating problem than finding someone who had the exact problem you had, albeit in a different context, and was helped by a generous cyber-samaritan.
 
 ## AI usage
-AI was used for optimization, this README, and some debugging.
+AI was used for code optimization in particular cases, this README, and some debugging.
