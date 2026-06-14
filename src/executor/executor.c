@@ -24,6 +24,8 @@ static void	exec_pipeline_child(t_shell *sh, t_cmd *curr, int *pipefd)
 		cleanup_and_exit(1, sh, curr);
 	if (curr->is_bi)
 		exec_builtin(sh, curr, true);
+	if (curr->redirect_count < 0)
+		cleanup_and_exit(1, sh, curr);
 	envp = env_list_to_array(sh->envs);
 	if (!envp)
 	{
@@ -117,8 +119,9 @@ int	executor(t_shell *sh)
 	cmdlist = build_command_list(sh->tokens, sh->envs, &status);
 	if (status == 1)
 		return (sh->exit_code = 1, 1);
-	if (status == 2)
-		return (sh->exit_code = attempt_open(sh->tokens), 1);
+	status = attempt_open(sh->tokens);
+	if (status != 0)
+		return (sh->exit_code = status, 1);
 	if (!cmdlist->next && cmdlist->is_bi)
 	{
 		save_parent_fds(sh, true);

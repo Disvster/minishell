@@ -117,14 +117,16 @@ t_cmd	*build_command_list(t_token *head, t_env *envs, int *status)
 	t_cmd	*cmds;
 	t_cmd	*command;
 
-	if (!head)
-		return (NULL);
 	token = head;
 	cmds = NULL;
 	command = NULL;
 	while (token)
 	{
-		if (token->type == COMMAND)
+		if (token_is_redir(token))
+			*status = add_empty_command(&command, &cmds, token);
+		if (*status == 1)
+			return (cmdlist_clear(&cmds), NULL);
+		else if (token->type == COMMAND)
 		{
 			*status = create_command(&command, &token, envs);
 			if (*status == 1)
@@ -135,7 +137,25 @@ t_cmd	*build_command_list(t_token *head, t_env *envs, int *status)
 			break ;
 		token = token->next;
 	}
-	if (!cmds)
-		*status = 2;
 	return (cmds);
+}
+
+int	add_empty_command(t_cmd **command, t_cmd **cmds, t_token	*tok)
+{
+	t_cmd	*temp;
+
+	temp = NULL;
+	if (attempt_open(tok) != 0)
+		return (1);
+	temp = calloc(1, sizeof(t_cmd));
+	if (!temp)
+		return (ft_printf_fd(2, SH_ERR ERR_MALLOC), cmdlist_clear(cmds), 1);
+	temp->args = NULL;
+	temp->path = NULL;
+	temp->redirect_count = -1;
+	temp->is_bi = false;
+	temp->redirs = NULL;
+	cmdlist_add_last(cmds, temp);
+	*command = temp;
+	return (0);
 }

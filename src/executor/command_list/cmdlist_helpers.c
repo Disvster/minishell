@@ -124,3 +124,17 @@ int	redir_only_cmd_node(t_token **token, t_cmd **cmd)
 		*token = (*token)->next;
 	return (0);
 }
+
+int	tokenlist_has_commands(t_token *token)
+{
+	t_token	*tmp;
+
+	tmp = token;
+	while (tmp)
+	{
+		if (tmp->type == COMMAND)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}

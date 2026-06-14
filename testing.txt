@@ -1,2 +1,0 @@
-echoa |echo b | > a echoa c
-echo a | echo b | > a echo c

@@ -62,7 +62,8 @@ int		create_command(t_cmd **command, t_token **token, t_env *envlist);
 int		create_external(t_token *token, t_cmd *ext, t_env *envlist);
 int		create_builtin(t_token *token, t_cmd *bi);
 t_cmd	*build_command_list(t_token *head, t_env *envs, int *status);
-
+int		add_empty_command(t_cmd **command, t_cmd **cmds, t_token	*tok);
+int		token_is_redir(t_token *token);
 int		tokenlist_has_commands(t_token *token);
 
 //utils export

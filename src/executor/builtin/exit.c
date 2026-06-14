@@ -81,7 +81,10 @@ int	exec_exit(t_shell *sh, t_cmd *cmd)
 
 	status = 0;
 	should_exit = 1;
-	write(2, "exit\n", 5);
+	if (sh->saved_fds[1] != -1)
+		write(sh->saved_fds[1], "exit\n", 5);
+	else
+		write(1, "exit\n", 5);
 	if (cmd->args)
 	{
 		if (!valid_exit_code(cmd->args[0]))
