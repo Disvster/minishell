@@ -44,9 +44,6 @@ static int	export_loop(t_shell *sh, t_cmd *cmd)
 
 int	exec_export(t_shell *sh, t_cmd *cmd)
 {
-	int		status;
-
-	status = 0;
 	if (!cmd->args || !cmd->args[0])
 		return (export_print_vars(sh));
 	return (export_loop(sh, cmd));
