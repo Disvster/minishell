@@ -1,4 +1,4 @@
-This project has been created as part of the 42 curriculum by [manmaria](intra.42.fr/users/manmaria) and [rodmorei](intra.42.fr/users/rodmorei).*
+*This project has been created as part of the 42 curriculum by [manmaria](intra.42.fr/users/manmaria) and [rodmorei](intra.42.fr/users/rodmorei).*
 
 # Minishell
 
