@@ -57,9 +57,10 @@ int	exec_exit(t_shell *sh, t_cmd *cmd)
 	if (cmd->args)
 	{
 		if (!valid_exit_code(cmd->args[0]))
-			return (err_exit(cmd->args[0]));
+			status = err_exit(cmd->args[0]);
 		if (cmd->args[1])
-			return (err_exit(NULL));
+			status = err_exit(NULL);
+		if (status\)
 		else
 		{
 			status = ft_atoi(cmd->args[0]) % 256;
