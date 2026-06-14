@@ -23,6 +23,7 @@ SRCS := \
 	$(SRC_DIRS)/executor/command_list/cmdlist_helpers.c \
 	$(SRC_DIRS)/executor/command_list/cmdlist.c \
 	$(SRC_DIRS)/executor/command_list/cmdlist_utils.c \
+	$(SRC_DIRS)/executor/command_list/cmdlist_utils2.c \
 	$(SRC_DIRS)/executor/executor.c \
 	$(SRC_DIRS)/executor/executor_helpers.c \
 	$(SRC_DIRS)/executor/executor_utils.c \

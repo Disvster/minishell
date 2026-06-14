@@ -46,5 +46,6 @@ t_token	*tokenlist_get_tail(t_token *n);
 void	tokenlist_add_first(t_token **head, t_token *node);
 void	tokenlist_add_last(t_token **head, t_token *node);
 void	tokenlist_clear(t_token **lst);
+int		tokenlist_has_commands(t_token *token);
 
 #endif

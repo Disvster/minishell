@@ -30,3 +30,17 @@ t_token	*tokenlist_get_head(t_token *n)
 		n = n->prev;
 	return (n);
 }
+
+int	tokenlist_has_commands(t_token *token)
+{
+	t_token	*tmp;
+
+	tmp = token;
+	while (tmp)
+	{
+		if (tmp->type == COMMAND)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}

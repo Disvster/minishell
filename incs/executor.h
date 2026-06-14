@@ -6,7 +6,7 @@
 /*   By: manmaria <manmaria@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 20:50:33 by manmaria          #+#    #+#             */
-/*   Updated: 2026/06/13 19:58:50 by manmaria         ###   ########.fr       */
+/*   Updated: 2026/06/14 20:53:03 by manmaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,7 @@ int		create_command(t_cmd **command, t_token **token, t_env *envlist);
 int		create_external(t_token *token, t_cmd *ext, t_env *envlist);
 int		create_builtin(t_token *token, t_cmd *bi);
 t_cmd	*build_command_list(t_token *head, t_env *envs, int *status);
-int		add_empty_command(t_cmd **command, t_cmd **cmds, t_token	*tok);
 int		token_is_redir(t_token *token);
-int		tokenlist_has_commands(t_token *token);
 
 //utils export
 int		envp_replace_content(t_env *env, char *str, int bi);
@@ -97,6 +95,7 @@ int		count_redirects(t_token *token);
 void	populate_redirects(t_token *token, t_cmd *cmd);
 int		apply_redirects(t_cmd *cmd);
 int		attempt_open(t_token	*token);
+int		add_empty_command(t_cmd **command, t_cmd **cmds, t_token *tok);
 
 //Executor
 int		executor(t_shell *sh);

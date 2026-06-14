@@ -50,30 +50,6 @@ static int	err_exit(const char *s, int *should_exit)
 	}
 }
 
-// int	exec_exit(t_shell *sh, t_cmd *cmd)
-// {
-// 	int		status;
-//
-// 	status = 0;
-// 	write (sh->saved_fds[1], "exit\n", 5);
-// 	if (cmd->args)
-// 	{
-// 		if (!valid_exit_code(cmd->args[0]))
-// 			status = err_exit(cmd->args[0]);
-// 		if (cmd->args[1])
-// 			status = err_exit(NULL);
-// 		else
-// 		{
-// 			status = ft_atoi(cmd->args[0]) % 256;
-// 			if (status < 0)
-// 				status += 256;
-// 		}
-// 	}
-// 	cmdlist_clear(&cmd);
-// 	minishell_clear(sh, true);
-// 	exit(status);
-// }
-
 int	exec_exit(t_shell *sh, t_cmd *cmd)
 {
 	int	status;
@@ -96,12 +72,10 @@ int	exec_exit(t_shell *sh, t_cmd *cmd)
 	}
 	if (status < 0)
 		status += 256;
-	cmd = cmdlist_get_head(cmd);
+	if (!should_exit)
+		return (status);
+	// cmd = cmdlist_get_head(cmd);
 	cmdlist_clear(&cmd);
-	if (should_exit)
-	{
-		minishell_clear(sh, true);
-		exit(status);
-	}
-	return (status);
+	minishell_clear(sh, true);
+	exit(status);
 }
