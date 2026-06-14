@@ -95,16 +95,32 @@ int	find_cmd_path(t_cmd	*ext, char *cmd, t_env *envlist)
 	return (status);
 }
 
-int	tokenlist_has_commands(t_token *token)
+int	token_is_redir(t_token *token)
 {
 	t_token	*tmp;
 
 	tmp = token;
-	while (tmp)
+	if (tmp && tmp->type == PIPE)
+		tmp = tmp->next;
+	while (tmp && tmp->type != PIPE)
 	{
 		if (tmp->type == COMMAND)
-			return (1);
+			return (0);
 		tmp = tmp->next;
 	}
+	return (1);
+}
+
+int	redir_only_cmd_node(t_token **token, t_cmd **cmd)
+{
+	t_cmd	*node;
+
+	node = ft_calloc(1, sizeof(t_cmd));
+	if (!node)
+		return (ft_printf_fd(2, SH_ERR ERR_MALLOC), 1);
+	node->is_bi = true;
+	*cmd = node;
+	if ((*token)->next)
+		*token = (*token)->next;
 	return (0);
 }
