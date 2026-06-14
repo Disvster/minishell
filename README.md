@@ -108,4 +108,4 @@ minishell
 
 ## AI usage
 
-AI was used during the making of this project for things like brainstorming code architecture, analyzing bash behaviours, sanitation checks, this README and in general on the many helpful tools used when debugging.
+AI was used during the making of this project for things like brainstorming code architecture, analyzing bash behaviours, sanitation checks, this README and in general one of the many helpful tools used when debugging.
