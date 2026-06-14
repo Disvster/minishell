@@ -74,7 +74,6 @@ int	exec_exit(t_shell *sh, t_cmd *cmd)
 		status += 256;
 	if (!should_exit)
 		return (status);
-	// cmd = cmdlist_get_head(cmd);
 	cmdlist_clear(&cmd);
 	minishell_clear(sh, true);
 	exit(status);
