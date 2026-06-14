@@ -65,7 +65,7 @@ hello world
 
 ```bash
 [minishell @ ~/Projects/minishell] cat README.md | wc -l
-109
+111
 ```
 
 ```bash
@@ -74,8 +74,10 @@ hello world
 
 ```bash
 [minishell @ ~/Projects/minishell] cat << EOF
+> heredoc example
+> EOF
 heredoc example
-EOF
+[minishell @ ~/Projects/minishell]
 ```
 
 ## Project structure
