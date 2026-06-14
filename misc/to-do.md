@@ -1,5 +1,10 @@
 # MINISHELL To-do List
 
+## 14/06/26
+
+`alias valmacro='bash valgrind --suppressions=readline.supp --leak-check=full --trace-children=yes --show-leak-kinds=all  --track-origins=yes --tool=memcheck --track-fds=yes ./minishell'`
+
+`alias valmini='bash valgrind --suppressions=readline.supp --trace-children=yes --track-fds=yes ./minishell'`
 
 ## 12/06/26
 
