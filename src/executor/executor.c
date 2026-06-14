@@ -69,6 +69,8 @@ static void	wait_for_children(t_shell *sh)
 			{
 				if (WTERMSIG(status) == SIGINT)
 					write(STDOUT_FILENO, "\n", 1);
+				if (WTERMSIG(status) == SIGQUIT)
+					ft_printf_fd(STDOUT_FILENO, "Quit(core dumped)\n");
 				sh->exit_code = 128 + WTERMSIG(status);
 			}
 		}
