@@ -120,7 +120,7 @@ int	executor(t_shell *sh)
 	if (status == 1)
 		return (sh->exit_code = 1, 1);
 	status = attempt_open(sh->tokens);
-	if (status != 0)
+	if (status == 1)
 		return (sh->exit_code = status, 1);
 	if (!cmdlist->next && cmdlist->is_bi)
 	{

@@ -52,6 +52,8 @@ char	**ft_split(char const *s, char c)
 	size_t	words;
 	size_t	letters;
 
+	if (!s)
+		return (NULL);
 	words = count_words(s, c);
 	split = (char **)ft_calloc(words + 1, sizeof(char *));
 	if (!split)

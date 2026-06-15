@@ -13,6 +13,24 @@
 #include "../../../incs/minishell.h"
 #include "../../../incs/executor.h"
 
+static int	check_nl_flag(const char *s)
+{
+	int	i;
+
+	i = 1;
+	if (!s[2])
+		return (1);
+	while (s[i])
+	{
+		if (s[i] != 'n')
+			return (0);
+		if (s[i + 1] == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	exec_echo(t_shell *sh, t_cmd *cmd)
 {
 	int		i;
@@ -24,7 +42,7 @@ int	exec_echo(t_shell *sh, t_cmd *cmd)
 	(void)sh;
 	nl = 0;
 	if (cmd->args && ft_strncmp(cmd->args[0], "-n", 2) == 0)
-		nl = 1;
+		nl = check_nl_flag(cmd->args[0]);
 	i = nl;
 	s = cmd->args;
 	while (s[i])
